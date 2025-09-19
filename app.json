@@ -37,6 +37,13 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "7bf464a5-8471-4aed-b722-b664b5bcb3ba"
+      }
+    },
+    "owner": "bluewebtech"
   }
 }
