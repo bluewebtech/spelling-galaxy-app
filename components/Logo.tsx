@@ -1,13 +1,14 @@
 import { Image, Text, View } from "react-native";
 
-const Logo = ({ imageStyles = 'w-12', textStyles = 'text-4xl' }) => {
+const Logo = ({ width = 50, height = 55, textStyles = 'text-4xl' }) => {
   return (
-    <View className="flex">
+    <View className="flex p-2">
       <Text className="flex">
         <Image
-          className={`flex ${imageStyles}`}
+          style={{ width, height, resizeMode: 'contain' }}
+          resizeMode="contain"
           alt="Spelling Galaxy Logo"
-          source={require('@/assets/images/galaxy.png')}
+          source={require('@/assets/images/icon.png')}
         />
         <View className="flex-row px-1 py-1.5">
           <Text className={`flex text-gray-600 ${textStyles} font-medium`}>Spelling</Text><Text className={`flex text-purple-500 ${textStyles} font-medium`}>Galaxy</Text>
