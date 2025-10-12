@@ -1,8 +1,7 @@
-import React, { use, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Platform, useWindowDimensions } from 'react-native';
 import { Tabs } from 'expo-router';
 import { useSchema } from "@/db/schema";
-import { useSeed } from "@/db/seed";
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import "../../global.css";
@@ -27,6 +26,13 @@ export default function TabLayout() {
 
   return (
     <Tabs screenOptions={{
+      animation: 'fade', // or 'shift'
+      transitionSpec: {
+        animation: 'timing',
+        config: {
+          duration: 250,
+        },
+      },
       headerShown: false,
       headerStatusBarHeight: 0,
       tabBarActiveTintColor: '#8200db',
