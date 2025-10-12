@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Dimensions, Modal, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
+import { Animated, Dimensions, KeyboardAvoidingView, Modal, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import * as Speech from 'expo-speech';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function Tab() {
+export default function Lists() {
   const [text, setText] = useState('');
   const [visible, setVisible] = useState(false);
   const slideAnim = useRef(new Animated.Value(Dimensions.get('window').height)).current;
@@ -41,35 +41,40 @@ export default function Tab() {
   };
 
   return (
-    <View style={styles.container}>
-      <Pressable style={styles.button} onPress={onOpenModal}>
-        <Text style={styles.buttonText}>Open Bottom Modal</Text>
-      </Pressable>
-      <Text style={styles.label}>Enter text to speak:</Text>
-      <TextInput
-        style={styles.input}
-        value={text}
-        onChangeText={setText}
-        placeholder="Type something..."
-      />
-      <Pressable style={styles.button} onPress={onSpeak}>
-        <Text style={styles.buttonText}>Speak</Text>
-      </Pressable>
+    <KeyboardAvoidingView
+      className="flex-1 bg-white"
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <View style={styles.container}>
+        <TouchableOpacity style={styles.button} onPress={onOpenModal}>
+          <Text style={styles.buttonText}>Open Bottom Modal</Text>
+        </TouchableOpacity>
+        <Text style={styles.label}>Enter text to speak:</Text>
+        <TextInput
+          style={styles.input}
+          value={text}
+          onChangeText={setText}
+          placeholder="Type something..."
+        />
+        <TouchableOpacity style={styles.button} onPress={onSpeak}>
+          <Text style={styles.buttonText}>Speak</Text>
+        </TouchableOpacity>
 
-      <Modal transparent visible={visible} animationType="none">
-        <Animated.View style={[styles.modalContent, { transform: [{ translateY: slideAnim }] }]}>
-          <SafeAreaView edges={['top', 'left', 'right', 'bottom']} style={{ flex: 1 }}>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 }}>
-              <Text style={styles.title}>Bottom Modal</Text>
-              <Text>This modal slides up from the bottom!</Text>
-              <Pressable style={styles.button} onPress={onCloseModal}>
-                <Text style={styles.buttonText}>Close</Text>
-              </Pressable>
-            </View>
-          </SafeAreaView>
-        </Animated.View>
-      </Modal>
-    </View>
+        <Modal transparent visible={visible} animationType="none">
+          <Animated.View style={[styles.modalContent, { transform: [{ translateY: slideAnim }] }]}>
+            <SafeAreaView edges={['top', 'left', 'right', 'bottom']} style={{ flex: 1 }}>
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 }}>
+                <Text style={styles.title}>Bottom Modal</Text>
+                <Text>This modal slides up from the bottom!</Text>
+                <TouchableOpacity style={styles.button} onPress={onCloseModal}>
+                  <Text style={styles.buttonText}>Close</Text>
+                </TouchableOpacity>
+              </View>
+            </SafeAreaView>
+          </Animated.View>
+        </Modal>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 

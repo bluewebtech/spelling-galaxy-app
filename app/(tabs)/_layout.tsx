@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { Platform, useWindowDimensions } from 'react-native';
 import { Tabs } from 'expo-router';
+import { useSchema } from "@/db/schema";
+import { useSeed } from "@/db/seed";
 import Ionicons from '@expo/vector-icons/Ionicons';
+
 import "../../global.css";
 
 const isAuthenticated: boolean = true;
@@ -11,6 +14,8 @@ const platform = Platform.OS;
 export default function TabLayout() {
   const { width, height } = useWindowDimensions();
   const [orientation, setOrientation] = useState(height >= width ? 'Portrait' : 'Landscape');
+
+  useEffect(() => (useSchema()), []);
 
   useEffect(() => {
     if (height >= width) {

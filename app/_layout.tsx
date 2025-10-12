@@ -17,7 +17,7 @@ export default function Layout() {
     <SafeAreaProvider>
       <SafeAreaView edges={['top', 'left', 'right']} className="flex-1">
         <StatusBar style="auto" />
-        <View className="flex-1 items-center">
+        <View className="flex items-center border-b border-purple-600">
           <Logo width={30} height={35} textStyles="text-lg" />
         </View>
         <Stack>

@@ -1,6 +1,6 @@
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 
-export default function Tab() {
+export default function App() {
   return (
     <View className="flex-1 items-center">
       <Text>Home</Text>
