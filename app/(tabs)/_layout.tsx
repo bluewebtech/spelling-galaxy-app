@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Platform, useWindowDimensions } from 'react-native';
 import { Tabs } from 'expo-router';
 import { useSchema } from "@/db/schema";
+import { useSeed } from "@/db/seed";
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import "../../global.css";
@@ -14,7 +15,7 @@ export default function TabLayout() {
   const { width, height } = useWindowDimensions();
   const [orientation, setOrientation] = useState(height >= width ? 'Portrait' : 'Landscape');
 
-  useEffect(() => (useSchema()), []);
+  useEffect(() => (useSchema(), useSeed()), []);
 
   useEffect(() => {
     if (height >= width) {
@@ -26,7 +27,7 @@ export default function TabLayout() {
 
   return (
     <Tabs screenOptions={{
-      animation: 'fade', // or 'shift'
+      animation: 'fade',
       transitionSpec: {
         animation: 'timing',
         config: {

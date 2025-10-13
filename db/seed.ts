@@ -1,19 +1,19 @@
 import { useDBClient } from './client';
 
-type People = {
+type Account = {
   id: number;
   first_name: string;
   last_name: string;
-  email: string;
+  email: string | null;
 };
 
 
 export const useSeed = () => {
-  useDBClient.execAsync(`INSERT INTO people (first_name, last_name, email) VALUES ('Martin', 'Brodeur', 'martin.brodeur@gmail.com');`);
+  useDBClient.execAsync(`INSERT INTO accounts (first_name, last_name, email) VALUES ('', '', null);`);
 
-  const rows = useDBClient.getAllSync<People>(`
+  const rows = useDBClient.getAllSync<Account>(`
     SELECT * 
-    FROM people 
+    FROM accounts 
     ORDER BY id DESC;
   `);
 

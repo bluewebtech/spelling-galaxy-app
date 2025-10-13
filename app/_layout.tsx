@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import Logo from '@/components/Logo';
 import SplashScreen from '@/components/Splash';
+import Toast from '@/components/Toast';
 
 export default function Layout() {
   const [loading, setLoading] = useState(true);
@@ -23,6 +24,7 @@ export default function Layout() {
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
+        <Toast />
       </SafeAreaView>
     </SafeAreaProvider>
   );
