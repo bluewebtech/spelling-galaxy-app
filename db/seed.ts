@@ -1,21 +1,21 @@
+import DefaultConfig from '@/config';
+import { Account } from '@/types';
 import { useDBClient } from './client';
 
-type Account = {
-  id: number;
-  first_name: string;
-  last_name: string;
-  email: string | null;
-};
-
+const DefaultVoice = DefaultConfig.speech;
 
 export const useSeed = () => {
-  useDBClient.execAsync(`INSERT INTO accounts (first_name, last_name, email) VALUES ('', '', null);`);
-
-  const rows = useDBClient.getAllSync<Account>(`
+  const accounts = useDBClient.getAllSync<Account>(`
     SELECT * 
     FROM accounts 
     ORDER BY id DESC;
   `);
 
-  console.log("Loaded items:", rows);
+  if (!accounts.length) {
+    useDBClient.runAsync(`
+      INSERT INTO accounts (first_name, last_name, email, voice, pitch, rate) 
+      VALUES (null, null, null, ?, ?, ?)`,
+      [DefaultVoice.voice, DefaultVoice.pitch, DefaultVoice.rate]
+    );
+  }
 };

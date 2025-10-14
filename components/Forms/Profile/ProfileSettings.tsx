@@ -9,7 +9,7 @@ import { Picker } from '@react-native-picker/picker';
 import * as Speech from 'expo-speech';
 import Toast from 'react-native-toast-message';
 
-export default function Profile() {
+export default function ProfileSettings() {
   const defaultVoice = "com.apple.voice.compact.en-US.Samantha";
   const [voices, setVoices] = useState<Speech.Voice[]>([]);
   const [voice, setVoice] = useState<string>(defaultVoice);

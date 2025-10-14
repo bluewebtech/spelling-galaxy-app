@@ -37,6 +37,7 @@ export default function Splash({ onFinish }) {
     }))
   );
   const anims = animsRef.current;
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     const loops = starsData.map((s, i) => {
@@ -99,9 +100,20 @@ export default function Splash({ onFinish }) {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => onFinish(), 20000);
+    const timer = setTimeout(() => onFinish(), 3000);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    Animated.timing(
+      fadeAnim,
+      {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true,
+      }
+    ).start();
+  }, [fadeAnim]);
 
   return (
     <View className="flex-1 justify-center items-center bg-purple-800">
@@ -122,9 +134,11 @@ export default function Splash({ onFinish }) {
         return <Animated.View key={s.id} style={animatedStyle} />;
       })}
 
-      <View className="p-2 rounded-3xl shadow-lg bg-purple-200">
-        <Logo />
-      </View>
+      <Animated.View style={{ opacity: fadeAnim }}>
+        <View className="shadow-2xl shadow-black-500">
+          <Logo width={120} height={120} withLabel={false} />
+        </View>
+      </Animated.View>
     </View>
   );
 }

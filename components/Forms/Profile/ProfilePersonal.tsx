@@ -6,9 +6,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Toast from 'react-native-toast-message';
-import { useDBClient } from '@/db//client';
+import { useDBClient } from '@/db/client';
+import { Profile } from '@/types';
 
-export default function Profile() {
+export default function ProfilePersonal() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -18,13 +19,14 @@ export default function Profile() {
   }, []);
 
   const defineProfile = async () => {
-    const result = await useDBClient.getAllSync(`
-      SELECT first_name, last_name, email 
+    const result = await useDBClient.getFirstAsync(`
+      SELECT *
       FROM accounts;
       WHERE id = 1;
     `);
-    if (result && result.length > 0) {
-      const profile = result[0];
+
+    if (result as Profile) {
+      const profile = result as Profile;
       setFirstName(profile.first_name || "");
       setLastName(profile.last_name || "");
       setEmail(profile.email || "");
@@ -32,26 +34,28 @@ export default function Profile() {
   };
 
   const onSave = async () => {
-    useDBClient.execAsync(`
+    try {
+      const account = await useDBClient.runAsync(`
       UPDATE accounts 
-      SET first_name = '${firstName}', last_name = '${lastName}', email = '${email}'
+      SET first_name = ?, last_name = ?, email = ?
       WHERE id = 1;
-    `);
+    `, [firstName, lastName, email]);
 
-    const result = await useDBClient.getAllSync(`
-      SELECT first_name, last_name, email 
-      FROM accounts 
-      WHERE id = 1;
-    `);
-
-    console.log(result);
-
-    Toast.show({
-      type: 'success',
-      text1: 'Success',
-      text2: 'Personal Profile Saved'
-    });
-  };
+      if (account.changes) {
+        Toast.show({
+          type: 'success',
+          text1: 'Success!',
+          text2: `${firstName}, your profile has been saved`
+        });
+      }
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Failed to save profile'
+      });
+    }
+  }
 
   const onCancel = () => {
     console.log('onCancel');

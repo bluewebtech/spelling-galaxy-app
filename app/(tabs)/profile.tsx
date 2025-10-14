@@ -4,8 +4,8 @@ import {
   Platform,
 } from "react-native";
 import Separator from "@/components/Separator";
-import ProfilePersonal from "@/components/Profile/ProfilePersonal";
-import ProfileSettings from "@/components/Profile/ProfileSettings";
+import ProfilePersonal from "@/components/Forms/Profile/ProfilePersonal";
+import ProfileSettings from "@/components/Forms/Profile/ProfileSettings";
 
 export default function Profile() {
   return (
