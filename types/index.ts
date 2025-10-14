@@ -1,8 +1,9 @@
 export type Account = {
   id: number;
-  first_name: string;
-  last_name: string;
+  first_name: string | null;
+  last_name: string | null;
   email: string | null;
+  master: boolean;
   voice: string;
   pitch: string;
   rate: string;

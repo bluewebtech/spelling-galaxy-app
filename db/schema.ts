@@ -5,13 +5,14 @@ export const useSchema = () => {
     DROP TABLE IF EXISTS accounts;
 
     CREATE TABLE IF NOT EXISTS accounts (
-      id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-      first_name text,
-      last_name text,
-      email text,
-      voice text NOT NULL,
-      pitch integer NOT NULL,
-      rate integer NOT NULL
+      id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+      first_name TEXT,
+      last_name TEXT,
+      email TEXT UNIQUE,
+      master BOOLEAN DEFAULT 0,
+      voice TEXT NOT NULL,
+      pitch INTEGER NOT NULL,
+      rate INTEGER NOT NULL
     );
 
     CREATE INDEX IF NOT EXISTS accounts_id_idx ON accounts (id);

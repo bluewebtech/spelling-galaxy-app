@@ -15,7 +15,10 @@ export default function TabLayout() {
   const { width, height } = useWindowDimensions();
   const [orientation, setOrientation] = useState(height >= width ? 'Portrait' : 'Landscape');
 
-  useEffect(() => (useSchema(), useSeed()), []);
+  useEffect(() => {
+    useSchema();
+    useSeed();
+  }, []);
 
   useEffect(() => {
     if (height >= width) {

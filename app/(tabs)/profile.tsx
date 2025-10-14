@@ -1,13 +1,34 @@
+import React, { useState } from "react";
 import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
+import { useFocusEffect } from '@react-navigation/native';
 import Separator from "@/components/Separator";
 import ProfilePersonal from "@/components/Forms/Profile/ProfilePersonal";
 import ProfileSettings from "@/components/Forms/Profile/ProfileSettings";
+import { getAccountMaster } from '@/db/queries';
+import { Profile } from '@/types';
 
-export default function Profile() {
+export default function ProfileTab() {
+  const [account, setAccount] = useState({
+    first_name: "",
+    last_name: "",
+    email: ""
+  } as Profile);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      defineProfile();
+    }, [])
+  );
+
+  const defineProfile = async () => {
+    const queryAccount = await getAccountMaster();
+    if (queryAccount) setAccount(account);
+  };
+
   return (
     <KeyboardAvoidingView
       className="flex-1 bg-white"
@@ -26,7 +47,7 @@ export default function Profile() {
           <Text className="text-2xl font-semibold text-white mt-3">{firstName} {lastName}</Text>
           <Text className="text-blue-100">{email}</Text>
         </View> */}
-        <ProfilePersonal />
+        <ProfilePersonal firstNameProp={account.first_name} lastNameProp={account.last_name} emailProp={account.email} />
         <Separator />
         <ProfileSettings />
       </ScrollView>

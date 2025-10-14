@@ -1,45 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
 } from "react-native";
+
 import Toast from 'react-native-toast-message';
-import { useDBClient } from '@/db/client';
-import { Profile } from '@/types';
+import { updateMasterAccount } from '@/db/queries';
 
-export default function ProfilePersonal() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+interface ProfilePersonalProps {
+  firstNameProp: string;
+  lastNameProp: string;
+  emailProp: string;
+}
 
-  useEffect(() => {
-    defineProfile();
-  }, []);
-
-  const defineProfile = async () => {
-    const result = await useDBClient.getFirstAsync(`
-      SELECT *
-      FROM accounts;
-      WHERE id = 1;
-    `);
-
-    if (result as Profile) {
-      const profile = result as Profile;
-      setFirstName(profile.first_name || "");
-      setLastName(profile.last_name || "");
-      setEmail(profile.email || "");
-    }
-  };
+export default function ProfilePersonal({ firstNameProp, lastNameProp, emailProp }: ProfilePersonalProps) {
+  const [firstName, setFirstName] = useState(firstNameProp);
+  const [lastName, setLastName] = useState(lastNameProp);
+  const [email, setEmail] = useState(emailProp);
 
   const onSave = async () => {
     try {
-      const account = await useDBClient.runAsync(`
-      UPDATE accounts 
-      SET first_name = ?, last_name = ?, email = ?
-      WHERE id = 1;
-    `, [firstName, lastName, email]);
+      const account = await updateMasterAccount(firstName, lastName, email);
 
       if (account.changes) {
         Toast.show({
