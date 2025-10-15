@@ -1,4 +1,4 @@
-# Spelling Galaxy 👋
+# Spelling Galaxy
 
 Welcome to Spelling Galaxy, a spelling app that originally started out as a simplistic Vue.js web app that was created within 20 minutes. After seeing my daughter struggle with her spelling and myself being a developer, I said well why not make something for her to help out. And boy did it. I was personally amazed how such a simply app could help out my own daughter and gain the confidence she truly needed to succeed. She's not alone though, as I myself very much struggled with spelling during my school career (wish I had something like this when I was in school).
 
