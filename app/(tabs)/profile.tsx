@@ -4,6 +4,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useFocusEffect } from '@react-navigation/native';
 import Separator from "@/components/Separator";
 import ProfilePersonal from "@/components/Forms/Profile/ProfilePersonal";
@@ -25,8 +26,15 @@ export default function ProfileTab() {
   );
 
   const defineProfile = async () => {
-    const queryAccount = await getAccountMaster();
-    if (queryAccount) setAccount(account);
+    const queryAccount = await getAccountMaster() as Profile | null;
+
+    if (queryAccount) {
+      setAccount({
+        first_name: queryAccount.first_name,
+        last_name: queryAccount.last_name,
+        email: queryAccount.email,
+      });
+    }
   };
 
   return (
@@ -34,23 +42,27 @@ export default function ProfileTab() {
       className="flex-1 bg-white"
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <ScrollView
-        className="flex-1"
-        contentContainerStyle={{ paddingBottom: 40 }}
+      <KeyboardAwareScrollView
+        extraHeight={100} // Add extra padding if needed
       >
-        {/* <View className="items-center pt-12 pb-6 bg-purple-600">
-          <Image
-            source={{ uri: "https://i.pravatar.cc/150?img=8" }}
-            className="w-28 h-28 rounded-full border-4 border-white"
-            style={{ objectFit: "cover" }}
-          />
-          <Text className="text-2xl font-semibold text-white mt-3">{firstName} {lastName}</Text>
-          <Text className="text-blue-100">{email}</Text>
-        </View> */}
-        <ProfilePersonal firstNameProp={account.first_name} lastNameProp={account.last_name} emailProp={account.email} />
-        <Separator />
-        <ProfileSettings />
-      </ScrollView>
+        <ScrollView
+          className="flex-1"
+          contentContainerStyle={{ paddingBottom: 40 }}
+        >
+          {/* <View className="items-center pt-12 pb-6 bg-purple-600">
+        <Image
+          source={{ uri: "https://i.pravatar.cc/150?img=8" }}
+          className="w-28 h-28 rounded-full border-4 border-white"
+          style={{ objectFit: "cover" }}
+        />
+        <Text className="text-2xl font-semibold text-white mt-3">{firstName} {lastName}</Text>
+        <Text className="text-blue-100">{email}</Text>
+      </View> */}
+          <ProfilePersonal account={account} onChildEvent={defineProfile} />
+          <Separator />
+          <ProfileSettings />
+        </ScrollView>
+      </KeyboardAwareScrollView>
     </KeyboardAvoidingView>
   );
-}
+};

@@ -1,9 +1,10 @@
 import { useDBClient } from './client';
 
 export const useSchema = () => {
-  useDBClient.execSync(`
-    DROP TABLE IF EXISTS accounts;
+  // Uncomment the next line to reset the accounts table during development
+  // useDBClient.execSync(`DROP TABLE IF EXISTS accounts;`);
 
+  useDBClient.execSync(`
     CREATE TABLE IF NOT EXISTS accounts (
       id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
       first_name TEXT,
@@ -17,11 +18,5 @@ export const useSchema = () => {
 
     CREATE INDEX IF NOT EXISTS accounts_id_idx ON accounts (id);
     CREATE UNIQUE INDEX IF NOT EXISTS accounts_email_unique_idx ON accounts (email);
-  `);
-
-  useDBClient.execAsync(`
-    DELETE FROM accounts;
-    UPDATE sqlite_sequence SET seq = 0 WHERE name = 'accounts';
-    VACUUM;
   `);
 };

@@ -70,25 +70,27 @@ export default function ProfileSettings() {
           ))}
         </Picker>
       </View>
-      <View className="py-2">
-        <Text className="text-gray-500 mb-1">Voice Pitch</Text>
-        <TextInput
-          value={pitch.toString()}
-          onChangeText={text => setPitch(Number(text))}
-          keyboardType="numeric"
-          className="outline-none border border-gray-400 p-2 text-gray-500 rounded-md"
-          placeholder="Voice Pitch"
-        />
-      </View>
-      <View className="py-2">
-        <Text className="text-gray-500 mb-1">First Name</Text>
-        <TextInput
-          value={rate.toString()}
-          onChangeText={text => setRate(Number(text))}
-          keyboardType="numeric"
-          className="outline-none border border-gray-400 p-2 text-gray-500 rounded-md"
-          placeholder="Voice Rate"
-        />
+      <View className="flex-row">
+        <View className="flex-1 py-2 pr-2">
+          <Text className="text-gray-500 mb-1">Voice Pitch</Text>
+          <TextInput
+            value={pitch.toString()}
+            onChangeText={text => setPitch(Number(text))}
+            keyboardType="numeric"
+            className="outline-none border border-gray-400 p-2 text-gray-500 rounded-md"
+            placeholder="Voice Pitch"
+          />
+        </View>
+        <View className="flex-1 py-2 pl-2">
+          <Text className="text-gray-500 mb-1">Voice Rate</Text>
+          <TextInput
+            value={rate.toString()}
+            onChangeText={text => setRate(Number(text))}
+            keyboardType="numeric"
+            className="outline-none border border-gray-400 p-2 text-gray-500 rounded-md"
+            placeholder="Voice Rate"
+          />
+        </View>
       </View>
       <View className="flex-row justify-between">
         <View className="flex w-1/2 pr-2">

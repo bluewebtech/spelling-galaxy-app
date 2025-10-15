@@ -3,11 +3,11 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start",
+    "expo:start": "npx expo start -c",
+    "expo:android": "expo start --android",
+    "expo:ios": "expo start --ios",
+    "expo:web": "expo start --web",
     "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
     "lint": "expo lint"
   },
   "dependencies": {
@@ -43,6 +43,7 @@
     "react-dom": "19.1.0",
     "react-native": "0.81.4",
     "react-native-gesture-handler": "~2.28.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "^5.4.0",
     "react-native-screens": "~4.16.0",
