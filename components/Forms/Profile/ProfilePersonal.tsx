@@ -8,7 +8,7 @@ import {
 import Toast from 'react-native-toast-message';
 import { updateMasterAccount } from '@/db/queries';
 
-interface ProfilePersonalProps {
+type ProfilePersonalProps = {
   account: {
     first_name: string;
     last_name: string;

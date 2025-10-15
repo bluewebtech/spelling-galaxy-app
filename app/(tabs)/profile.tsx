@@ -6,9 +6,9 @@ import {
 } from "react-native";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useFocusEffect } from '@react-navigation/native';
-import Separator from "@/components/Separator";
 import ProfilePersonal from "@/components/Forms/Profile/ProfilePersonal";
 import ProfileSettings from "@/components/Forms/Profile/ProfileSettings";
+import Separator from "@/components/Separator";
 import { getAccountMaster } from '@/db/queries';
 import { Profile } from '@/types';
 
@@ -42,9 +42,7 @@ export default function ProfileTab() {
       className="flex-1 bg-white"
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <KeyboardAwareScrollView
-        extraHeight={100} // Add extra padding if needed
-      >
+      <KeyboardAwareScrollView extraHeight={100}>
         <ScrollView
           className="flex-1"
           contentContainerStyle={{ paddingBottom: 40 }}
