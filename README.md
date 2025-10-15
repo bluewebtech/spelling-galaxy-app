@@ -4,6 +4,13 @@ Welcome to Spelling Galaxy, a spelling app that originally started out as a simp
 
 So, here's the thing. I was pretty happy with the original version but really had that curiousity itch about React Native. Then figured why not try to create something, at the same time learn a whole bunch of new things and have a bit of fun. At the end of the day, I just hope that Spelling Galaxy will help many others with their spelling as it has been helping my own family :)
 
+## The Stack
+
+* Expo
+* Expo SQLite
+* React Native
+* NativeWind
+
 ## Get started
 
 1. Install dependencies
@@ -15,7 +22,7 @@ So, here's the thing. I was pretty happy with the original version but really ha
 2. Start this app
 
    ```bash
-   npm run start
+   npm run expo:start
    ```
 
 ## Get a fresh project
