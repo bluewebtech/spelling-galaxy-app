@@ -1,8 +1,8 @@
-import { Stack } from 'expo-router';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
 import Logo from '@/components/Logo';
 import SplashScreen from '@/components/Splash';
 import Toast from '@/components/Toast';

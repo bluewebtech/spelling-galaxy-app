@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Dimensions, KeyboardAvoidingView, Modal, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import * as Speech from 'expo-speech';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import * as Speech from 'expo-speech';
 
 export default function Lists() {
   const [text, setText] = useState('');

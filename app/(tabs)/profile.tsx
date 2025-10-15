@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
+import { ScrollView, KeyboardAvoidingView, Platform } from "react-native";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useFocusEffect } from '@react-navigation/native';
 import ProfilePersonal from "@/components/Forms/Profile/ProfilePersonal";

@@ -1,5 +1,5 @@
-import { Account } from '@/types';
 import { getAccountMaster, createMasterAccount } from './queries';
+import { Account } from '@/types';
 
 export const useSeed = async () => {
   const account = await getAccountMaster() as Account | undefined;

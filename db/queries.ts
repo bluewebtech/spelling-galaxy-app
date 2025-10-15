@@ -1,5 +1,5 @@
-import DefaultConfig from '@/config';
 import { useDBClient } from './client';
+import DefaultConfig from '@/config';
 
 const DefaultVoice = DefaultConfig.speech;
 

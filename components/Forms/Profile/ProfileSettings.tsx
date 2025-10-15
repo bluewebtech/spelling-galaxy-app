@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { Picker } from '@react-native-picker/picker';
-import * as Speech from 'expo-speech';
 import Toast from 'react-native-toast-message';
+import * as Speech from 'expo-speech';
 
 export default function ProfileSettings() {
   const defaultVoice = "com.apple.voice.compact.en-US.Samantha";

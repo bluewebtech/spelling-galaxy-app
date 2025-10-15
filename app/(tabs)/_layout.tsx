@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Platform, useWindowDimensions } from 'react-native';
 import { Tabs } from 'expo-router';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { useSchema } from "@/db/schema";
 import { useSeed } from "@/db/seed";
-import Ionicons from '@expo/vector-icons/Ionicons';
 
 import "../../global.css";
 
