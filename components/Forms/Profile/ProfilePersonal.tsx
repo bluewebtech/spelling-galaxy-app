@@ -118,20 +118,12 @@ export default function ProfilePersonal(props: ProfilePersonalProps) {
       </View>
       <View className="flex-row justify-between">
         <View className="flex w-1/2 pr-2">
-          <TouchableOpacity
-            onPress={onSave}
-            disabled={isDisabled}
-            className="bg-purple-600 p-2 mt-4 rounded-md disabled:bg-purple-400"
-          >
+          <TouchableOpacity disabled={isDisabled} className="bg-purple-600 p-2 mt-4 rounded-md disabled:bg-purple-400" onPress={onSave}>
             <Text className="text-center text-white font-semibold text-lg">Save</Text>
           </TouchableOpacity>
         </View>
         <View className="flex w-1/2 pl-2">
-          <TouchableOpacity
-            onPress={onCancel}
-            disabled={isDisabled}
-            className="bg-purple-400 p-2 mt-4 rounded-md disabled:bg-purple-200"
-          >
+          <TouchableOpacity disabled={isDisabled} className="bg-purple-400 p-2 mt-4 rounded-md disabled:bg-purple-200" onPress={onCancel}>
             <Text className="text-center text-white font-semibold text-lg">Cancel</Text>
           </TouchableOpacity>
         </View>

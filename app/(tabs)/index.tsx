@@ -17,6 +17,7 @@ export default function App() {
 
   const defineProfile = async () => {
     const account = await getAccountMaster();
+    console.log(account);
 
     if (account && typeof account === "object" && "first_name" in account) {
       setHasAccount((account as Profile).first_name !== "");
@@ -29,15 +30,9 @@ export default function App() {
   };
 
   return (
-    <KeyboardAvoidingView
-      className="flex-1 bg-white px-4 pt-4"
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
+    <KeyboardAvoidingView className="flex-1 bg-white px-4 pt-4" behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <KeyboardAwareScrollView extraHeight={100}>
-        <ScrollView
-          className="flex-1"
-          contentContainerStyle={{ paddingBottom: 40 }}
-        >
+        <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 40 }}>
           <View className="flex-1">
             <View className="flex items-left p-4 rounded-xl bg-gray-100 w-full">
               {hasAccount ? (

@@ -37,15 +37,9 @@ export default function ProfileTab() {
   };
 
   return (
-    <KeyboardAvoidingView
-      className="flex-1 bg-white"
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
+    <KeyboardAvoidingView className="flex-1 bg-white" behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <KeyboardAwareScrollView extraHeight={100}>
-        <ScrollView
-          className="flex-1"
-          contentContainerStyle={{ paddingBottom: 40 }}
-        >
+        <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 40 }}>
           {/* <View className="items-center pt-12 pb-6 bg-purple-600">
         <Image
           source={{ uri: "https://i.pravatar.cc/150?img=8" }}

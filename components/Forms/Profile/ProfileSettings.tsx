@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 import Toast from 'react-native-toast-message';
 import * as Speech from 'expo-speech';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { updateMasterAccountSettings } from '@/db/queries';
 
 type ProfileSettingsProps = {
@@ -97,10 +98,24 @@ export default function ProfileSettings(props: ProfileSettingsProps) {
     });
   };
 
+  const onVoiceSample = () => {
+    Speech.stop();
+    Speech.speak("Spelling Galaxy", {
+      voice,
+      pitch: Number(pitch),
+      rate: Number(rate)
+    });
+  };
+
   return (
     <View className="px-6 py-2">
-      <View className="mb-2 items-left">
-        <Text className="text-2xl font-semibold text-purple-500">Settings</Text>
+      <View className="flex-row items-center justify-between mb-2">
+        <View className="flex">
+          <Text className="text-2xl font-semibold text-purple-500">Settings</Text>
+        </View>
+        <View className="flex px-6">
+          <Ionicons size={25} name="volume-medium-outline" color="#333333" onPress={onVoiceSample} />
+        </View>
       </View>
       <View className="py-2">
         <Text className="text-gray-800 mb-1">Voice Preference</Text>
@@ -121,37 +136,31 @@ export default function ProfileSettings(props: ProfileSettingsProps) {
           <Text className="text-gray-800 mb-1">Voice Pitch</Text>
           <TextInput
             value={pitch.toString()}
-            onChangeText={onPitchChange}
             keyboardType="decimal-pad"
             className="outline-none border border-gray-800 p-2 text-gray-800 rounded-md"
             placeholder="Voice Pitch"
+            onChangeText={onPitchChange}
           />
         </View>
         <View className="flex-1 py-2 pl5-2">
           <Text className="text-gray-500 mb-1">Voice Rate</Text>
           <TextInput
             value={rate.toString()}
-            onChangeText={onRateChange}
             keyboardType="decimal-pad"
             className="outline-none border border-gray-800 p-2 text-gray-800 rounded-md"
             placeholder="Voice Rate"
+            onChangeText={onRateChange}
           />
         </View>
       </View>
       <View className="flex-row justify-between">
         <View className="flex w-1/2 pr-2">
-          <TouchableOpacity
-            onPress={onSave}
-            className="bg-purple-600 p-2 mt-4 rounded-md"
-          >
+          <TouchableOpacity className="bg-purple-600 p-2 mt-4 rounded-md" onPress={onSave}>
             <Text className="text-center text-white font-semibold text-lg">Save</Text>
           </TouchableOpacity>
         </View>
         <View className="flex w-1/2 pl-2">
-          <TouchableOpacity
-            onPress={onCancel}
-            className="bg-purple-400 p-2 mt-4 rounded-md"
-          >
+          <TouchableOpacity className="bg-purple-400 p-2 mt-4 rounded-md" onPress={onCancel}>
             <Text className="text-center text-white font-semibold text-lg">Cancel</Text>
           </TouchableOpacity>
         </View>

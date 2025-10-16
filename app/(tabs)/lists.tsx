@@ -65,10 +65,7 @@ export default function Lists() {
   };
 
   return (
-    <KeyboardAvoidingView
-      className="flex-1 bg-white"
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
+    <KeyboardAvoidingView className="flex-1 bg-white" behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <View style={styles.container}>
         <TouchableOpacity style={styles.button} onPress={onOpenModal}>
           <Text style={styles.buttonText}>Open Bottom Modal</Text>
