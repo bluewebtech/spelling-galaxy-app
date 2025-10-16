@@ -9,16 +9,8 @@ import { getAccountMaster } from '@/db/queries';
 import { Account, Profile, Settings } from '@/types';
 
 export default function ProfileTab() {
-  const [profile, setProfile] = useState({
-    first_name: "",
-    last_name: "",
-    email: ""
-  } as Profile);
-  const [settings, setSettings] = useState({
-    voice: "",
-    pitch: "",
-    rate: ""
-  } as Settings);
+  const [profile, setProfile] = useState({ first_name: "", last_name: "", email: "" } as Profile);
+  const [settings, setSettings] = useState({ voice: "", pitch: "", rate: "" } as Settings);
 
   useFocusEffect(
     React.useCallback(() => {

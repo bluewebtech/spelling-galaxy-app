@@ -1,12 +1,36 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Dimensions, KeyboardAvoidingView, Modal, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Speech from 'expo-speech';
+import { getAccountMaster } from '@/db/queries';
+import { Account, Settings } from '@/types';
 
 export default function Lists() {
   const [text, setText] = useState('');
   const [visible, setVisible] = useState(false);
+  const [settings, setSettings] = useState({ voice: "", pitch: "", rate: "" } as Settings);
   const slideAnim = useRef(new Animated.Value(Dimensions.get('window').height)).current;
+
+  useFocusEffect(
+    React.useCallback(() => {
+      defineSettings();
+    }, [])
+  );
+
+  const defineSettings = async () => {
+    // To-do: Setup a context for account information so it can be passed around
+    // without the need to query the DB every time
+    const queryAccount = await getAccountMaster() as Account | null;
+
+    if (queryAccount) {
+      setSettings({
+        voice: queryAccount.voice,
+        pitch: queryAccount.pitch,
+        rate: queryAccount.rate,
+      });
+    }
+  };
 
   const onOpenModal = () => {
     setVisible(true);
@@ -33,9 +57,9 @@ export default function Lists() {
   const onSpeak = () => {
     if (text.trim().length > 0) {
       Speech.speak(text, {
-        language: 'en',
-        pitch: 1.5,
-        rate: 1.0,
+        voice: settings.voice,
+        pitch: Number(settings.pitch),
+        rate: Number(settings.rate),
       });
     }
   };

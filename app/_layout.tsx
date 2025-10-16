@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import Logo from '@/components/Logo';
 import SplashScreen from '@/components/Splash';
 import Toast from '@/components/Toast';
@@ -18,8 +19,13 @@ export default function Layout() {
     <SafeAreaProvider>
       <SafeAreaView edges={['top', 'left', 'right']} className="flex-1">
         <StatusBar style="auto" />
-        <View className="flex items-left">
-          <Logo width={30} height={35} textStyles="text-2xl" />
+        <View className="flex-row items-center justify-between">
+          <View className="flex">
+            <Logo width={30} height={35} textStyles="text-2xl" />
+          </View>
+          <View className="flex px-6">
+            <Ionicons size={25} name="alert-circle-outline" color="#333333" />
+          </View>
         </View>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
