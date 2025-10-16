@@ -8,13 +8,13 @@ export const useSchema = () => {
   useDBClient.execSync(`
     CREATE TABLE IF NOT EXISTS accounts (
       id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-      first_name TEXT,
-      last_name TEXT,
-      email TEXT UNIQUE,
+      first_name TEXT NOT NULL,
+      last_name TEXT NOT NULL,
+      email TEXT UNIQUE NOT NULL,
       master BOOLEAN DEFAULT 0,
       voice TEXT NOT NULL,
-      pitch INTEGER NOT NULL,
-      rate INTEGER NOT NULL
+      pitch REAL NOT NULL,
+      rate REAL NOT NULL
     );
 
     CREATE INDEX IF NOT EXISTS accounts_id_idx ON accounts (id);

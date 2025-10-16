@@ -6,14 +6,19 @@ import ProfilePersonal from "@/components/Forms/Profile/ProfilePersonal";
 import ProfileSettings from "@/components/Forms/Profile/ProfileSettings";
 import Separator from "@/components/Separator";
 import { getAccountMaster } from '@/db/queries';
-import { Profile } from '@/types';
+import { Account, Profile, Settings } from '@/types';
 
 export default function ProfileTab() {
-  const [account, setAccount] = useState({
+  const [profile, setProfile] = useState({
     first_name: "",
     last_name: "",
     email: ""
   } as Profile);
+  const [settings, setSettings] = useState({
+    voice: "",
+    pitch: "",
+    rate: ""
+  } as Settings);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -22,13 +27,19 @@ export default function ProfileTab() {
   );
 
   const defineProfile = async () => {
-    const queryAccount = await getAccountMaster() as Profile | null;
+    const queryAccount = await getAccountMaster() as Account | null;
 
     if (queryAccount) {
-      setAccount({
+      setProfile({
         first_name: queryAccount.first_name,
         last_name: queryAccount.last_name,
         email: queryAccount.email,
+      });
+
+      setSettings({
+        voice: queryAccount.voice,
+        pitch: queryAccount.pitch,
+        rate: queryAccount.rate,
       });
     }
   };
@@ -52,9 +63,9 @@ export default function ProfileTab() {
         <Text className="text-2xl font-semibold text-white mt-3">{firstName} {lastName}</Text>
         <Text className="text-blue-100">{email}</Text>
       </View> */}
-          <ProfilePersonal account={account} onChildEvent={defineProfile} />
+          <ProfilePersonal profile={profile} onChildEvent={defineProfile} />
           <Separator />
-          <ProfileSettings />
+          <ProfileSettings settings={settings} onChildEvent={defineProfile} />
         </ScrollView>
       </KeyboardAwareScrollView>
     </KeyboardAvoidingView>

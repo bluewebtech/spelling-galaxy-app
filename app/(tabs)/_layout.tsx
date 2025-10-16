@@ -40,7 +40,7 @@ export default function TabLayout() {
       headerShown: false,
       headerStatusBarHeight: 0,
       tabBarActiveTintColor: '#8200db',
-      tabBarInactiveTintColor: '#7c7c7cff',
+      tabBarInactiveTintColor: '#333333',
       tabBarStyle: {
         paddingTop: 5,
         paddingBottom: platform === 'android' ? 50 : 5,

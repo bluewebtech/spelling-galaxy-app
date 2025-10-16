@@ -18,8 +18,8 @@ export default function Layout() {
     <SafeAreaProvider>
       <SafeAreaView edges={['top', 'left', 'right']} className="flex-1">
         <StatusBar style="auto" />
-        <View className="flex items-center border-b border-gray-100">
-          <Logo width={30} height={35} textStyles="text-lg" />
+        <View className="flex items-left">
+          <Logo width={30} height={35} textStyles="text-2xl" />
         </View>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

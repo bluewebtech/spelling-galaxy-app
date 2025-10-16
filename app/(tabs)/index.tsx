@@ -36,30 +36,29 @@ export default function App() {
           contentContainerStyle={{ paddingBottom: 40 }}
         >
           <View className="flex-1 items-center">
-            <View className="flex items-center mt-4 p-8 rounded-xl bg-purple-50 border border-purple-200 w-full">
+            <View className="flex items-center mt-4 p-6 rounded-xl bg-gray-100 w-full">
               {hasAccount ? (
                 <View className="flex-row">
-                  <Text className="flex mr-1 text-3xl font-medium text-gray-600">Welcome back,</Text>
-                  <Text className="flex text-3xl font-medium text-purple-500">{firstName}!</Text>
+                  <Text className="flex mr-1 text-xl font-medium text-gray-800">Welcome back,</Text>
+                  <Text className="flex text-xl font-medium text-purple-500">{firstName}!</Text>
                 </View>
               ) : (
                 <View className="flex-row">
-                  <Text className="flex mr-1 text-3xl font-medium text-gray-800">Welcome to</Text>
-                  <Text className="flex mr-1 text-3xl font-medium text-gray-600">Spelling</Text>
-                  <Text className="flex text-3xl font-medium text-purple-500">Galaxy!</Text>
+                  <Text className="flex mr-1 text-xl font-medium text-gray-800">Welcome to,</Text>
+                  <Text className="flex mr-1 text-xl font-medium text-gray-600">Spelling</Text>
+                  <Text className="flex text-xl font-medium text-purple-500">Galaxy!</Text>
                 </View>
               )}
-              <View className="flex-row mt-5">
-                <Text className="flex text-gray-600 text-lg">Your journey to better spelling starts here.</Text>
+              <View className="flex-row mt-2">
+                <Text className="flex text-purple-600 text-lg">Your journey to better spelling starts here.</Text>
               </View>
-            </View>
-          </View>
-
-          <View className="flex-1 items-center">
-            <View className="flex-row mt-5">
-              <TouchableOpacity className="w-full bg-purple-600 p-3 rounded-lg">
-                <Text className="text-center text-white font-semibold text-lg">Create Your First Spelling List</Text>
-              </TouchableOpacity>
+              <View className="flex-1 items-center">
+                <View className="flex-row mt-5">
+                  <TouchableOpacity className="w-full bg-purple-600 p-3 rounded-lg">
+                    <Text className="text-center text-white font-semibold text-lg">Create Your First Spelling List</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
           </View>
         </ScrollView>

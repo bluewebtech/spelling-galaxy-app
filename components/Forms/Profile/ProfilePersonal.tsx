@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import Toast from 'react-native-toast-message';
-import { updateMasterAccount } from '@/db/queries';
+import { updateMasterAccountProfile } from '@/db/queries';
 
 type ProfilePersonalProps = {
-  account: {
+  profile: {
     first_name: string;
     last_name: string;
     email: string;
@@ -13,26 +13,26 @@ type ProfilePersonalProps = {
 }
 
 export default function ProfilePersonal(props: ProfilePersonalProps) {
-  const [firstName, setFirstName] = useState(props.account.first_name);
-  const [lastName, setLastName] = useState(props.account.last_name);
-  const [email, setEmail] = useState(props.account.email);
+  const [firstName, setFirstName] = useState(props.profile.first_name);
+  const [lastName, setLastName] = useState(props.profile.last_name);
+  const [email, setEmail] = useState(props.profile.email);
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isDisabled, setIsDisabled] = useState(false);
   const [clone, setClone] = useState({
-    firstName: props.account.first_name,
-    lastName: props.account.last_name,
-    email: props.account.email,
+    firstName: props.profile.first_name,
+    lastName: props.profile.last_name,
+    email: props.profile.email,
   });
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   useEffect(() => {
-    if (props.account) {
-      setFirstName(props.account.first_name);
-      setLastName(props.account.last_name);
-      setEmail(props.account.email);
+    if (props.profile) {
+      setFirstName(props.profile.first_name);
+      setLastName(props.profile.last_name);
+      setEmail(props.profile.email);
     }
-  }, [props.account]);
+  }, [props.profile]);
 
   useEffect(() => {
     setIsDisabled(firstName.length === 0 || lastName.length === 0 || email.length === 0 || !isValidEmail);
@@ -45,7 +45,7 @@ export default function ProfilePersonal(props: ProfilePersonalProps) {
 
   const onSave = async () => {
     try {
-      const account = await updateMasterAccount(firstName, lastName, email);
+      const account = await updateMasterAccountProfile(firstName, lastName, email);
 
       if (account.changes) {
         setClone({
@@ -57,13 +57,13 @@ export default function ProfilePersonal(props: ProfilePersonalProps) {
         Toast.show({
           type: 'success',
           text1: 'Success!',
-          text2: `${firstName}, your profile has been saved`
+          text2: 'Your profile has been saved'
         });
       }
     } catch (error) {
       Toast.show({
         type: 'error',
-        text1: 'Error',
+        text1: 'Error!',
         text2: 'Failed to save profile'
       });
     }
@@ -78,36 +78,36 @@ export default function ProfilePersonal(props: ProfilePersonalProps) {
   };
 
   return (
-    <View className="p-6">
+    <View className="px-6 py-2">
       <View className="mb-2 items-left">
         <Text className="text-2xl font-semibold text-purple-500">Profile</Text>
       </View>
       <View className="py-2">
-        <Text className="text-gray-500 mb-1">First Name</Text>
+        <Text className="text-gray-800 mb-1">First Name</Text>
         <TextInput
           value={firstName}
           onChangeText={setFirstName}
-          className="outline-none border border-gray-400 p-2 text-gray-500 rounded-md"
+          className="outline-none border border-gray-800 p-2 text-gray-800 rounded-md"
           placeholder="First Name"
           placeholderTextColor="#999"
         />
       </View>
       <View className="py-2">
-        <Text className="text-gray-500 mb-1">Last Name</Text>
+        <Text className="text-gray-800 mb-1">Last Name</Text>
         <TextInput
           value={lastName}
           onChangeText={setLastName}
-          className="outline-none border border-gray-400 p-2 text-gray-500 rounded-md"
+          className="outline-none border border-gray-800 p-2 text-gray-800 rounded-md"
           placeholder="Last Name"
           placeholderTextColor="#999"
         />
       </View>
       <View className="py-2">
-        <Text className="text-gray-500 mb-1">Email</Text>
+        <Text className="text-gray-800 mb-1">Email</Text>
         <TextInput
           value={email}
           onChangeText={validateEmail}
-          className="outline-none border border-gray-400 p-2 text-gray-500 rounded-md"
+          className="outline-none border border-gray-800 p-2 text-gray-800 rounded-md"
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}

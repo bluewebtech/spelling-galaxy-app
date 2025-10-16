@@ -3,17 +3,39 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 import Toast from 'react-native-toast-message';
 import * as Speech from 'expo-speech';
+import { updateMasterAccountSettings } from '@/db/queries';
 
-export default function ProfileSettings() {
-  const defaultVoice = "com.apple.voice.compact.en-US.Samantha";
+type ProfileSettingsProps = {
+  settings: {
+    voice: string;
+    pitch: string;
+    rate: string;
+  };
+  onChildEvent: () => Promise<void>;
+}
+
+export default function ProfileSettings(props: ProfileSettingsProps) {
   const [voices, setVoices] = useState<Speech.Voice[]>([]);
-  const [voice, setVoice] = useState<string>(defaultVoice);
-  const [pitch, setPitch] = useState(1.0);
-  const [rate, setRate] = useState(1.0);
+  const [voice, setVoice] = useState<string>(props.settings.voice);
+  const [pitch, setPitch] = useState<string>(props.settings.pitch);
+  const [rate, setRate] = useState<string>(props.settings.rate);
+  const [clone, setClone] = useState({
+    voice: props.settings.voice,
+    pitch: props.settings.pitch,
+    rate: props.settings.rate,
+  });
+
+  const floatRegex = /^-?\d*(\.\d*)?$/;
 
   useEffect(() => {
     defineVoices();
-  }, []);
+
+    if (props.settings) {
+      setVoice(props.settings.voice);
+      setPitch(props.settings.pitch);
+      setRate(props.settings.rate);
+    }
+  }, [props.settings]);
 
   const defineVoices = async () => {
     const availableVoices = (await Speech.getAvailableVoicesAsync()).sort((a, b) => {
@@ -27,39 +49,68 @@ export default function ProfileSettings() {
     setVoices(availableVoices);
   };
 
-  const onSave = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'Success',
-      text2: 'Personal Settings Saved'
-    });
-    console.log("Settings saved:", { voice, pitch, rate });
+  const onPitchChange = (pitch: any) => {
+    if (floatRegex.test(pitch)) setPitch(pitch);
   };
 
-  const onCancel = () => {
-    console.log('onCancel');
+  const onRateChange = (rate: any) => {
+    if (floatRegex.test(rate)) setRate(rate);
+  };
+
+  const onSave = async () => {
+    try {
+      const account = await updateMasterAccountSettings(voice, Number(pitch), Number(rate));
+
+      if (account.changes) {
+        setClone({ voice, pitch, rate });
+
+        Toast.show({
+          type: 'success',
+          text1: 'Success!',
+          text2: 'Your settings has been saved'
+        });
+      }
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error!',
+        text2: 'Failed to save settings'
+      });
+    }
+  }
+
+  const onCancel = async () => {
+    setVoice(clone.voice);
+    setPitch(clone.pitch);
+    setRate(clone.rate);
+
+    await props.onChildEvent();
   };
 
   const onVoiceChange = (voice: any) => {
     setVoice(voice);
     Speech.stop();
-    Speech.speak("Spelling Galaxy", { voice, pitch, rate });
+    Speech.speak("Spelling Galaxy", {
+      voice,
+      pitch: Number(pitch),
+      rate: Number(rate)
+    });
   };
 
   return (
-    <View className="p-6">
+    <View className="px-6 py-2">
       <View className="mb-2 items-left">
         <Text className="text-2xl font-semibold text-purple-500">Settings</Text>
       </View>
       <View className="py-2">
-        <Text className="text-gray-500 mb-1">Voice Preference</Text>
+        <Text className="text-gray-800 mb-1">Voice Preference</Text>
         <Picker
           selectedValue={voice}
           onValueChange={(itemValue) => onVoiceChange(itemValue)}>
           {voices.map((voice) => (
             <Picker.Item
               key={voice.identifier}
-              label={`${voice.name} (${voice.language})${voice.quality === 'Enhanced' ? ' 🌟' : ''}`}
+              label={`${voice.name} (${voice.language})${voice.quality === 'Enhanced' ? '' : ''}`}
               value={voice.identifier}
             />
           ))}
@@ -67,22 +118,22 @@ export default function ProfileSettings() {
       </View>
       <View className="flex-row">
         <View className="flex-1 py-2 pr-2">
-          <Text className="text-gray-500 mb-1">Voice Pitch</Text>
+          <Text className="text-gray-800 mb-1">Voice Pitch</Text>
           <TextInput
             value={pitch.toString()}
-            onChangeText={text => setPitch(Number(text))}
-            keyboardType="numeric"
-            className="outline-none border border-gray-400 p-2 text-gray-500 rounded-md"
+            onChangeText={onPitchChange}
+            keyboardType="decimal-pad"
+            className="outline-none border border-gray-800 p-2 text-gray-800 rounded-md"
             placeholder="Voice Pitch"
           />
         </View>
-        <View className="flex-1 py-2 pl-2">
+        <View className="flex-1 py-2 pl5-2">
           <Text className="text-gray-500 mb-1">Voice Rate</Text>
           <TextInput
             value={rate.toString()}
-            onChangeText={text => setRate(Number(text))}
-            keyboardType="numeric"
-            className="outline-none border border-gray-400 p-2 text-gray-500 rounded-md"
+            onChangeText={onRateChange}
+            keyboardType="decimal-pad"
+            className="outline-none border border-gray-800 p-2 text-gray-800 rounded-md"
             placeholder="Voice Rate"
           />
         </View>
