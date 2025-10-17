@@ -3,7 +3,7 @@ import { useDBClient } from './client';
 export const useSchema = () => {
   // To-do: Create a npm script to reset DB during development
   // But for now, uncomment the line below to drop the accounts table
-  // useDBClient.execSync(`DROP TABLE IF EXISTS accounts;`);
+  useDBClient.execSync(`DROP TABLE IF EXISTS accounts;`);
 
   useDBClient.execSync(`
     CREATE TABLE IF NOT EXISTS accounts (
@@ -25,7 +25,7 @@ export const useSchema = () => {
     CREATE TABLE IF NOT EXISTS lists (
       id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
       title TEXT NOT NULL,
-      grade_level TEXT,
+      grade TEXT,
       words JSON NOT NULL,
       created_at TEXT NOT NULL,
       updated_at TEXT NOT NULL,
@@ -35,7 +35,7 @@ export const useSchema = () => {
 
     CREATE TABLE IF NOT EXISTS results (
       id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-      lists_id INTEGER NOT NULL,
+      list_id INTEGER NOT NULL,
       total_words INTEGER NOT NULL,
       correct INTEGER NOT NULL,
       incorrect INTEGER NOT NULL,

@@ -1,4 +1,5 @@
 import { getAccountMaster, createMasterAccount } from './queries';
+import { SpellingLists } from '@/config';
 import { Account } from '@/types';
 
 export const useSeed = async () => {

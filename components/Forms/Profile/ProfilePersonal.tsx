@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { Keyboard, Text, TextInput, TouchableOpacity, View, } from "react-native";
 import Toast from 'react-native-toast-message';
 import { updateMasterAccountProfile } from '@/db/queries';
 
@@ -61,59 +61,58 @@ export default function ProfilePersonal(props: ProfilePersonalProps) {
         });
       }
     } catch (error) {
+      console.error(error);
       Toast.show({
         type: 'error',
         text1: 'Error!',
         text2: 'Failed to save profile'
       });
     }
+
+    Keyboard.dismiss();
   }
 
   const onCancel = async () => {
     setFirstName(clone.firstName);
     setLastName(clone.lastName);
     setEmail(clone.email);
-
+    Keyboard.dismiss();
     await props.onChildEvent();
   };
 
   return (
     <View className="px-6 py-2">
       <View className="mb-2 items-left">
-        <Text className="text-2xl font-semibold text-purple-500">Profile</Text>
+        <Text className="text-2xl font-semibold text-purple-500">Personal Information</Text>
       </View>
-      <View className="py-2">
-        <Text className="text-gray-800 mb-1">First Name</Text>
-        <TextInput
-          value={firstName}
-          onChangeText={setFirstName}
-          className="outline-none border border-gray-800 p-2 text-gray-800 rounded-md"
-          placeholder="First Name"
-          placeholderTextColor="#999"
-        />
+      <View className="flex-row">
+        <View className="flex-1 py-2 pr-2">
+          <Text className="mb-1 text-black font-semibold">First Name</Text>
+          <TextInput
+            value={firstName}
+            onChangeText={setFirstName}
+            className="text-lg text-black leading-[19px] bg-gray-100 border-2 border-gray-100 p-2 rounded-md focus:bg-white focus:border-black"
+          />
+        </View>
+        <View className="flex-1 py-2 pl-2">
+          <Text className="mb-1 text-black font-semibold">Last Name</Text>
+          <TextInput
+            value={lastName}
+            onChangeText={setLastName}
+            className="text-lg text-black leading-[19px] bg-gray-100 border-2 border-gray-100 p-2 rounded-md focus:bg-white focus:border-black"
+          />
+        </View>
       </View>
-      <View className="py-2">
-        <Text className="text-gray-800 mb-1">Last Name</Text>
-        <TextInput
-          value={lastName}
-          onChangeText={setLastName}
-          className="outline-none border border-gray-800 p-2 text-gray-800 rounded-md"
-          placeholder="Last Name"
-          placeholderTextColor="#999"
-        />
-      </View>
-      <View className="py-2">
-        <Text className="text-gray-800 mb-1">Email</Text>
+      <View className="py-3">
+        <Text className="mb-1 text-black font-semibold">Email</Text>
         <TextInput
           value={email}
           onChangeText={validateEmail}
-          className="outline-none border border-gray-800 p-2 text-gray-800 rounded-md"
+          className="text-lg text-black leading-[19px] bg-gray-100 border-2 border-gray-100 p-2 rounded-md focus:bg-white focus:border-black"
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
           autoComplete="email"
-          placeholder="Email Address"
-          placeholderTextColor="#999"
         />
       </View>
       <View className="flex-row justify-between">
