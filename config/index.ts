@@ -8,7 +8,7 @@ export const Speech = {
 // Word lists with definitions for each grade level (K-12)
 // that are used for seeding the database.
 export const SpellingLists = {
-  'K': [
+  'KG': [
     { word: 'cat', definition: 'A small furry animal that purrs and meows' },
     { word: 'dog', definition: 'A friendly animal that barks and wags its tail' },
     { word: 'sun', definition: 'The bright star that gives us light during the day' },
@@ -30,7 +30,7 @@ export const SpellingLists = {
     { word: 'bed', definition: 'Where you sleep at night' },
     { word: 'toy', definition: 'Something children play with' }
   ],
-  '1': [
+  '01': [
     { word: 'apple', definition: 'A round fruit that grows on trees' },
     { word: 'happy', definition: 'Feeling joy or pleasure' },
     { word: 'jump', definition: 'To push yourself off the ground' },
@@ -52,7 +52,7 @@ export const SpellingLists = {
     { word: 'look', definition: 'To use your eyes to see' },
     { word: 'come', definition: 'To move toward something' }
   ],
-  '2': [
+  '02': [
     { word: 'friend', definition: 'Someone you like and enjoy spending time with' },
     { word: 'school', definition: 'A place where children learn' },
     { word: 'about', definition: 'Concerning or regarding' },
@@ -74,7 +74,7 @@ export const SpellingLists = {
     { word: 'morning', definition: 'The early part of the day' },
     { word: 'kitchen', definition: 'A room where food is prepared' }
   ],
-  '3': [
+  '03': [
     { word: 'beautiful', definition: 'Very pleasing to look at' },
     { word: 'important', definition: 'Of great significance or value' },
     { word: 'enough', definition: 'As much as needed' },
@@ -96,7 +96,7 @@ export const SpellingLists = {
     { word: 'continue', definition: 'To keep going without stopping' },
     { word: 'beginning', definition: 'The starting point of something' }
   ],
-  '4': [
+  '04': [
     { word: 'appreciate', definition: 'To recognize the value or quality of something' },
     { word: 'communicate', definition: 'To share information or ideas' },
     { word: 'necessary', definition: 'Required or essential' },
@@ -118,7 +118,7 @@ export const SpellingLists = {
     { word: 'interrupt', definition: 'To stop someone while they are speaking' },
     { word: 'dictionary', definition: 'A book that defines words' }
   ],
-  '5': [
+  '05': [
     { word: 'accommodate', definition: 'To provide space or adjust to fit needs' },
     { word: 'achievement', definition: 'Something accomplished successfully' },
     { word: 'accidentally', definition: 'Happening by chance, not on purpose' },
@@ -140,7 +140,7 @@ export const SpellingLists = {
     { word: 'prejudice', definition: 'Unfair judgment formed beforehand' },
     { word: 'privilege', definition: 'A special right or advantage' }
   ],
-  '6': [
+  '06': [
     { word: 'abbreviation', definition: 'A shortened form of a word or phrase' },
     { word: 'adolescent', definition: 'A young person developing into an adult' },
     { word: 'ancient', definition: 'Very old, from long ago' },
@@ -162,7 +162,7 @@ export const SpellingLists = {
     { word: 'neighbor', definition: 'A person living nearby' },
     { word: 'persistent', definition: 'Continuing despite difficulty' }
   ],
-  '7': [
+  '07': [
     { word: 'adequate', definition: 'Sufficient for a specific requirement' },
     { word: 'ambiguous', definition: 'Having more than one possible meaning' },
     { word: 'annihilate', definition: 'To destroy utterly; obliterate' },
@@ -184,7 +184,7 @@ export const SpellingLists = {
     { word: 'maintenance', definition: 'The process of preserving a condition' },
     { word: 'neutral', definition: 'Not supporting either side in a conflict' }
   ],
-  '8': [
+  '08': [
     { word: 'accommodate', definition: 'To provide lodging or adapt to fit' },
     { word: 'appropriate', definition: 'Suitable or proper for a circumstance' },
     { word: 'ascertain', definition: 'To find out for certain; determine' },
@@ -206,7 +206,7 @@ export const SpellingLists = {
     { word: 'lieutenant', definition: 'A deputy or military officer rank' },
     { word: 'perspiration', definition: 'The process of sweating' }
   ],
-  '9': [
+  '09': [
     { word: 'acknowledgment', definition: 'Recognition of the existence or truth of something' },
     { word: 'acquiesce', definition: 'To accept reluctantly but without protest' },
     { word: 'altruistic', definition: 'Showing selfless concern for others' },

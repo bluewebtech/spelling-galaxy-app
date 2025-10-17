@@ -31,9 +31,17 @@ export const updateMasterAccountSettings = async (voice: string, pitch: number, 
   `, [voice, pitch, rate, date]);
 };
 
+export const getTotalLists = async () => {
+  return await useDBClient.getFirstAsync(`SELECT COUNT(*) AS count FROM lists;`);
+};
+
+export const getLists = async () => {
+  return await useDBClient.getAllAsync(`SELECT * FROM lists;`);
+};
+
 export const createList = async (title: string, grade: string, words: any) => {
   return useDBClient.runAsync(`
-      INSERT INTO lists (title, grade, words)
+      INSERT INTO lists (title, grade, words, created_at, updated_at)
       VALUES (?, ?, ?, ?, ?)`,
     [title, grade, words, date, date]
   );
