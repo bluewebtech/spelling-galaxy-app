@@ -17,32 +17,52 @@ type ProfileSettingsProps = {
 
 export default function ProfileSettings(props: ProfileSettingsProps) {
   const [voices, setVoices] = useState<Speech.Voice[]>([]);
-  const [voice, setVoice] = useState<string>(props.settings.voice);
+  const [voice, setVoice] = useState(props.settings.voice);
+  const [defaultVoice, setDefaultVoice] = useState();
   const [pitch, setPitch] = useState<string>(props.settings.pitch);
   const [rate, setRate] = useState<string>(props.settings.rate);
-  // const [clone, setClone] = useState({
-  //   voice: props.settings.voice,
-  //   pitch: props.settings.pitch,
-  //   rate: props.settings.rate,
-  // });
-
-  const floatRegex = /^-?\d*(\.\d*)?$/;
 
   useEffect(() => {
     defineVoices();
   }, []);
 
   const defineVoices = async () => {
-    const availableVoices = (await Speech.getAvailableVoicesAsync()).filter((item) => item.language.includes('en-US')).sort((a, b) => {
-      if (a.quality === b.quality) {
-        return a.name.localeCompare(b.name);
-      }
+    try {
+      const availableVoices = await Speech.getAvailableVoicesAsync();
+      const englishVoices = availableVoices
+        .filter((item) => item.language.includes("en-US"))
+        .sort((a, b) => {
+          if (a.quality === b.quality) {
+            return a.name.localeCompare(b.name);
+          }
 
-      return a.quality === 'Enhanced' ? -1 : 1;
-    });
+          return a.quality === "Enhanced" ? -1 : 1;
+        })
+        .map((item) => ({
+          label: `${item.name} (${item.language})${item.quality === "Enhanced" ? "" : ""}`,
+          value: item.identifier,
+        }));
 
-    setVoices(availableVoices);
+      setVoices(englishVoices);
+
+      const defaultThing = englishVoices.find((item) => item.value === props.settings.voice);
+      console.log(defaultThing, props.settings);
+      // if (defaultThing) {
+      //   setDefaultVoice(defaultThing);
+      // }
+
+    } catch (error) {
+      console.error("Error fetching voices:", error);
+    }
   };
+
+  const dropdownData = voices.map((v) => ({
+    label: `${v.name} (${v.language})${v.quality === 'Enhanced' ? '' : ''}`,
+    value: v.identifier
+  }));
+
+  const defaultDropdownValue =
+    dropdownData.find((v) => v.value === voice) || { label: 'Select Voice', value: '' };
 
   // const onPitchChange = (pitch: any) => {
   //   if (floatRegex.test(pitch)) setPitch(pitch);
@@ -116,10 +136,8 @@ export default function ProfileSettings(props: ProfileSettingsProps) {
       <View className="py-2">
         <Text className="mb-1 text-black font-semibold">Voice Preference</Text>
         <CustomDropdown
-          data={voices.map((voice) => ({
-            label: `${voice.name} (${voice.language})${voice.quality === 'Enhanced' ? '' : ''}`,
-            value: voice.identifier
-          }))}
+          data={voices}
+          defaultValue={defaultDropdownValue}
           placeholder="Select Voice"
           onSelect={(item: any) => onVoiceChange(item.value)}
         />

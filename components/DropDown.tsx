@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, Modal, Text, TouchableOpacity, View } from 'react-native';
 
 type DropdownItem = { label: string; value: string };
 
 interface CustomDropdownProps {
   data: DropdownItem[];
+  defaultValue: DropdownItem;
   onSelect: (item: DropdownItem) => void;
   placeholder: string;
 }
 
-export default function CustomDropdown({ data, onSelect, placeholder }: CustomDropdownProps) {
+export default function CustomDropdown({ data, defaultValue, onSelect }: CustomDropdownProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState<DropdownItem | null>(null);
+
+  useEffect(() => {
+    if (defaultValue) {
+      setSelectedItem(defaultValue);
+    }
+  }, [defaultValue]);
 
   const onToggleDropdown = () => setIsVisible(!isVisible);
 
@@ -24,7 +31,7 @@ export default function CustomDropdown({ data, onSelect, placeholder }: CustomDr
   return (
     <View>
       <TouchableOpacity className="text-lg caret-black text-black leading-[19px] bg-gray-100 border-2 border-gray-100 p-3 rounded-md focus:bg-white focus:border-black" onPress={onToggleDropdown}>
-        <Text>{selectedItem ? selectedItem.label : placeholder}</Text>
+        <Text>{selectedItem ? selectedItem.label : defaultValue.label}</Text>
       </TouchableOpacity>
       <Modal visible={isVisible} transparent animationType="fade">
         <TouchableOpacity className="flex-1 justify-content-center align-items-center" onPress={onToggleDropdown}>

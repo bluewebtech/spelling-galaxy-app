@@ -1,17 +1,17 @@
 export type Account = {
-  id: number;
+  id?: number;
   first_name: string;
   last_name: string;
   email: string;
-  master: boolean;
+  master?: boolean;
   voice: string;
   pitch: string;
   rate: string;
 };
 
-export type Profile = {
-  first_name: string;
-  last_name: string;
+export type Personal = {
+  firstName: string;
+  lastName: string;
   email: string;
 };
 

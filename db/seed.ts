@@ -27,7 +27,7 @@ const seedSpellingLists = async () => {
       await createList(`Grade ${grade} List`, grade, JSON.stringify(list));
     });
 
-    const _lists = await getLists();
-    console.log(_lists);
+    // const _lists = await getLists();
+    // console.log(_lists);
   }
 };

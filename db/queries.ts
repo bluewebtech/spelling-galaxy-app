@@ -1,5 +1,6 @@
 import { useDBClient } from './client';
 import { Speech } from '@/config';
+import { Account } from "@/types";
 
 const date = new Date().toISOString();
 
@@ -15,20 +16,12 @@ export const createMasterAccount = async () => {
   );
 };
 
-export const updateMasterAccountProfile = async (firstName: string, lastName: string, email: string) => {
+export const updateMasterAccount = async ({ first_name, last_name, email, voice, pitch, rate }: Account) => {
   return await useDBClient.runAsync(`
     UPDATE accounts 
-    SET first_name = ?, last_name = ?, email = ?, updated_at = ?
+    SET first_name = ?, last_name = ?, email = ?,  voice = ?, pitch = ?, rate = ?, updated_at = ?
     WHERE id = 1;
-  `, [firstName, lastName, email, date]);
-};
-
-export const updateMasterAccountSettings = async (voice: string, pitch: number, rate: number) => {
-  return await useDBClient.runAsync(`
-    UPDATE accounts 
-    SET voice = ?, pitch = ?, rate = ?, updated_at = ?
-    WHERE id = 1;
-  `, [voice, pitch, rate, date]);
+  `, [first_name, last_name, email, voice, pitch, rate, date]);
 };
 
 export const getTotalLists = async () => {

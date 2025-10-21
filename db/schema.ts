@@ -3,11 +3,11 @@ import { useDBClient } from './client';
 export const useSchema = () => {
   // To-do: Create a npm script to reset DB during development
   // But for now, uncomment the line below to drop the accounts table
-  useDBClient.execSync(`
-    DROP TABLE IF EXISTS accounts;
-    DROP TABLE IF EXISTS lists;
-    DROP TABLE IF EXISTS results;
-  `);
+  // useDBClient.execSync(`
+  //   DROP TABLE IF EXISTS accounts;
+  //   DROP TABLE IF EXISTS lists;
+  //   DROP TABLE IF EXISTS results;
+  // `);
 
   useDBClient.execSync(`
     CREATE TABLE IF NOT EXISTS accounts (
