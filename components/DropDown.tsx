@@ -15,9 +15,7 @@ export default function CustomDropdown({ data, defaultValue, onSelect }: CustomD
   const [selectedItem, setSelectedItem] = useState<DropdownItem | null>(null);
 
   useEffect(() => {
-    if (defaultValue) {
-      setSelectedItem(defaultValue);
-    }
+    if (defaultValue) setSelectedItem(defaultValue);
   }, [defaultValue]);
 
   const onToggleDropdown = () => setIsVisible(!isVisible);

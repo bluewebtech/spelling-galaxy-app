@@ -11,7 +11,12 @@ type ProfilePersonalProps = {
   onEmailChange: (event: string) => Promise<void>;
 }
 
-export default function ProfilePersonal(props: ProfilePersonalProps) {
+export default function ProfilePersonal({
+  personal,
+  onFirstNameChange,
+  onLastNameChange,
+  onEmailChange,
+}: ProfilePersonalProps) {
   return (
     <View className="px-6 py-2">
       <View className="mb-2 items-left">
@@ -21,16 +26,16 @@ export default function ProfilePersonal(props: ProfilePersonalProps) {
         <View className="flex-1 py-2 pr-2">
           <Text className="mb-1 text-black font-semibold">First Name</Text>
           <TextInput
-            defaultValue={props.personal.firstName}
-            onChangeText={props.onFirstNameChange}
+            defaultValue={personal.firstName}
+            onChangeText={onFirstNameChange}
             className="text-lg text-black caret-black leading-[19px] bg-gray-100 border-2 border-gray-100 p-3 rounded-md focus:bg-white focus:border-black"
           />
         </View>
         <View className="flex-1 py-2 pl-2">
           <Text className="mb-1 text-black font-semibold">Last Name</Text>
           <TextInput
-            defaultValue={props.personal.lastName}
-            onChangeText={props.onLastNameChange}
+            defaultValue={personal.lastName}
+            onChangeText={onLastNameChange}
             className="text-lg text-black caret-black leading-[19px] bg-gray-100 border-2 border-gray-100 p-3 rounded-md focus:bg-white focus:border-black"
           />
         </View>
@@ -38,8 +43,8 @@ export default function ProfilePersonal(props: ProfilePersonalProps) {
       <View className="py-3">
         <Text className="mb-1 text-black font-semibold">Email</Text>
         <TextInput
-          defaultValue={props.personal.email}
-          onChangeText={props.onEmailChange}
+          defaultValue={personal.email}
+          onChangeText={onEmailChange}
           className="text-lg text-black caret-black leading-[19px] bg-gray-100 border-2 border-gray-100 p-3 rounded-md focus:bg-white focus:border-black"
           keyboardType="email-address"
           autoCapitalize="none"
