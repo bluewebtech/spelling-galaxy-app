@@ -28,14 +28,18 @@ export const getTotalLists = async () => {
   return await useDBClient.getFirstAsync(`SELECT COUNT(*) AS count FROM lists;`);
 };
 
+export const getMasterListTitles = async () => {
+  return await useDBClient.getAllAsync(`SELECT id, title, grade FROM lists WHERE master = 1 ORDER BY sort ASC;`);
+};
+
 export const getLists = async () => {
   return await useDBClient.getAllAsync(`SELECT * FROM lists;`);
 };
 
-export const createList = async (title: string, grade: string, words: any) => {
+export const createMasterList = async (title: string, grade: string, words: any, sort: number) => {
   return useDBClient.runAsync(`
-      INSERT INTO lists (title, grade, words, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?)`,
-    [title, grade, words, date, date]
+      INSERT INTO lists (title, grade, words, master, sort, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?)`,
+    [title, grade, words, 1, sort, date, date]
   );
 };

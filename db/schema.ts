@@ -21,7 +21,7 @@ export const useSchema = () => {
       rate REAL NOT NULL,
       created_at TEXT NOT NULL,
       updated_at TEXT NOT NULL,
-      deleted_at TEXT
+      deleted_at TEXT DEFAULT NULL
     );
     CREATE INDEX IF NOT EXISTS accounts_id_idx ON accounts (id);
     CREATE UNIQUE INDEX IF NOT EXISTS accounts_email_unique_idx ON accounts (email);
@@ -31,9 +31,11 @@ export const useSchema = () => {
       title TEXT NOT NULL,
       grade TEXT,
       words JSON NOT NULL,
+      master BOOLEAN DEFAULT 0,
+      sort INTEGER,
       created_at TEXT NOT NULL,
       updated_at TEXT NOT NULL,
-      deleted_at TEXT
+      deleted_at TEXT DEFAULT NULL
     );
     CREATE INDEX IF NOT EXISTS lists_id_idx ON lists (id);
 
@@ -46,7 +48,7 @@ export const useSchema = () => {
       score REAL NOT NULL,
       created_at TEXT NOT NULL,
       updated_at TEXT NOT NULL,
-      deleted_at TEXT
+      deleted_at TEXT DEFAULT NULL
     );
     CREATE INDEX IF NOT EXISTS results_id_idx ON results (id);
   `);

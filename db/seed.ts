@@ -1,4 +1,4 @@
-import { getAccountMaster, createMasterAccount, getTotalLists, getLists, createList } from './queries';
+import { getAccountMaster, createMasterAccount, getTotalLists, createMasterList } from './queries';
 import { SpellingLists } from '@/config';
 import { Account } from '@/types';
 
@@ -22,11 +22,11 @@ const seedSpellingLists = async () => {
       return a.localeCompare(b);
     });
 
-    grades.forEach(async (grade: string) => {
+    grades.forEach(async (grade: string, key: number) => {
       const list = SpellingLists[grade as keyof typeof SpellingLists];
-      await createList(`Grade ${grade} List`, grade, JSON.stringify(list));
+      const sort = key + 1;
+      await createMasterList(`Grade ${grade} List`, grade, JSON.stringify(list), sort);
     });
-
     // const _lists = await getLists();
     // console.log(_lists);
   }

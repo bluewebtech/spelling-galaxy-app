@@ -1,28 +1,43 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { getAccountMaster } from '@/db/queries';
-import { Profile } from '@/types';
+import { getAccountMaster, getMasterListTitles } from '@/db/queries';
+import { Personal } from '@/types';
 
 export default function App() {
   const [firstName, setFirstName] = useState("");
+  const [masterList, setMasterList] = useState([]) as any[];
   const [hasAccount, setHasAccount] = useState(false);
+
+  const loadData = useCallback(async () => {
+    try {
+      const queryMasterListTitles = await getMasterListTitles();
+
+      if (queryMasterListTitles) {
+        console.log(queryMasterListTitles);
+        const masterListTitles: any[] = queryMasterListTitles;
+        setMasterList(masterListTitles);
+      }
+    } catch (error) {
+      console.error("Error loading account:", error);
+    }
+  }, []);
 
   useFocusEffect(
     React.useCallback(() => {
+      loadData();
       defineProfile();
-    }, [])
+    }, [loadData])
   );
 
   const defineProfile = async () => {
     const account = await getAccountMaster();
-    console.log(account);
 
-    if (account && typeof account === "object" && "first_name" in account) {
-      setHasAccount((account as Profile).first_name !== "");
-      const profile = account as Profile;
-      setFirstName(profile.first_name || "");
+    if (account && typeof account === "object" && "firstName" in account) {
+      setHasAccount((account as Personal).firstName !== "");
+      const profile = account as Personal;
+      setFirstName(profile.firstName || "");
     } else {
       setHasAccount(false);
       setFirstName("");
@@ -62,12 +77,25 @@ export default function App() {
 
           <View className="flex-1 mt-5">
             <View className="flex items-left p-4 rounded-xl bg-purple-100 w-full">
-              <View className="flex-row">
-                <Text className="flex mr-1 text-lg font-medium text-gray-800">Popular Lists</Text>
+              <View className="flex-row px-2">
+                <Text className="flex mr-1 text-lg font-medium text-gray-800">K12 Lists</Text>
               </View>
-              <View className="flex-row mt-2">
-                <Text className="flex text-purple-600 text-md">No lists available</Text>
+              <View className="flex-row px-2">
+                <Text className="flex mr-1 text-lg text-gray-800">Select a pre-populated list to start studying</Text>
               </View>
+              {masterList.length ? (
+                <View className="flex flex-row flex-wrap justify-between mt-3">
+                  {masterList.map(item => (
+                    <TouchableOpacity className="bg-white rounded-md p-3 w-[30%] aspect-square mb-4 justify-center items-center" key={item.id}>
+                      <Text>{item.grade}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              ) : (
+                <View className="flex-row mt-2">
+                  <Text className="flex text-purple-600 text-md">No lists available</Text>
+                </View>
+              )}
             </View>
           </View>
         </ScrollView>
