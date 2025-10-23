@@ -20,3 +20,16 @@ export type Settings = {
   pitch: string;
   rate: string;
 };
+
+export type List = {
+  title: string;
+  acronym: string;
+  grade: string;
+  words: Word[];
+  color: string;
+};
+
+export type Word = {
+  word: string;
+  definition: string;
+};

@@ -1,6 +1,6 @@
 import { useDBClient } from './client';
 import { Speech } from '@/config';
-import { Account } from "@/types";
+import { Account, List } from "@/types";
 
 const date = new Date().toISOString();
 
@@ -29,17 +29,17 @@ export const getTotalLists = async () => {
 };
 
 export const getMasterListTitles = async () => {
-  return await useDBClient.getAllAsync(`SELECT id, title, grade FROM lists WHERE master = 1 ORDER BY sort ASC;`);
+  return await useDBClient.getAllAsync(`SELECT id, acronym, color FROM lists WHERE master = 1 ORDER BY sort ASC;`);
 };
 
 export const getLists = async () => {
   return await useDBClient.getAllAsync(`SELECT * FROM lists;`);
 };
 
-export const createMasterList = async (title: string, grade: string, words: any, sort: number) => {
+export const createMasterList = async ({ title, acronym, grade, words, color }: List, key: number) => {
   return useDBClient.runAsync(`
-      INSERT INTO lists (title, grade, words, master, sort, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?)`,
-    [title, grade, words, 1, sort, date, date]
+      INSERT INTO lists (title, acronym, grade, words, color, master, sort, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [title, acronym, grade, JSON.stringify(words), color, 1, key, date, date]
   );
 };

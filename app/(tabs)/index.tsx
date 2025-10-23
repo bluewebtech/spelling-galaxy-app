@@ -52,14 +52,14 @@ export default function App() {
             <View className="flex items-left p-4 rounded-xl bg-gray-100 w-full">
               {hasAccount ? (
                 <View className="flex-row">
-                  <Text className="flex mr-1 text-lg font-medium text-gray-800">Welcome back,</Text>
-                  <Text className="flex text-lg font-medium text-purple-500">{firstName}!</Text>
+                  <Text className="flex mr-1 text-lg font-semibold text-gray-800">Welcome back,</Text>
+                  <Text className="flex text-lg font-semibold text-purple-500">{firstName}!</Text>
                 </View>
               ) : (
                 <View className="flex-row">
-                  <Text className="flex mr-1 text-lg font-medium text-gray-800">Welcome to</Text>
-                  <Text className="flex mr-1 text-lg font-medium text-gray-600">Spelling</Text>
-                  <Text className="flex text-lg font-medium text-purple-500">Galaxy!</Text>
+                  <Text className="flex mr-1 text-lg font-semibold text-gray-800">Welcome to</Text>
+                  <Text className="flex mr-1 text-lg font-semibold text-gray-600">Spelling</Text>
+                  <Text className="flex text-lg font-semibold text-purple-500">Galaxy!</Text>
                 </View>
               )}
               <View className="flex-row mt-2">
@@ -76,24 +76,26 @@ export default function App() {
           </View>
 
           <View className="flex-1 mt-5">
-            <View className="flex items-left p-4 rounded-xl bg-purple-100 w-full">
+            <View className="flex items-left p-4 rounded-xl border-2 border-gray-100 bg-white w-full">
               <View className="flex-row px-2">
-                <Text className="flex mr-1 text-lg font-medium text-gray-800">K12 Lists</Text>
-              </View>
-              <View className="flex-row px-2">
-                <Text className="flex mr-1 text-lg text-gray-800">Select a pre-populated list to start studying</Text>
+                <Text className="flex mr-1 text-lg font-semibold text-gray-800">K12 Lists</Text>
               </View>
               {masterList.length ? (
-                <View className="flex flex-row flex-wrap justify-between mt-3">
+                <View className="flex flex-row flex-wrap justify-between">
+                  <View className="flex-row mb-3 px-2">
+                    <Text className="flex mr-1 text-lg text-gray-800">Select a pre-populated list by grade to start.</Text>
+                  </View>
                   {masterList.map(item => (
-                    <TouchableOpacity className="bg-white rounded-md p-3 w-[30%] aspect-square mb-4 justify-center items-center" key={item.id}>
-                      <Text>{item.grade}</Text>
+                    <TouchableOpacity style={{ backgroundColor: item.color }} className="bg-white rounded-full p-5 w-[30%] aspect-square mb-4 justify-center items-center" key={item.id}>
+                      <View className="flex items-center justify-center w-20 h-20 rounded-full bg-white">
+                        <Text className="text-black text-2xl font-semibold">{item.acronym}</Text>
+                      </View>
                     </TouchableOpacity>
                   ))}
                 </View>
               ) : (
-                <View className="flex-row mt-2">
-                  <Text className="flex text-purple-600 text-md">No lists available</Text>
+                <View className="flex-row px-2">
+                  <Text className="flex text-purple-600 text-lg">No lists available</Text>
                 </View>
               )}
             </View>

@@ -29,8 +29,10 @@ export const useSchema = () => {
     CREATE TABLE IF NOT EXISTS lists (
       id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
       title TEXT NOT NULL,
+      acronym TEXT,
       grade TEXT,
       words JSON NOT NULL,
+      color TEXT,
       master BOOLEAN DEFAULT 0,
       sort INTEGER,
       created_at TEXT NOT NULL,

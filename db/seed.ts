@@ -1,6 +1,6 @@
 import { getAccountMaster, createMasterAccount, getTotalLists, createMasterList } from './queries';
 import { SpellingLists } from '@/config';
-import { Account } from '@/types';
+import { Account, List } from '@/types';
 
 export const useSeed = async () => {
   await seedMasterAccount();
@@ -16,18 +16,8 @@ const seedSpellingLists = async () => {
   const total = await getTotalLists() as { count: number } | undefined;
 
   if (!total || !total.count) {
-    const grades = Object.keys(SpellingLists).sort((a, b) => {
-      if (a === "KG") return -1;
-      if (b === "KG") return 1;
-      return a.localeCompare(b);
+    SpellingLists.forEach(async (item: List, key: number) => {
+      await createMasterList(item, key);
     });
-
-    grades.forEach(async (grade: string, key: number) => {
-      const list = SpellingLists[grade as keyof typeof SpellingLists];
-      const sort = key + 1;
-      await createMasterList(`Grade ${grade} List`, grade, JSON.stringify(list), sort);
-    });
-    // const _lists = await getLists();
-    // console.log(_lists);
   }
 };
