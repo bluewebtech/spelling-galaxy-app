@@ -1,144 +1,56 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Dimensions, KeyboardAvoidingView, Modal, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import * as Speech from 'expo-speech';
-import { getAccountMaster } from '@/db/queries';
-import { Account, Settings } from '@/types';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { getMasterSampleLists } from '@/db/queries';
+import { List } from '@/types';
 
 export default function Lists() {
-  const [text, setText] = useState('');
-  const [visible, setVisible] = useState(false);
-  const [settings, setSettings] = useState({ voice: "", pitch: "", rate: "" } as Settings);
-  const slideAnim = useRef(new Animated.Value(Dimensions.get('window').height)).current;
+  const [selected, setSelected] = useState<number | null>(null);
+  const [masterList, setMasterList] = useState([]) as any[];
+
+  const loadData = useCallback(async () => {
+    try {
+      const queryMasterSampleLists = await getMasterSampleLists();
+
+      if (queryMasterSampleLists) {
+        const masterListTitles: any[] = queryMasterSampleLists;
+        setMasterList(masterListTitles);
+      }
+    } catch (error) {
+      console.error("Error loading list:", error);
+    }
+  }, []);
 
   useFocusEffect(
     React.useCallback(() => {
-      defineSettings();
+      loadData();
     }, [])
   );
 
-  const defineSettings = async () => {
-    // To-do: Setup a context for account information so it can be passed around
-    // without the need to query the DB every time
-    const queryAccount = await getAccountMaster() as Account | null;
-
-    if (queryAccount) {
-      setSettings({
-        voice: queryAccount.voice,
-        pitch: queryAccount.pitch,
-        rate: queryAccount.rate,
-      });
-    }
-  };
-
-  const onOpenModal = () => {
-    setVisible(true);
-  };
-
-  const onCloseModal = () => {
-    Animated.timing(slideAnim, {
-      toValue: 300,
-      duration: 300,
-      useNativeDriver: true,
-    }).start(() => setVisible(false));
-  };
-
-  useEffect(() => {
-    if (visible) {
-      Animated.timing(slideAnim, {
-        toValue: 0,
-        duration: 250,
-        useNativeDriver: true,
-      }).start();
-    }
-  }, [visible]);
-
-  const onSpeak = () => {
-    if (text.trim().length > 0) {
-      Speech.speak(text, {
-        voice: settings.voice,
-        pitch: Number(settings.pitch),
-        rate: Number(settings.rate),
-      });
-    }
-  };
-
   return (
-    <KeyboardAvoidingView className="flex-1 bg-white" behavior={Platform.OS === "ios" ? "padding" : "height"}>
-      <View style={styles.container}>
-        <TouchableOpacity style={styles.button} onPress={onOpenModal}>
-          <Text style={styles.buttonText}>Open Bottom Modal</Text>
-        </TouchableOpacity>
-        <Text style={styles.label}>Enter text to speak:</Text>
-        <TextInput
-          style={styles.input}
-          value={text}
-          onChangeText={setText}
-          placeholder="Type something..."
-        />
-        <TouchableOpacity style={styles.button} onPress={onSpeak}>
-          <Text style={styles.buttonText}>Speak</Text>
-        </TouchableOpacity>
-
-        <Modal transparent visible={visible} animationType="none">
-          <Animated.View style={[styles.modalContent, { transform: [{ translateY: slideAnim }] }]}>
-            <SafeAreaView edges={['top', 'left', 'right', 'bottom']} style={{ flex: 1 }}>
-              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 }}>
-                <Text style={styles.title}>Bottom Modal</Text>
-                <Text>This modal slides up from the bottom!</Text>
-                <TouchableOpacity style={styles.button} onPress={onCloseModal}>
-                  <Text style={styles.buttonText}>Close</Text>
-                </TouchableOpacity>
-              </View>
-            </SafeAreaView>
-          </Animated.View>
-        </Modal>
-      </View>
+    <KeyboardAvoidingView className="flex-1 bg-white px-4 pt-4" behavior={Platform.OS === "ios" ? "padding" : "height"}>
+      <KeyboardAwareScrollView extraHeight={100}>
+        <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 40 }}>
+          <View className="flex-1 items-center">
+            <View className="flex-row">
+              <TouchableOpacity className="w-full bg-purple-600 p-2 rounded-lg">
+                <Text className="text-center text-white font-semibold text-lg">Create Spelling List</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View className="flex-1 justify-center items-center mt-5">
+            {masterList.map((list: List) => (
+              <TouchableOpacity
+                key={list.id}
+                onPress={() => setSelected(list.id)}
+                className="w-full p-2 mb-4 font-semibold rounded-lg border bg-white border-black">
+                <Text className="text-lg text-center font-semibold text-black">{list.title}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
+      </KeyboardAwareScrollView>
     </KeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 20,
-  },
-  label: {
-    fontSize: 18,
-    marginBottom: 8,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#8200db',
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 12,
-    fontSize: 16,
-  },
-  modalContent: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#8200db',
-    padding: 20,
-    elevation: 5,
-    paddingBottom: 20,
-  },
-  title: { fontSize: 20, fontWeight: 'bold', marginBottom: 10 },
-  button: {
-    backgroundColor: '#8200db',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginVertical: 5,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-});

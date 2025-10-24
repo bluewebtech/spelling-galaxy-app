@@ -5,7 +5,11 @@ import { Account, List } from "@/types";
 const date = new Date().toISOString();
 
 export const getAccountMaster = async () => {
-  return await useDBClient.getFirstAsync(`SELECT * FROM accounts WHERE master = 1;`);
+  return await useDBClient.getFirstAsync(`
+    SELECT * 
+    FROM accounts 
+    WHERE master = 1;
+  `);
 };
 
 export const createMasterAccount = async () => {
@@ -28,8 +32,22 @@ export const getTotalLists = async () => {
   return await useDBClient.getFirstAsync(`SELECT COUNT(*) AS count FROM lists;`);
 };
 
-export const getMasterListTitles = async () => {
-  return await useDBClient.getAllAsync(`SELECT id, acronym, color FROM lists WHERE master = 1 ORDER BY sort ASC;`);
+export const getMasterK12Lists = async () => {
+  return await useDBClient.getAllAsync(`
+    SELECT id, acronym, color
+    FROM lists 
+    WHERE acronym IS NOT NULL AND master = 1
+    ORDER BY sort ASC;
+  `);
+};
+
+export const getMasterSampleLists = async () => {
+  return await useDBClient.getAllAsync(`
+    SELECT id, title
+    FROM lists 
+    WHERE acronym IS NULL AND master = 1
+    ORDER BY sort ASC;
+  `);
 };
 
 export const getLists = async () => {

@@ -16,8 +16,6 @@ const seedSpellingLists = async () => {
   const total = await getTotalLists() as { count: number } | undefined;
 
   if (!total || !total.count) {
-    SpellingLists.forEach(async (item: List, key: number) => {
-      await createMasterList(item, key);
-    });
+    SpellingLists.forEach(async (list: List, key: number) => await createMasterList(list, key));
   }
 };

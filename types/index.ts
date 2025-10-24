@@ -22,11 +22,12 @@ export type Settings = {
 };
 
 export type List = {
+  id?: number | null;
   title: string;
-  acronym: string;
-  grade: string;
+  acronym: string | null;
+  grade: string | null;
+  color: string | null;
   words: Word[];
-  color: string;
 };
 
 export type Word = {
