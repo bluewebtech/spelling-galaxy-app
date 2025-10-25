@@ -10,9 +10,9 @@ import {
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useFocusEffect } from "@react-navigation/native";
-import ProfilePersonal from "@/components/Forms/Profile/ProfilePersonal";
-import ProfileSettings from "@/components/Forms/Profile/ProfileSettings";
-import Separator from "@/components/Separator";
+import ProfilePersonal from "@/components/forms/profile/ProfilePersonal";
+import ProfileSettings from "@/components/forms/profile/ProfileSettings";
+import Separator from "@/components/common/Separator";
 import {
   getAccountMaster,
   updateMasterAccount,
@@ -173,13 +173,13 @@ export default function ProfileTab() {
           />
           <View className="p-6 pt-0">
             <TouchableOpacity
-              className={`p-3 mt-2 rounded-md ${isDisabled ? "bg-purple-400" : "bg-purple-600"}`}
+              className={`p-3 mt-2 rounded-md border-2 ${isDisabled ? "bg-purple-400 border-purple-200" : "bg-purple-600 border-purple-400"}`}
               disabled={isDisabled}
               onPress={onSave}
             >
               <Text className="text-center text-white font-semibold text-xl">Save</Text>
             </TouchableOpacity>
-            <TouchableOpacity className="bg-gray-400 p-3 mt-4 rounded-md" onPress={onCancel}>
+            <TouchableOpacity className="bg-gray-400 p-3 mt-4 rounded-md border-2 border-gray-200" onPress={onCancel}>
               <Text className="text-center text-white font-semibold text-xl">Cancel</Text>
             </TouchableOpacity>
           </View>

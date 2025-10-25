@@ -4,9 +4,9 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import Logo from '@/components/Logo';
-import SplashScreen from '@/components/Splash';
-import Toast from '@/components/Toast';
+import Logo from '@/components/common/Logo';
+import SplashScreen from '@/components/common/Splash';
+import Toast from '@/components/common/Toast';
 
 export default function Layout() {
   const [loading, setLoading] = useState(true);

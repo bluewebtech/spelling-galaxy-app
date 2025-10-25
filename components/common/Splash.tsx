@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useMemo } from 'react';
 import { View, Animated, Dimensions } from "react-native";
-import Logo from '@/components/Logo';
+import Logo from '@/components/common/Logo';
 
 const { width, height } = Dimensions.get("window");
 

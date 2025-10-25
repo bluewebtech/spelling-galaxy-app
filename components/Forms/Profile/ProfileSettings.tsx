@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Text, TextInput, View } from "react-native";
 import * as Speech from "expo-speech";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import Dropdown from "@/components/DropDown";
+import Dropdown from "@/components/common/DropDown";
 
 type ProfileSettingsProps = {
   settings: {

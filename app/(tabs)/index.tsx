@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Separator from "@/components/Separator";
+import Separator from "@/components/common/Separator";
 import { getAccountMaster, getMasterK12Lists } from '@/db/queries';
 import { List, Personal } from '@/types';
 
@@ -49,7 +49,7 @@ export default function App() {
       <KeyboardAwareScrollView extraHeight={100}>
         <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 40 }}>
           <View className="flex-1 mb-4">
-            <View className="flex items-left p-4 rounded-xl bg-gray-100 w-full">
+            <View className="flex items-left p-4 rounded-xl bg-gray-100 border-2 border-gray-200 w-full">
               {hasAccount ? (
                 <View className="flex-row">
                   <Text className="flex mr-1 text-lg font-semibold text-gray-800">Welcome back,</Text>
@@ -63,12 +63,12 @@ export default function App() {
                 </View>
               )}
               <View className="flex-row mt-2">
-                <Text className="flex text-purple-600 text-md">Your journey to better spelling starts here.</Text>
+                <Text className="flex text-purple-600 text-lg">Your journey to better spelling starts here.</Text>
               </View>
               <View className="flex-1 items-center">
-                <View className="flex-row mt-5">
-                  <TouchableOpacity className="w-full bg-purple-600 p-2 rounded-lg">
-                    <Text className="text-center text-white font-semibold text-lg">Create Your First Spelling List</Text>
+                <View className="flex-row mt-2">
+                  <TouchableOpacity className="w-full p-3 mt-2 rounded-md border-2 bg-purple-600 border-purple-400">
+                    <Text className="text-center text-white font-semibold text-xl">Create Your First List</Text>
                   </TouchableOpacity>
                 </View>
               </View>
