@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import usePath from '@/hooks/usePath';
@@ -32,7 +32,14 @@ export default function Layout() {
             </View>
           </View>
         )}
-        <Stack>
+        <Stack screenOptions={{
+          headerBackButtonDisplayMode: 'minimal',
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => router.back()}>
+              <Ionicons name="arrow-back-outline" size={25} color="#000000" className="-ml-3" style={{ fontSize: 20 }} />
+            </TouchableOpacity>
+          ),
+        }}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
         <Toast />

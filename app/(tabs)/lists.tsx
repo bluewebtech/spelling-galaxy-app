@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { router } from 'expo-router';
 import { KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -62,7 +63,7 @@ export default function Lists() {
             {masterList.map((list: List) => (
               <TouchableOpacity
                 key={list.id}
-                onPress={() => onOpenModal(list)}
+                onPress={() => router.push(`/lists/${list.id}`)}
                 className="w-full p-3 mb-4 font-semibold rounded-md border bg-white border-black">
                 <Text className="text-center text-black font-semibold text-xl">{list.title}</Text>
               </TouchableOpacity>
