@@ -4,6 +4,7 @@ import { Tabs } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useSchema } from "@/db/schema";
 import { useSeed } from "@/db/seed";
+import usePath from '@/hooks/usePath';
 
 import "../../global.css";
 
@@ -13,7 +14,10 @@ const platform = Platform.OS;
 
 export default function TabLayout() {
   const { width, height } = useWindowDimensions();
+
   const [orientation, setOrientation] = useState(height >= width ? 'Portrait' : 'Landscape');
+
+  const [{ isBasePath }] = usePath();
 
   useEffect(() => {
     useSchema();
@@ -21,11 +25,7 @@ export default function TabLayout() {
   }, []);
 
   useEffect(() => {
-    if (height >= width) {
-      setOrientation('Portrait');
-    } else {
-      setOrientation('Landscape');
-    }
+    setOrientation(height >= width ? 'Portrait' : 'Landscape');
   }, [width, height]);
 
   return (
@@ -37,7 +37,7 @@ export default function TabLayout() {
           duration: 250,
         },
       },
-      headerShown: false,
+      headerShown: !isBasePath,
       headerStatusBarHeight: 0,
       tabBarActiveTintColor: '#8200db',
       tabBarInactiveTintColor: '#333333',

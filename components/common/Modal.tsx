@@ -11,6 +11,7 @@ interface ModalProps {
 
 export default function Modal({ title, children, show, onClose }: ModalProps) {
   const [visible, setVisible] = useState(show);
+
   const slideAnim = useRef(new Animated.Value(Dimensions.get('window').height)).current;
 
   useEffect(() => {

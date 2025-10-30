@@ -1,10 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
-import { usePathname } from 'expo-router';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import usePath from '@/hooks/usePath';
 import Logo from '@/components/common/Logo';
 import SplashScreen from '@/components/common/Splash';
 import Toast from '@/components/common/Toast';
@@ -12,11 +12,7 @@ import Toast from '@/components/common/Toast';
 export default function Layout() {
   const [loading, setLoading] = useState(true);
 
-  const pathname = usePathname();
-
-  const isBasePath = useMemo(() => {
-    return pathname === '/';
-  }, []);
+  const [{ isBasePath }] = usePath();
 
   if (loading) {
     return <SplashScreen onFinish={() => setLoading(false)} />;

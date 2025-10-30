@@ -8,8 +8,10 @@ import { List } from '@/types';
 
 export default function Lists() {
   const [masterList, setMasterList] = useState<any[]>([]);
-  const [selectedListId, setSelectedListId] = useState<number | null>(4);
-  const [showModal, setShowModal] = useState(true);
+
+  const [selectedListId, setSelectedListId] = useState<number | null>(null);
+
+  const [showModal, setShowModal] = useState(false);
 
   const loadData = useCallback(async () => {
     try {
@@ -43,7 +45,7 @@ export default function Lists() {
   };
 
   return (
-    <KeyboardAvoidingView className="flex-1 bg-white px-4" behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <KeyboardAvoidingView className="flex-1 bg-white mt-3 px-4" behavior={Platform.OS === "ios" ? "padding" : "height"}>
       {selectedListId && (
         <ListModal listId={selectedListId} show={showModal} onClose={onCloseModal} />
       )}
