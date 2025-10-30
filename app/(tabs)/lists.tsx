@@ -2,13 +2,14 @@ import React, { useCallback, useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Modal from '@/components/common/Modal';
+import ListModal from '@/components/common/ListModal';
 import { getMasterSampleLists } from '@/db/queries';
 import { List } from '@/types';
 
 export default function Lists() {
-  const [masterList, setMasterList] = useState([]) as any[];
-  const [showModal, setShowModal] = useState(false);
+  const [masterList, setMasterList] = useState<any[]>([]);
+  const [selectedListId, setSelectedListId] = useState<number | null>(4);
+  const [showModal, setShowModal] = useState(true);
 
   const loadData = useCallback(async () => {
     try {
@@ -30,17 +31,22 @@ export default function Lists() {
   );
 
   const onOpenModal = (list: List) => {
-    console.log('onOpenModal', list);
-    setShowModal(true);
+    if (list.id) {
+      setSelectedListId(list.id);
+      setShowModal(true);
+    }
   };
 
-  const onCloseModal = (event: boolean) => setShowModal(event);
+  const onCloseModal = (event: boolean) => {
+    setShowModal(event);
+    setSelectedListId(null);
+  };
 
   return (
     <KeyboardAvoidingView className="flex-1 bg-white px-4" behavior={Platform.OS === "ios" ? "padding" : "height"}>
-      <Modal show={showModal} onClose={onCloseModal}>
-        <Text>Hello Bruh</Text>
-      </Modal>
+      {selectedListId && (
+        <ListModal listId={selectedListId} show={showModal} onClose={onCloseModal} />
+      )}
       <KeyboardAwareScrollView extraHeight={100}>
         <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 40 }}>
           <View className="flex-1 items-center">

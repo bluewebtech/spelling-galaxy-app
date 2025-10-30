@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, Modal, Text, TouchableOpacity, View } from 'react-native';
+import { Animated, FlatList, Modal, Text, TouchableOpacity, View } from 'react-native';
 
 type DropdownItem = { label: string; value: string };
 
@@ -11,19 +11,19 @@ interface CustomDropdownProps {
 }
 
 export default function CustomDropdown({ data, defaultValue, onSelect }: CustomDropdownProps) {
-  const [isVisible, setIsVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState<DropdownItem | null>(null);
 
   useEffect(() => {
     if (defaultValue) setSelectedItem(defaultValue);
   }, [defaultValue]);
 
-  const onToggleDropdown = () => setIsVisible(!isVisible);
+  const onToggleDropdown = () => setVisible(!visible);
 
   const onSelectItem = (item: DropdownItem) => {
     setSelectedItem(item);
     onSelect(item);
-    setIsVisible(false);
+    setVisible(false);
   };
 
   return (
@@ -31,9 +31,9 @@ export default function CustomDropdown({ data, defaultValue, onSelect }: CustomD
       <TouchableOpacity className="text-lg caret-black text-black leading-[19px] bg-gray-100 border-2 border-gray-100 p-3 rounded-md focus:bg-white focus:border-black" onPress={onToggleDropdown}>
         <Text>{selectedItem ? selectedItem.label : defaultValue.label}</Text>
       </TouchableOpacity>
-      <Modal visible={isVisible} transparent animationType="fade">
-        <TouchableOpacity className="flex-1 justify-content-center align-items-center" onPress={onToggleDropdown}>
-          <View className='absolute top-12 bottom-4 w-full bg-white p-5'>
+      <Modal visible={visible} transparent animationType="fade">
+        <Animated.View className="mt-5 py-12 w-full h-screen bg-white">
+          <TouchableOpacity className="flex-1 justify-content-center align-items-center" onPress={onToggleDropdown}>
             <FlatList
               data={data}
               keyExtractor={(item) => item.value}
@@ -43,8 +43,8 @@ export default function CustomDropdown({ data, defaultValue, onSelect }: CustomD
                 </TouchableOpacity>
               )}
             />
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </Animated.View>
       </Modal>
     </View>
   );

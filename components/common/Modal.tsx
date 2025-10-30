@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Dimensions, Modal as NativeModal, Text, TouchableOpacity, View } from 'react-native';
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 interface ModalProps {
+  title?: string;
   children?: React.ReactNode;
   show: boolean;
   onClose: (event: boolean) => void;
 }
 
-export default function Modal({ children, show, onClose }: ModalProps) {
+export default function Modal({ title, children, show, onClose }: ModalProps) {
   const [visible, setVisible] = useState(show);
   const slideAnim = useRef(new Animated.Value(Dimensions.get('window').height)).current;
 
@@ -31,13 +33,26 @@ export default function Modal({ children, show, onClose }: ModalProps) {
 
   return (
     <NativeModal visible={visible} transparent animationType="fade">
-      <Animated.View className="absolute top-0 bottom-0 w-full bg-purple-300 p-5">
-        <View className="mt-20">
-          {children}
+      <Animated.View className="py-12 w-full h-screen bg-white p-5">
+        <View className="flex-row items-center justify-between">
+          <View className="flex">
+            {title !== '' && (
+              <View className="mt-8">
+                <Text className="font-semibold text-4xl">{title}</Text>
+              </View>
+            )}
+          </View>
+          <View className="flex">
+            <TouchableOpacity className="mt-8" onPress={() => onClose(false)}>
+              <Ionicons
+                size={35}
+                name="close-circle-outline"
+                color="#000000"
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-        <TouchableOpacity className="p-3 mt-2 rounded-md border-2 bg-purple-600 border-purple-400" onPress={() => onClose(false)}>
-          <Text className="text-center text-white font-semibold text-xl">Close</Text>
-        </TouchableOpacity>
+        <View>{children}</View>
       </Animated.View>
     </NativeModal>
   );
