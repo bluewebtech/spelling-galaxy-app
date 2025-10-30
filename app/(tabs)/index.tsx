@@ -8,7 +8,9 @@ import { List, Personal } from '@/types';
 
 export default function App() {
   const [firstName, setFirstName] = useState("");
+
   const [masterList, setMasterList] = useState([]) as any[];
+
   const [hasAccount, setHasAccount] = useState(false);
 
   const loadData = useCallback(async () => {

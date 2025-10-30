@@ -5,7 +5,9 @@ import Logo from '@/components/common/Logo';
 const { width, height } = Dimensions.get("window");
 
 const NUM_STARS = 500;
+
 const STAR_MIN = 1.5;
+
 const STAR_MAX = 4.5;
 
 function random(min, max) {
@@ -30,13 +32,16 @@ function makeStars() {
 
 export default function Splash({ onFinish }) {
   const starsData = useMemo(() => makeStars(), []);
+
   const animsRef = useRef(
     starsData.map(() => ({
       opacity: new Animated.Value(0),
       scale: new Animated.Value(0.9),
     }))
   );
+
   const anims = animsRef.current;
+
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {

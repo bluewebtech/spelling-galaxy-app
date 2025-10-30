@@ -22,6 +22,7 @@ import Toast from "react-native-toast-message";
 
 export default function ProfileTab() {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
   const floatRegex = /^-?\d*(\.\d*)?$/;
 
   const [personal, setPersonal] = useState<Personal>({
@@ -49,6 +50,7 @@ export default function ProfileTab() {
   });
 
   const [isValidEmail, setIsValidEmail] = useState(true);
+
   const [isDisabled, setIsDisabled] = useState(true);
 
   const loadData = useCallback(async () => {

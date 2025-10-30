@@ -34,7 +34,7 @@ const toastConfig = {
       <Text>{text1}</Text>
       <Text>{props.uuid}</Text>
     </View>
-  )
+  ),
 };
 
 export default function Flash() {

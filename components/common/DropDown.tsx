@@ -12,6 +12,7 @@ interface CustomDropdownProps {
 
 export default function CustomDropdown({ data, defaultValue, onSelect }: CustomDropdownProps) {
   const [visible, setVisible] = useState(false);
+
   const [selectedItem, setSelectedItem] = useState<DropdownItem | null>(null);
 
   useEffect(() => {

@@ -22,9 +22,13 @@ export default function ProfileSettings({
   onRateChange,
 }: ProfileSettingsProps) {
   const [voices, setVoices] = useState<{ label: string; value: string }[]>([]);
+
   const [voice, setVoice] = useState(settings.voice);
+
   const [pitch, setPitch] = useState(settings.pitch);
+
   const [rate, setRate] = useState(settings.rate);
+
   const [defaultVoice, setDefaultVoice] = useState<{ label: string; value: string } | null>(null);
 
   useEffect(() => {

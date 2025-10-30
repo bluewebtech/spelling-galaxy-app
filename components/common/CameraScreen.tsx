@@ -8,8 +8,11 @@ import {
 
 export default function CameraScreen() {
   const [facing, setFacing] = useState<'front' | 'back'>('back');
+
   const [photo, setPhoto] = useState<CameraCapturedPicture | null>(null);
+
   const [permission, requestPermission] = useCameraPermissions();
+
   const cameraRef = useRef<CameraView | null>(null);
 
   // Request permission on mount if not already granted
