@@ -1,6 +1,6 @@
 import { Image, Text, View } from "react-native";
 
-const Logo = ({ width = 50, height = 50, textStyles = 'text-4xl', withLabel = true }) => {
+export default function Logo({ width = 50, height = 50, textStyles = 'text-4xl', withLabel = true }) {
   return (
     <View className="flex px-4 pb-2">
       <Text className="flex">
@@ -18,6 +18,4 @@ const Logo = ({ width = 50, height = 50, textStyles = 'text-4xl', withLabel = tr
       </Text>
     </View>
   );
-}
-
-export default Logo;
+};

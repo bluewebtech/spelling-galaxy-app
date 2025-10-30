@@ -146,4 +146,4 @@ export default function Splash({ onFinish }) {
       </Animated.View>
     </View>
   );
-}
+};

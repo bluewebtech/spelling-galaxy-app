@@ -86,7 +86,7 @@ export default function CameraScreen() {
       </CameraView>
     </View>
   );
-}
+};
 
 // --- Styles ---
 const styles = StyleSheet.create({

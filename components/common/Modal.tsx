@@ -57,4 +57,4 @@ export default function Modal({ title, children, show, onClose }: ModalProps) {
       </Animated.View>
     </NativeModal>
   );
-}
+};
