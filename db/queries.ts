@@ -12,6 +12,14 @@ export const getAccountMaster = async () => {
   `);
 };
 
+export const getAccountMasterSettings = async () => {
+  return await useDBClient.getFirstAsync(`
+    SELECT voice, pitch, rate
+    FROM accounts 
+    WHERE master = 1;
+  `);
+};
+
 export const createMasterAccount = async () => {
   return useDBClient.runAsync(`
       INSERT INTO accounts (first_name, last_name, email, master, voice, pitch, rate, created_at, updated_at, deleted_at)
@@ -52,6 +60,10 @@ export const getMasterSampleLists = async () => {
 
 export const getLists = async () => {
   return await useDBClient.getAllAsync(`SELECT * FROM lists;`);
+};
+
+export const getList = async (id: number) => {
+  return await useDBClient.getFirstAsync(`SELECT * FROM lists WHERE id = ?;`, [id]);
 };
 
 export const createMasterList = async ({ title, acronym, grade, words, color }: List, key: number) => {

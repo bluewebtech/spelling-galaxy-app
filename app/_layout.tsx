@@ -62,7 +62,7 @@ export default function RootLayout() {
           },
           headerShown: !isBasePath,
           headerLeft: () => (
-            <TouchableOpacity onPress={() => router.back()}>
+            <TouchableOpacity className="ml-3" onPress={() => router.back()}>
               <Ionicons name="arrow-back-outline" size={25} color="#000000" style={{ fontSize: 20 }} />
             </TouchableOpacity>
           ),

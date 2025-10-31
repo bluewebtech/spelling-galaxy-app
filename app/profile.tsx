@@ -157,7 +157,7 @@ export default function ProfileTab() {
   };
 
   return (
-    <KeyboardAvoidingView className="flex-1 bg-white" behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <KeyboardAvoidingView className="flex-1 bg-white py-3" behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <KeyboardAwareScrollView extraHeight={100}>
         <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 40 }}>
           <ProfilePersonal

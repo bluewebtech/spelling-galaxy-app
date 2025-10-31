@@ -46,7 +46,7 @@ export default function Lists() {
   };
 
   return (
-    <KeyboardAvoidingView className="flex-1 bg-white mt-3 px-4" behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <KeyboardAvoidingView className="flex-1 bg-white px-4 py-3" behavior={Platform.OS === "ios" ? "padding" : "height"}>
       {selectedListId && (
         <ListModal listId={selectedListId} show={showModal} onClose={onCloseModal} />
       )}

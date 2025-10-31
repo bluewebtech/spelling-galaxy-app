@@ -1,10 +1,11 @@
 import React, { useCallback, useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { router } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Separator from "@/components/common/Separator";
 import { getAccountMaster, getMasterK12Lists } from '@/db/queries';
-import { List, Personal } from '@/types';
+import { Account, List } from '@/types';
 
 export default function App() {
   const [firstName, setFirstName] = useState("");
@@ -36,10 +37,10 @@ export default function App() {
   const defineProfile = async () => {
     const account = await getAccountMaster();
 
-    if (account && typeof account === "object" && "firstName" in account) {
-      setHasAccount((account as Personal).firstName !== "");
-      const profile = account as Personal;
-      setFirstName(profile.firstName || "");
+    if (account && typeof account === "object" && "first_name" in account) {
+      setHasAccount((account as Account).first_name !== "");
+      const profile = account as Account;
+      setFirstName(profile.first_name || "");
     } else {
       setHasAccount(false);
       setFirstName("");
@@ -87,10 +88,14 @@ export default function App() {
                   <View className="flex-row mb-3 px-2">
                     <Text className="flex mr-1 text-lg text-gray-800">Select a pre-populated list by grade to start.</Text>
                   </View>
-                  {masterList.map((list: List) => (
-                    <TouchableOpacity style={{ backgroundColor: list.color }} className="bg-white rounded-full p-5 w-[30%] aspect-square mb-4 justify-center items-center" key={list.id}>
+                  {masterList.map((item: List) => (
+                    <TouchableOpacity
+                      style={{ backgroundColor: item.color }}
+                      className="bg-white rounded-full p-5 w-[30%] aspect-square mb-4 justify-center items-center"
+                      key={item.id}
+                      onPress={() => router.push(`/lists/${item.id}`)}>
                       <View className="flex items-center justify-center w-20 h-20 rounded-full bg-white">
-                        <Text className="text-black text-2xl font-semibold">{list.acronym}</Text>
+                        <Text className="text-black text-2xl font-semibold">{item.acronym}</Text>
                       </View>
                     </TouchableOpacity>
                   ))}
