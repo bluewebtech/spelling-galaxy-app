@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { useLocalSearchParams } from 'expo-router';
 import * as Speech from "expo-speech";
@@ -7,6 +7,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Separator from "@/components/common/Separator";
 import { getList, getAccountMasterSettings } from '@/db/queries';
+import { useSayWord } from '@/hooks/useSpeech';
 import { List, Settings } from '@/types';
 
 export default function ListItem() {
@@ -49,12 +50,7 @@ export default function ListItem() {
   };
 
   const onSayWord = (word: string) => {
-    Speech.stop();
-    Speech.speak(word, {
-      voice: settings.voice,
-      pitch: Number(settings.pitch),
-      rate: Number(settings.rate),
-    });
+    useSayWord(word, settings);
   };
 
   return (

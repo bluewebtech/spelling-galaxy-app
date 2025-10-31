@@ -3,6 +3,7 @@ import { Text, TextInput, View } from "react-native";
 import * as Speech from "expo-speech";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Dropdown from "@/components/common/DropDown";
+import { useSayWord } from '@/hooks/useSpeech';
 
 type ProfileSettingsProps = {
   settings: {
@@ -14,6 +15,8 @@ type ProfileSettingsProps = {
   onPitchChange: (event: string) => Promise<void>;
   onRateChange: (event: string) => Promise<void>;
 };
+
+const SAMPLE_WORD = "Spelling Galaxy";
 
 export default function ProfileSettings({
   settings,
@@ -67,22 +70,11 @@ export default function ProfileSettings({
   const handleVoiceChange = async (newVoice: string) => {
     setVoice(newVoice);
     await onVoiceChange(newVoice);
-
-    Speech.stop();
-    Speech.speak("Spelling Galaxy", {
-      voice: newVoice,
-      pitch: Number(pitch),
-      rate: Number(rate),
-    });
+    useSayWord(SAMPLE_WORD, { voice: newVoice, pitch, rate });
   };
 
   const onVoiceSample = () => {
-    Speech.stop();
-    Speech.speak("Spelling Galaxy", {
-      voice,
-      pitch: Number(pitch),
-      rate: Number(rate),
-    });
+    useSayWord(SAMPLE_WORD, { voice, pitch, rate });
   };
 
   const dropdownValue =
