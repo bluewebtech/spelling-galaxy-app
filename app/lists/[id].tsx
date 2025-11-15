@@ -2,7 +2,6 @@ import React, { useCallback, useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { useLocalSearchParams } from 'expo-router';
-import * as Speech from "expo-speech";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Separator from "@/components/common/Separator";

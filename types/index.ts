@@ -28,6 +28,7 @@ export type List = {
   grade: string | null;
   color: string | null;
   words: Word[];
+  group: number | null;
 };
 
 export type Word = {

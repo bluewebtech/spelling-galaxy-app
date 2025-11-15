@@ -9,6 +9,7 @@ export const Speech = {
 // that are used for seeding the database.
 export const SpellingLists = [
   {
+    group: 1,
     title: 'Kindergarten',
     acronym: 'KG',
     grade: 'KG',
@@ -37,12 +38,13 @@ export const SpellingLists = [
     ],
   },
   {
+    group: 2,
     title: '1st Grade',
     acronym: '1st',
     grade: '01',
     color: '#FF4500',
     words: [
-      { word: 'apple', definition: 'A round fruit that grows on trees' },
+      { word: 'apple', definition: 'A round fruit that ggroups on trees' },
       { word: 'happy', definition: 'Feeling joy or pleasure' },
       { word: 'jump', definition: 'To push yourself off the ground' },
       { word: 'book', definition: 'Pages with words bound together' },
@@ -65,6 +67,7 @@ export const SpellingLists = [
     ],
   },
   {
+    group: 2,
     title: '2nd Grade',
     acronym: '2nd',
     grade: '02',
@@ -83,7 +86,7 @@ export const SpellingLists = [
       { word: 'change', definition: 'To make or become different' },
       { word: 'different', definition: 'Not the same as another' },
       { word: 'another', definition: 'One more; an additional one' },
-      { word: 'garden', definition: 'A place where flowers or vegetables grow' },
+      { word: 'garden', definition: 'A place where flowers or vegetables ggroup' },
       { word: 'window', definition: 'An opening in a wall with glass' },
       { word: 'picture', definition: 'A drawing, painting, or photograph' },
       { word: 'number', definition: 'A symbol used for counting' },
@@ -93,6 +96,7 @@ export const SpellingLists = [
     ],
   },
   {
+    group: 3,
     title: '3rd Grade',
     acronym: '3rd',
     grade: '03',
@@ -121,6 +125,7 @@ export const SpellingLists = [
     ],
   },
   {
+    group: 3,
     title: '4th Grade',
     acronym: '4th',
     grade: '04',
@@ -149,6 +154,7 @@ export const SpellingLists = [
     ],
   },
   {
+    group: 3,
     title: '5th Grade',
     acronym: '5th',
     grade: '05',
@@ -177,6 +183,7 @@ export const SpellingLists = [
     ],
   },
   {
+    group: 4,
     title: '6th Grade',
     acronym: '6th',
     grade: '06',
@@ -205,6 +212,7 @@ export const SpellingLists = [
     ],
   },
   {
+    group: 4,
     title: '7th Grade',
     acronym: '7th',
     grade: '07',
@@ -233,6 +241,7 @@ export const SpellingLists = [
     ],
   },
   {
+    group: 4,
     title: '8th Grade',
     acronym: '8th',
     grade: '08',
@@ -261,6 +270,7 @@ export const SpellingLists = [
     ],
   },
   {
+    group: 4,
     title: '9th Grade',
     acronym: '9th',
     grade: '09',
@@ -289,6 +299,7 @@ export const SpellingLists = [
     ],
   },
   {
+    group: 5,
     title: '10th Grade',
     acronym: '10th',
     grade: '10',
@@ -317,6 +328,7 @@ export const SpellingLists = [
     ],
   },
   {
+    group: 5,
     title: '11th Grade',
     acronym: '11th',
     grade: '11',
@@ -345,6 +357,7 @@ export const SpellingLists = [
     ],
   },
   {
+    group: 5,
     title: '12th Grade',
     acronym: '12th',
     grade: '12',
@@ -373,6 +386,7 @@ export const SpellingLists = [
     ],
   },
   {
+    group: null,
     title: 'Adventure Words',
     acronym: null,
     grade: null,
@@ -391,6 +405,7 @@ export const SpellingLists = [
     ],
   },
   {
+    group: null,
     title: 'Beginner (Grades 1–3)',
     acronym: null,
     grade: null,
@@ -409,6 +424,7 @@ export const SpellingLists = [
     ],
   },
   {
+    group: null,
     title: 'Intermediate (Grades 4–6)',
     acronym: null,
     grade: null,
@@ -427,6 +443,7 @@ export const SpellingLists = [
     ],
   },
   {
+    group: null,
     title: 'Advanced (Grades 7–9)',
     acronym: null,
     grade: null,

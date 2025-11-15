@@ -34,6 +34,7 @@ export const useSchema = () => {
       words JSON NOT NULL,
       color TEXT,
       master BOOLEAN DEFAULT 0,
+      group_id INTEGER,
       sort INTEGER,
       created_at TEXT NOT NULL,
       updated_at TEXT NOT NULL,

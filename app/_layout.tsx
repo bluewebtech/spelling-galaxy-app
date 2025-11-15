@@ -45,10 +45,10 @@ export default function RootLayout() {
         {isBasePath && (
           <View className="flex-row items-center justify-between">
             <View className="flex">
-              <Logo width={30} height={35} textStyles="text-2xl" />
+              <Logo width={40} height={40} textStyles="text-2xl" withLabel={false} />
             </View>
             <View className="flex px-6">
-              <Ionicons size={25} name="alert-circle-outline" color="#333333" />
+              <Ionicons size={30} name="alert-circle-outline" color="#333333" />
             </View>
           </View>
         )}

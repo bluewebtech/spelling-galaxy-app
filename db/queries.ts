@@ -42,7 +42,7 @@ export const getTotalLists = async () => {
 
 export const getMasterK12Lists = async () => {
   return await useDBClient.getAllAsync(`
-    SELECT id, acronym, color
+    SELECT id, acronym, color, group_id
     FROM lists 
     WHERE acronym IS NOT NULL AND master = 1
     ORDER BY sort ASC;
@@ -66,10 +66,10 @@ export const getList = async (id: number) => {
   return await useDBClient.getFirstAsync(`SELECT * FROM lists WHERE id = ?;`, [id]);
 };
 
-export const createMasterList = async ({ title, acronym, grade, words, color }: List, key: number) => {
+export const createMasterList = async ({ title, acronym, grade, words, color, group }: List, key: number) => {
   return useDBClient.runAsync(`
-      INSERT INTO lists (title, acronym, grade, words, color, master, sort, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    [title, acronym, grade, JSON.stringify(words), color, 1, key, date, date]
+      INSERT INTO lists (title, acronym, grade, words, color, group_id, master, sort, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [title, acronym, grade, JSON.stringify(words), color, group, 1, key, date, date]
   );
 };

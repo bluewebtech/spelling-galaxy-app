@@ -4,11 +4,11 @@ import Logo from '@/components/common/Logo';
 
 const { width, height } = Dimensions.get("window");
 
-const NUM_STARS = 500;
+const NUM_STARS = 300;
 
-const STAR_MIN = 1.5;
+const STAR_MIN = 2;
 
-const STAR_MAX = 4.5;
+const STAR_MAX = 8;
 
 function random(min, max) {
   return Math.random() * (max - min) + min;
@@ -105,7 +105,7 @@ export default function Splash({ onFinish }) {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => onFinish(), 3000);
+    const timer = setTimeout(() => onFinish(), 5000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -121,7 +121,7 @@ export default function Splash({ onFinish }) {
   }, [fadeAnim]);
 
   return (
-    <View className="flex-1 justify-center items-center bg-purple-800">
+    <View className="flex-1 justify-center items-center bg-white">
       {starsData.map((s, i) => {
         const { opacity, scale } = anims[i];
         const animatedStyle = {
@@ -131,7 +131,7 @@ export default function Splash({ onFinish }) {
           width: s.size,
           height: s.size,
           borderRadius: s.size / 2,
-          backgroundColor: "rgba(255,255,220,1)",
+          backgroundColor: "rgba(190, 190, 190, 1)",
           transform: [{ scale }],
           opacity,
         };
@@ -141,7 +141,7 @@ export default function Splash({ onFinish }) {
 
       <Animated.View style={{ opacity: fadeAnim }}>
         <View className="shadow-2xl shadow-black-500">
-          <Logo width={120} height={120} withLabel={false} />
+          <Logo />
         </View>
       </Animated.View>
     </View>
