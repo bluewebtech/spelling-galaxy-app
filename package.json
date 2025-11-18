@@ -19,9 +19,9 @@
     "@react-navigation/native": "^7.1.8",
     "dotenv": "^17.2.3",
     "expo": "54.0.13",
+    "expo-camera": "~17.0.8",
     "expo-constants": "~18.0.9",
     "expo-device": "~8.0.9",
-    "expo-camera": "~17.0.8",
     "expo-file-system": "^19.0.17",
     "expo-font": "~14.0.8",
     "expo-haptics": "~15.0.7",
@@ -50,7 +50,8 @@
     "react-native-toast-message": "^2.3.3",
     "react-native-web": "~0.21.0",
     "react-native-worklets": "0.5.1",
-    "tailwindcss": "^3.4.18"
+    "tailwindcss": "^3.4.18",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@types/react": "~19.1.0",

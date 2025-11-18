@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Animated, FlatList, Modal, Text, TouchableOpacity, View } from 'react-native';
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 type DropdownItem = { label: string; value: string };
 
@@ -12,7 +13,6 @@ interface CustomDropdownProps {
 
 export default function CustomDropdown({ data, defaultValue, onSelect }: CustomDropdownProps) {
   const [visible, setVisible] = useState(false);
-
   const [selectedItem, setSelectedItem] = useState<DropdownItem | null>(null);
 
   useEffect(() => {
@@ -20,6 +20,8 @@ export default function CustomDropdown({ data, defaultValue, onSelect }: CustomD
   }, [defaultValue]);
 
   const onToggleDropdown = () => setVisible(!visible);
+
+  const onClose = () => setVisible(false);
 
   const onSelectItem = (item: DropdownItem) => {
     setSelectedItem(item);
@@ -29,22 +31,41 @@ export default function CustomDropdown({ data, defaultValue, onSelect }: CustomD
 
   return (
     <View>
-      <TouchableOpacity className="text-lg caret-black text-black leading-[19px] bg-gray-100 border-2 border-gray-100 p-3 rounded-md focus:bg-white focus:border-black" onPress={onToggleDropdown}>
+      <TouchableOpacity
+        className="text-lg caret-black text-black leading-[19px] bg-purple-50 border-2 border-purple-50 p-3 rounded-md"
+        onPress={onToggleDropdown}
+      >
         <Text>{selectedItem ? selectedItem.label : defaultValue.label}</Text>
       </TouchableOpacity>
+
       <Modal visible={visible} transparent animationType="fade">
         <Animated.View className="mt-5 py-12 w-full h-screen bg-white">
-          <TouchableOpacity className="flex-1 justify-content-center align-items-center" onPress={onToggleDropdown}>
-            <FlatList
-              data={data}
-              keyExtractor={(item) => item.value}
-              renderItem={({ item }) => (
-                <TouchableOpacity onPress={() => onSelectItem(item)} className="p-4 border-b border-purple-500">
-                  <Text className="font-semibold">{item.label}</Text>
-                </TouchableOpacity>
-              )}
-            />
-          </TouchableOpacity>
+          <View className="absolute top-5 right-5 z-10">
+            <TouchableOpacity
+              onPress={onClose}
+            >
+              <Ionicons
+                size={25}
+                color="#ffffff"
+                className="mt-5 bg-purple-500 rounded-full p-2"
+                name="close-circle-outline"
+
+              />
+            </TouchableOpacity>
+          </View>
+
+          <FlatList
+            data={data}
+            keyExtractor={(item) => item.value}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() => onSelectItem(item)}
+                className="p-4 border-b border-purple-500"
+              >
+                <Text className="font-semibold">{item.label}</Text>
+              </TouchableOpacity>
+            )}
+          />
         </Animated.View>
       </Modal>
     </View>

@@ -4,12 +4,13 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { router, Tabs } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import usePath from '@/hooks/usePath';
+
 import Logo from '@/components/common/Logo';
 import SplashScreen from '@/components/common/Splash';
 import Toast from '@/components/common/Toast';
 import { useSchema } from "@/db/schema";
 import { useSeed } from "@/db/seed";
+import usePath from '@/hooks/usePath';
 import "../global.css";
 
 const isAuthenticated: boolean = true;
@@ -60,12 +61,7 @@ export default function RootLayout() {
               duration: 250,
             },
           },
-          headerShown: !isBasePath,
-          headerLeft: () => (
-            <TouchableOpacity className="ml-3" onPress={() => router.back()}>
-              <Ionicons name="arrow-back-outline" size={25} color="#000000" style={{ fontSize: 20 }} />
-            </TouchableOpacity>
-          ),
+          headerShown: false,
           headerStatusBarHeight: 0,
           tabBarActiveTintColor: '#8200db',
           tabBarInactiveTintColor: '#333333',
@@ -82,21 +78,21 @@ export default function RootLayout() {
           <Tabs.Screen
             name="index"
             options={{
-              title: 'Home',
+              title: "Home",
               tabBarIcon: ({ color, size }) => <Ionicons size={size} name="planet-outline" color={color} />,
             }}
           />
           <Tabs.Screen
             name="lists"
             options={{
-              title: 'Lists',
+              title: "Lists",
               tabBarIcon: ({ color, size }) => <Ionicons size={size} name="list-circle-outline" color={color} />,
             }}
           />
           <Tabs.Screen
             name="profile"
             options={{
-              title: 'Profile',
+              title: "Profile",
               tabBarIcon: ({ color, size }) => <Ionicons size={size} name="person-circle-outline" color={color} />,
             }}
           />

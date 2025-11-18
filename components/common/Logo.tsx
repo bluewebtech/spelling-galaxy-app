@@ -12,7 +12,7 @@ export default function Logo({ width = 50, height = 50, textStyles = 'text-4xl',
         />
         {withLabel ?
           <View className="flex-row mt-0.5 px-1 py-1.5">
-            <Text className={`flex text-gray-800 ${textStyles} font-medium`}>Spelling</Text><Text className={`flex text-purple-500 ${textStyles} font-medium`}>Galaxy</Text>
+            <Text className={`flex text-gray-600 ${textStyles} font-medium`}>Spelling</Text><Text className={`flex text-purple-500 ${textStyles} font-medium`}>Galaxy</Text>
             {/* <Text className="ml-1 px-2 h-5 bg-blue-500 rounded-2xl text-white text-sm font-semibold">BETA</Text> */}
           </View>
           : null}

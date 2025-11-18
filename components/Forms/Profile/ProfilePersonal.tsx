@@ -28,7 +28,7 @@ export default function ProfilePersonal({
           <TextInput
             defaultValue={personal.firstName}
             onChangeText={onFirstNameChange}
-            className="text-lg text-black caret-black leading-[19px] bg-gray-100 border-2 border-gray-100 p-3 rounded-md focus:bg-white focus:border-black"
+            className="text-lg text-black caret-black leading-[19px] bg-purple-50 border-2 border-purple-50 p-3 rounded-md focus:bg-white focus:border-purple-500"
           />
         </View>
         <View className="flex-1 py-2 pl-2">
@@ -36,7 +36,7 @@ export default function ProfilePersonal({
           <TextInput
             defaultValue={personal.lastName}
             onChangeText={onLastNameChange}
-            className="text-lg text-black caret-black leading-[19px] bg-gray-100 border-2 border-gray-100 p-3 rounded-md focus:bg-white focus:border-black"
+            className="text-lg text-black caret-black leading-[19px] bg-purple-50 border-2 border-purple-50 p-3 rounded-md focus:bg-white focus:border-purple-500"
           />
         </View>
       </View>
@@ -45,7 +45,7 @@ export default function ProfilePersonal({
         <TextInput
           defaultValue={personal.email}
           onChangeText={onEmailChange}
-          className="text-lg text-black caret-black leading-[19px] bg-gray-100 border-2 border-gray-100 p-3 rounded-md focus:bg-white focus:border-black"
+          className="text-lg text-black caret-black leading-[19px] bg-purple-50 border-2 border-purple-50 p-3 rounded-md focus:bg-white focus:border-purple-500"
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}

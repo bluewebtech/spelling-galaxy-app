@@ -3,6 +3,7 @@ import { KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, Vie
 import { router } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 import Separator from "@/components/common/Separator";
 import { getAccountMaster, getMasterK12Lists } from '@/db/queries';
 import { Account, List } from '@/types';
@@ -36,7 +37,6 @@ export default function App() {
 
       if (queryK12ListTitles) {
         const masterListTitles: any[] = groupBy(queryK12ListTitles);
-        console.log(masterListTitles);
         setMasterList(masterListTitles);
       }
     } catch (error) {
@@ -65,7 +65,7 @@ export default function App() {
   };
 
   return (
-    <KeyboardAvoidingView className="flex-1 bg-white px-4 pt-4" behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <KeyboardAvoidingView className="flex-1 bg-white pt-4" behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <KeyboardAwareScrollView extraHeight={100}>
         <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 40 }}>
           <View className="flex-1">
@@ -78,12 +78,12 @@ export default function App() {
               ) : (
                 <View className="flex-row justify-center">
                   <Text className="flex mr-1 text-3xl font-semibold text-black">Welcome to</Text>
-                  <Text className="flex mr-1 text-3xl font-semibold text-black">Spelling</Text>
-                  <Text className="flex text-3xl font-semibold text-purple-500">Galaxy!</Text>
+                  <Text className="flex mr-1 text-3xl font-medium text-gray-600">Spelling</Text>
+                  <Text className="flex text-3xl font-medium text-purple-500">Galaxy!</Text>
                 </View>
               )}
-              <View className="flex-row justify-center p-4">
-                <Text className="flex text-gray-500 font-semibold text-xl">Your journey to better spelling starts here.</Text>
+              <View className="flex-row justify-center py-4">
+                <Text className="flex text-gray-500 font-medium text-xl">Your journey to better spelling starts here.</Text>
               </View>
               <View className="flex-1 justify-center">
                 <View className="flex-row mt-2">
@@ -118,7 +118,7 @@ export default function App() {
                       >
                         <View
                           style={{ borderWidth: 10, borderColor: item.color }}
-                          className="rounded-full justify-center items-center p-2"
+                          className="rounded-full justify-center items-center p-1"
                         >
                           <View className="w-12 h-12 bg-white rounded-full justify-center items-center">
                             <Text className="text-black text-xl font-semibold">
@@ -136,7 +136,6 @@ export default function App() {
                 <Text className="flex text-purple-600 text-lg">No lists available</Text>
               </View>
             )}
-
           </View>
         </ScrollView>
       </KeyboardAwareScrollView>

@@ -4,12 +4,16 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useLocalSearchParams } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Ionicons from "@expo/vector-icons/Ionicons";
+
 import Separator from "@/components/common/Separator";
 import { getList, getAccountMasterSettings } from '@/db/queries';
 import { useSayWord } from '@/hooks/useSpeech';
+import useStoreLayout from '@/store/layout';
 import { List, Settings } from '@/types';
 
 export default function ListItem() {
+  const storeSetLayoutTitle = useStoreLayout((state) => state.setTitle);
+
   const { id } = useLocalSearchParams();
 
   const [list, setList] = useState<any[]>([]);
@@ -29,6 +33,7 @@ export default function ListItem() {
         const list: any = queryList;
         list.words = JSON.parse(list.words);
         setList(list);
+        storeSetLayoutTitle(`Title - ${list.title}`);
 
         const settings: any = querySettings;
         setSettings(settings);
@@ -74,14 +79,14 @@ export default function ListItem() {
             {list.words?.map((item: List, key: number) => (
               <TouchableOpacity
                 key={key}
-                className="w-full p-3 mb-4 font-semibold rounded-md border bg-white border-black"
+                className="w-full p-3 mb-4 font-semibold rounded-md border-2 bg-white border-black"
                 onPress={() => onSayWord(item.word)}>
                 <View className="flex-row items-center justify-between">
                   <Text className="text-center text-black font-semibold text-xl">{item.word}</Text>
                   <Ionicons
                     size={25}
                     name="volume-medium-outline"
-                    color="#000000"
+                    color="#8200db"
                   />
                 </View>
               </TouchableOpacity>

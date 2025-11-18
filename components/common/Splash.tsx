@@ -105,7 +105,7 @@ export default function Splash({ onFinish }) {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => onFinish(), 5000);
+    const timer = setTimeout(() => onFinish(), 3000);
     return () => clearTimeout(timer);
   }, []);
 

@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useFocusEffect } from "@react-navigation/native";
+import Toast from "react-native-toast-message";
+
 import ProfilePersonal from "@/components/forms/profile/ProfilePersonal";
 import ProfileSettings from "@/components/forms/profile/ProfileSettings";
 import Separator from "@/components/common/Separator";
@@ -18,7 +20,6 @@ import {
   updateMasterAccount,
 } from "@/db/queries";
 import { Account, Personal, Settings } from "@/types";
-import Toast from "react-native-toast-message";
 
 export default function ProfileTab() {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -79,10 +80,6 @@ export default function ProfileTab() {
       console.error("Error loading account:", error);
     }
   }, []);
-
-  useEffect(() => {
-    loadData();
-  }, [loadData]);
 
   useFocusEffect(
     useCallback(() => {
