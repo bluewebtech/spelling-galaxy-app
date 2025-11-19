@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
+
 import Modal from '@/components/common/Modal';
 
 interface ListModalProps {

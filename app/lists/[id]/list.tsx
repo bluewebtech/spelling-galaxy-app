@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -33,7 +33,7 @@ export default function ListItem() {
         const list: any = queryList;
         list.words = JSON.parse(list.words);
         setList(list);
-        storeSetLayoutTitle(`Title - ${list.title}`);
+        storeSetLayoutTitle(`List - ${list.title}`);
 
         const settings: any = querySettings;
         setSettings(settings);
@@ -61,17 +61,24 @@ export default function ListItem() {
     <KeyboardAvoidingView className="flex-1 bg-white" behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <KeyboardAwareScrollView extraHeight={100}>
         <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 40 }}>
-          <View className="px-6 mt-4 mb-2">
-            <View className="items-left">
-              <Text className="text-2xl font-semibold text-purple-500">{list.title}</Text>
-            </View>
-          </View>
-          <View className="mb-3 px-6">
+          <View className="px-6 mt-6 mb-2 flex-row justify-between items-center ">
             <TouchableOpacity
-              className="p-3 mt-2 rounded-md border-2 bg-purple-600 border-purple-400"
+              className="flex-1 p-3 rounded-md border-2 bg-blue-800 border-blue-300"
               onPress={onStartTest}
             >
-              <Text className="text-center text-white font-semibold text-xl">Start Spelling Test</Text>
+              <Text className="text-center text-white font-semibold text-xl">Start Test</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="mx-5 py-3 px-6 rounded-md border-2 bg-purple-600 border-purple-400"
+              onPress={() => router.push(`/lists/${id}/edit`)}
+            >
+              <Text className="text-center text-white font-semibold text-xl">Edit</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="py-3 px-6 rounded-md border-2 bg-red-600 border-red-400"
+              onPress={onStartTest}
+            >
+              <Text className="text-center text-white font-semibold text-xl">Delete</Text>
             </TouchableOpacity>
           </View>
           <Separator />

@@ -16,6 +16,7 @@ export default function ListsLayout() {
       ),
     }}>
       <Stack.Screen name="index" options={{ title: 'Lists' }} />
+      <Stack.Screen name="create" options={{ title: 'List - Create' }} />
       <Stack.Screen name="[id]" options={{ title: storeLayoutTitle }} />
     </Stack>
   );

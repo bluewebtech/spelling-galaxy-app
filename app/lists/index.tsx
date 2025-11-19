@@ -59,21 +59,26 @@ export default function Lists() {
       <KeyboardAwareScrollView extraHeight={100}>
         <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 40 }}>
           <View className="px-6 mt-4 mb-2">
-            <TouchableOpacity className="w-full p-3 mt-2 rounded-md border-2 bg-purple-600 border-purple-400">
+            <TouchableOpacity onPress={() => router.push(`/lists/create`)} className="w-full p-3 mt-2 rounded-md border-2 bg-purple-600 border-purple-400">
               <Text className="text-center text-white font-semibold text-xl">Create List</Text>
             </TouchableOpacity>
           </View>
           <Separator />
-          <View className="flex-1 justify-center items-center mt-3 px-6">
+          {masterList.length ? <View className="flex mt-3 px-6">
             {masterList.map((list: List) => (
               <TouchableOpacity
                 key={list.id}
-                onPress={() => router.push(`/lists/${list.id}`)}
-                className="w-full p-3 mb-4 font-semibold rounded-md border-2 bg-white border-black">
+                onPress={() => router.push(`/lists/${list.id}/list`)}
+                className="flex-row justify-between items-center p-3 mb-4 font-semibold rounded-md border-2 bg-white border-black">
                 <Text className="text-black font-semibold text-xl">{list.title}</Text>
+                <Text className="p-1 text-black font-semibold text-md bg-purple-200 rounded-full">{list.total_words}</Text>
               </TouchableOpacity>
             ))}
           </View>
+            :
+            <View className="flex-row justify-center py-4">
+              <Text className="flex text-gray-500 font-medium text-xl">There are no lists available</Text>
+            </View>}
         </ScrollView>
       </KeyboardAwareScrollView>
     </KeyboardAvoidingView>

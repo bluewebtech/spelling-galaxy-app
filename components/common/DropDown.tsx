@@ -60,7 +60,7 @@ export default function CustomDropdown({ data, defaultValue, onSelect }: CustomD
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => onSelectItem(item)}
-                className="p-4 border-b border-purple-500"
+                className="mx-4 p-5 border-b border-purple-500"
               >
                 <Text className="font-semibold">{item.label}</Text>
               </TouchableOpacity>

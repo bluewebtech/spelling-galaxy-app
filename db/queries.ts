@@ -51,8 +51,8 @@ export const getMasterK12Lists = async () => {
 
 export const getMasterSampleLists = async () => {
   return await useDBClient.getAllAsync(`
-    SELECT id, title
-    FROM lists 
+    SELECT id, title, JSON_ARRAY_LENGTH(words) AS total_words
+    FROM lists
     WHERE acronym IS NULL AND master = 1
     ORDER BY sort ASC;
   `);

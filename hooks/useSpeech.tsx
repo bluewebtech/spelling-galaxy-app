@@ -1,4 +1,5 @@
 import * as Speech from "expo-speech";
+
 import { Settings } from '@/types';
 
 export const useSayWord = (word: string, settings: Settings) => {
