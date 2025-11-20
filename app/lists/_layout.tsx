@@ -10,14 +10,31 @@ export default function ListsLayout() {
   return (
     <Stack screenOptions={{
       headerLeft: () => (
-        <TouchableOpacity className="ml-3" onPress={() => router.back()}>
-          <Ionicons name="arrow-back-outline" size={25} color="#000000" style={{ fontSize: 20 }} />
+        <TouchableOpacity
+          className="ml-3"
+          onPress={() => router.back()}
+        >
+          <Ionicons
+            name="arrow-back-outline"
+            size={25}
+            color="#000000"
+            style={{ fontSize: 20 }}
+          />
         </TouchableOpacity>
       ),
     }}>
-      <Stack.Screen name="index" options={{ title: 'Lists' }} />
-      <Stack.Screen name="create" options={{ title: 'List - Create' }} />
-      <Stack.Screen name="[id]" options={{ title: storeLayoutTitle }} />
+      <Stack.Screen
+        name="index"
+        options={{ title: 'Lists' }}
+      />
+      <Stack.Screen
+        name="create"
+        options={{ title: 'List - Create' }}
+      />
+      <Stack.Screen
+        name="[id]"
+        options={{ title: storeLayoutTitle }}
+      />
     </Stack>
   );
 };

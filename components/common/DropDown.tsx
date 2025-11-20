@@ -38,18 +38,19 @@ export default function CustomDropdown({ data, defaultValue, onSelect }: CustomD
         <Text>{selectedItem ? selectedItem.label : defaultValue.label}</Text>
       </TouchableOpacity>
 
-      <Modal visible={visible} transparent animationType="fade">
+      <Modal
+        visible={visible}
+        transparent
+        animationType="fade"
+      >
         <Animated.View className="mt-5 py-12 w-full h-screen bg-white">
           <View className="absolute top-5 right-5 z-10">
-            <TouchableOpacity
-              onPress={onClose}
-            >
+            <TouchableOpacity onPress={onClose}>
               <Ionicons
                 size={25}
                 color="#ffffff"
                 className="mt-5 bg-purple-500 rounded-full p-2"
                 name="close-circle-outline"
-
               />
             </TouchableOpacity>
           </View>
@@ -59,8 +60,8 @@ export default function CustomDropdown({ data, defaultValue, onSelect }: CustomD
             keyExtractor={(item) => item.value}
             renderItem={({ item }) => (
               <TouchableOpacity
-                onPress={() => onSelectItem(item)}
                 className="mx-4 p-5 border-b border-purple-500"
+                onPress={() => onSelectItem(item)}
               >
                 <Text className="font-semibold">{item.label}</Text>
               </TouchableOpacity>

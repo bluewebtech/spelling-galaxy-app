@@ -41,15 +41,27 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView edges={['top', 'left', 'right']} className="flex-1">
+      <SafeAreaView
+        edges={['top', 'left', 'right']}
+        className="flex-1"
+      >
         <StatusBar style="auto" />
         {isBasePath && (
           <View className="flex-row items-center justify-between">
             <View className="flex">
-              <Logo width={40} height={40} textStyles="text-2xl" withLabel={false} />
+              <Logo
+                width={40}
+                height={40}
+                textStyles="text-2xl"
+                withLabel={false}
+              />
             </View>
             <View className="flex px-6">
-              <Ionicons size={30} name="alert-circle-outline" color="#333333" />
+              <Ionicons
+                size={30}
+                name="alert-circle-outline"
+                color="#333333"
+              />
             </View>
           </View>
         )}
@@ -79,21 +91,39 @@ export default function RootLayout() {
             name="index"
             options={{
               title: "Home",
-              tabBarIcon: ({ color, size }) => <Ionicons size={size} name="planet-outline" color={color} />,
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons
+                  size={size}
+                  name="planet-outline"
+                  color={color}
+                />
+              ),
             }}
           />
           <Tabs.Screen
             name="lists"
             options={{
               title: "Lists",
-              tabBarIcon: ({ color, size }) => <Ionicons size={size} name="list-circle-outline" color={color} />,
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons
+                  size={size}
+                  name="list-circle-outline"
+                  color={color}
+                />
+              ),
             }}
           />
           <Tabs.Screen
             name="profile"
             options={{
               title: "Profile",
-              tabBarIcon: ({ color, size }) => <Ionicons size={size} name="person-circle-outline" color={color} />,
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons
+                  size={size}
+                  name="person-circle-outline"
+                  color={color}
+                />
+              ),
             }}
           />
         </Tabs>

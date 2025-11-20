@@ -33,7 +33,11 @@ export default function Modal({ title, children, show, onClose }: ModalProps) {
   }, [show]);
 
   return (
-    <NativeModal visible={visible} transparent animationType="fade">
+    <NativeModal
+      visible={visible}
+      transparent
+      animationType="fade"
+    >
       <Animated.View className="py-12 w-full h-screen bg-white p-5">
         <View className="flex-row items-center justify-between">
           <View className="flex">
@@ -44,7 +48,10 @@ export default function Modal({ title, children, show, onClose }: ModalProps) {
             )}
           </View>
           <View className="flex">
-            <TouchableOpacity className="mt-8" onPress={() => onClose(false)}>
+            <TouchableOpacity
+              className="mt-8"
+              onPress={() => onClose(false)}
+            >
               <Ionicons
                 size={35}
                 name="close-circle-outline"

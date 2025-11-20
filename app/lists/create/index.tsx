@@ -29,9 +29,15 @@ export default function ListCreate() {
   };
 
   return (
-    <KeyboardAvoidingView className="flex-1 bg-white" behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <KeyboardAvoidingView
+      className="flex-1 bg-white"
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       <KeyboardAwareScrollView extraHeight={100}>
-        <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 40 }}>
+        <ScrollView
+          className="flex-1"
+          contentContainerStyle={{ paddingBottom: 40 }}
+        >
           <View className="px-6 mt-3 mb-2 flex-row justify-between items-center ">
             <View className="flex-1 py-2">
               <Text className="my-2 text-black font-semibold">Title</Text>
@@ -44,23 +50,43 @@ export default function ListCreate() {
               <Text className="mb-1 text-black font-semibold">Words</Text>
               <View className="flex-row items-center my-2 bg-purple-50 border-2 border-purple-300 p-3 rounded-md focus:bg-white focus:border-purple-500">
                 <TextInput className="flex-1 text-lg text-black caret-black leading-[19px]" />
-                <Ionicons size={20} name="remove-circle-outline" color="red" />
+                <Ionicons
+                  size={20}
+                  name="remove-circle-outline"
+                  color="red"
+                />
               </View>
               <View className="flex-row items-center my-2 bg-purple-50 border-2 border-purple-300 p-3 rounded-md focus:bg-white focus:border-purple-500">
                 <TextInput className="flex-1 text-lg text-black caret-black leading-[19px]" />
-                <Ionicons size={20} name="remove-circle-outline" color="red" />
+                <Ionicons
+                  size={20}
+                  name="remove-circle-outline"
+                  color="red"
+                />
               </View>
               <View className="flex-row items-center my-2 bg-purple-50 border-2 border-purple-300 p-3 rounded-md focus:bg-white focus:border-purple-500">
                 <TextInput className="flex-1 text-lg text-black caret-black leading-[19px]" />
-                <Ionicons size={20} name="remove-circle-outline" color="red" />
+                <Ionicons
+                  size={20}
+                  name="remove-circle-outline"
+                  color="red"
+                />
               </View>
               <View className="flex-row items-center my-2 bg-purple-50 border-2 border-purple-300 p-3 rounded-md focus:bg-white focus:border-purple-500">
                 <TextInput className="flex-1 text-lg text-black caret-black leading-[19px]" />
-                <Ionicons size={20} name="remove-circle-outline" color="red" />
+                <Ionicons
+                  size={20}
+                  name="remove-circle-outline"
+                  color="red"
+                />
               </View>
               <View className="flex-row items-center my-2 bg-purple-50 border-2 border-purple-300 p-3 rounded-md focus:bg-white focus:border-purple-500">
                 <TextInput className="flex-1 text-lg text-black caret-black leading-[19px]" />
-                <Ionicons size={20} name="remove-circle-outline" color="red" />
+                <Ionicons
+                  size={20}
+                  name="remove-circle-outline"
+                  color="red"
+                />
               </View>
             </View>
           </View>
@@ -78,7 +104,10 @@ export default function ListCreate() {
             >
               <Text className="text-center text-white font-semibold text-xl">Save</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.push(`/lists`)} className="p-3 my-2 bg-gray-400 rounded-md border-2 border-gray-200">
+            <TouchableOpacity
+              className="p-3 my-2 bg-gray-400 rounded-md border-2 border-gray-200"
+              onPress={() => router.push(`/lists`)}
+            >
               <Text className="text-center text-white font-semibold text-xl">Cancel</Text>
             </TouchableOpacity>
           </View>

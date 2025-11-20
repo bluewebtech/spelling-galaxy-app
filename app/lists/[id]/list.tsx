@@ -5,6 +5,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+import DeleteModal from "@/components/common/DeleteModal";
 import Separator from "@/components/common/Separator";
 import { getList, getAccountMasterSettings } from '@/db/queries';
 import { useSayWord } from '@/hooks/useSpeech';
@@ -23,6 +24,17 @@ export default function ListItem() {
     pitch: "",
     rate: "",
   });
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const onDeleteModalShow = () => setShowDeleteModal(true);
+
+  const onDeleteModalDelete = (id: number) => {
+    console.log('onDeleteModalDelete', id)
+    setShowDeleteModal(false)
+  };
+
+  const onDeleteModalCancel = () => setShowDeleteModal(false);
 
   const loadData = useCallback(async () => {
     try {
@@ -58,13 +70,26 @@ export default function ListItem() {
   };
 
   return (
-    <KeyboardAvoidingView className="flex-1 bg-white" behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <KeyboardAvoidingView
+      className="flex-1 bg-white"
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       <KeyboardAwareScrollView extraHeight={100}>
-        <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 40 }}>
+        <ScrollView
+          className="flex-1"
+          contentContainerStyle={{ paddingBottom: 40 }}
+        >
+          <DeleteModal
+            id={list.id}
+            message="Are you sure you want to delete this list?"
+            show={showDeleteModal}
+            onDelete={onDeleteModalDelete}
+            onCancel={onDeleteModalCancel}
+          />
           <View className="px-6 mt-6 mb-2 flex-row justify-between items-center ">
             <TouchableOpacity
               className="flex-1 p-3 rounded-md border-2 bg-blue-800 border-blue-300"
-              onPress={onStartTest}
+              onPress={() => router.push(`/lists/${id}/test`)}
             >
               <Text className="text-center text-white font-semibold text-xl">Start Test</Text>
             </TouchableOpacity>
@@ -76,7 +101,7 @@ export default function ListItem() {
             </TouchableOpacity>
             <TouchableOpacity
               className="py-3 px-6 rounded-md border-2 bg-red-600 border-red-400"
-              onPress={onStartTest}
+              onPress={onDeleteModalShow}
             >
               <Text className="text-center text-white font-semibold text-xl">Delete</Text>
             </TouchableOpacity>

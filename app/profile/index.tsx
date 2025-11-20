@@ -154,9 +154,15 @@ export default function ProfileTab() {
   };
 
   return (
-    <KeyboardAvoidingView className="flex-1 bg-white py-3" behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <KeyboardAvoidingView
+      className="flex-1 bg-white py-3"
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       <KeyboardAwareScrollView extraHeight={100}>
-        <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 40 }}>
+        <ScrollView
+          className="flex-1"
+          contentContainerStyle={{ paddingBottom: 40 }}
+        >
           <ProfilePersonal
             personal={personal}
             onFirstNameChange={onFirstNameChange}
@@ -178,7 +184,10 @@ export default function ProfileTab() {
             >
               <Text className="text-center text-white font-semibold text-xl">Save</Text>
             </TouchableOpacity>
-            <TouchableOpacity className="bg-gray-400 p-3 mt-4 rounded-md border-2 border-gray-200" onPress={onCancel}>
+            <TouchableOpacity
+              className="bg-gray-400 p-3 mt-4 rounded-md border-2 border-gray-200"
+              onPress={onCancel}
+            >
               <Text className="text-center text-white font-semibold text-xl">Cancel</Text>
             </TouchableOpacity>
           </View>

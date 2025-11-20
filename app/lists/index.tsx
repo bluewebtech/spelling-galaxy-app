@@ -52,14 +52,27 @@ export default function Lists() {
   };
 
   return (
-    <KeyboardAvoidingView className="flex-1 bg-white" behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <KeyboardAvoidingView
+      className="flex-1 bg-white"
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       {selectedListId && (
-        <ListModal listId={selectedListId} show={showModal} onClose={onCloseModal} />
+        <ListModal
+          listId={selectedListId}
+          show={showModal}
+          onClose={onCloseModal}
+        />
       )}
       <KeyboardAwareScrollView extraHeight={100}>
-        <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 40 }}>
+        <ScrollView
+          className="flex-1"
+          contentContainerStyle={{ paddingBottom: 40 }}
+        >
           <View className="px-6 mt-4 mb-2">
-            <TouchableOpacity onPress={() => router.push(`/lists/create`)} className="w-full p-3 mt-2 rounded-md border-2 bg-purple-600 border-purple-400">
+            <TouchableOpacity
+              className="w-full p-3 mt-2 rounded-md border-2 bg-purple-600 border-purple-400"
+              onPress={() => router.push(`/lists/create`)}
+            >
               <Text className="text-center text-white font-semibold text-xl">Create List</Text>
             </TouchableOpacity>
           </View>

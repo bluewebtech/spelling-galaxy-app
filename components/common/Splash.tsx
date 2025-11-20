@@ -137,10 +137,16 @@ export default function Splash({ onFinish }) {
           opacity,
         };
 
-        return <Animated.View key={s.id} style={animatedStyle} />;
+        return (
+          <Animated.View
+            key={s.id}
+            style={animatedStyle}
+          />
+        );
       })}
 
-      <Animated.View style={{ opacity: fadeAnim }}>
+      <Animated.View style={
+        { opacity: fadeAnim }}>
         <View className="shadow-2xl shadow-black-500">
           <Logo />
         </View>

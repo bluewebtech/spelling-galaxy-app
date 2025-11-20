@@ -6,10 +6,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import Separator from "@/components/common/Separator";
-import { getList, getAccountMasterSettings } from '@/db/queries';
-import { useSayWord } from '@/hooks/useSpeech';
+import { getList } from '@/db/queries';
 import useStoreLayout from '@/store/layout';
-import { List, Settings } from '@/types';
+import { List } from '@/types';
 
 export default function ListEdit() {
   const storeSetLayoutTitle = useStoreLayout((state) => state.setTitle);
@@ -54,13 +53,22 @@ export default function ListEdit() {
   };
 
   return (
-    <KeyboardAvoidingView className="flex-1 bg-white" behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <KeyboardAvoidingView
+      className="flex-1 bg-white"
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       <KeyboardAwareScrollView extraHeight={100}>
-        <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 40 }}>
+        <ScrollView
+          className="flex-1"
+          contentContainerStyle={{ paddingBottom: 40 }}
+        >
           <View className="px-6 mt-3 mb-2 flex-row justify-between items-center ">
             <View className="flex-1 py-2">
               <Text className="my-2 text-black font-semibold">Title</Text>
-              <TextInput value={list.title} className="text-lg text-black caret-black leading-[19px] bg-purple-50 border-2 border-purple-300 p-3 rounded-md focus:bg-white focus:border-purple-500" />
+              <TextInput
+                value={list.title}
+                className="text-lg text-black caret-black leading-[19px] bg-purple-50 border-2 border-purple-300 p-3 rounded-md focus:bg-white focus:border-purple-500"
+              />
             </View>
           </View>
           <Separator />
@@ -68,12 +76,19 @@ export default function ListEdit() {
             <View className="flex-1 py-2">
               <Text className="mb-1 text-black font-semibold">Words</Text>
               {list.words?.map((item: string, key: number) => (
-                <View key={key} className="flex-row items-center my-2 bg-purple-50 border-2 border-purple-300 p-3 rounded-md">
+                <View
+                  key={key}
+                  className="flex-row items-center my-2 bg-purple-50 border-2 border-purple-300 p-3 rounded-md focus:bg-white focus:border-purple-500"
+                >
                   <TextInput
                     defaultValue={item.word}
                     className="flex-1 text-lg text-black caret-black leading-[19px]"
                   />
-                  <Ionicons size={20} name="remove-circle-outline" color="red" />
+                  <Ionicons
+                    size={20}
+                    name="remove-circle-outline"
+                    color="red"
+                  />
                 </View>
               ))}
             </View>
@@ -92,7 +107,10 @@ export default function ListEdit() {
             >
               <Text className="text-center text-white font-semibold text-xl">Save</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.back()} className="p-3 my-2 bg-gray-400 rounded-md border-2 border-gray-200">
+            <TouchableOpacity
+              className="p-3 my-2 bg-gray-400 rounded-md border-2 border-gray-200"
+              onPress={() => router.back()}
+            >
               <Text className="text-center text-white font-semibold text-xl">Cancel</Text>
             </TouchableOpacity>
           </View>

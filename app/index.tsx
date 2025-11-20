@@ -65,9 +65,15 @@ export default function App() {
   };
 
   return (
-    <KeyboardAvoidingView className="flex-1 bg-white pt-4" behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <KeyboardAvoidingView
+      className="flex-1 bg-white pt-4"
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       <KeyboardAwareScrollView extraHeight={100}>
-        <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 40 }}>
+        <ScrollView
+          className="flex-1"
+          contentContainerStyle={{ paddingBottom: 40 }}
+        >
           <View className="flex-1">
             <View className="flex items-left p-4 w-full">
               {hasAccount ? (
@@ -87,7 +93,10 @@ export default function App() {
               </View>
               <View className="flex-1 justify-center">
                 <View className="flex-row mt-2">
-                  <TouchableOpacity onPress={() => router.push(`/lists/create`)} className="w-full p-3 mt-2 rounded-md border-2 bg-purple-600 border-purple-400">
+                  <TouchableOpacity
+                    className="w-full p-3 mt-2 rounded-md border-2 bg-purple-600 border-purple-400"
+                    onPress={() => router.push(`/lists/create`)}
+                  >
                     <Text className="text-center text-white font-semibold text-xl">Create Your First List</Text>
                   </TouchableOpacity>
                 </View>
@@ -113,11 +122,14 @@ export default function App() {
                     {list.map((item) => (
                       <TouchableOpacity
                         key={item.id}
-                        onPress={() => router.push(`/lists/${item.id}/list`)}
                         className="mx-2"
+                        onPress={() => router.push(`/lists/${item.id}/list`)}
                       >
                         <View
-                          style={{ borderWidth: 10, borderColor: item.color }}
+                          style={{
+                            borderWidth: 10,
+                            borderColor: item.color,
+                          }}
                           className="rounded-full justify-center items-center p-1"
                         >
                           <View className="w-12 h-12 bg-white rounded-full justify-center items-center">
