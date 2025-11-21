@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -58,6 +58,10 @@ export default function ListItem() {
   useFocusEffect(
     React.useCallback(() => {
       loadData();
+
+      return () => {
+        setList([]);
+      };
     }, [])
   );
 

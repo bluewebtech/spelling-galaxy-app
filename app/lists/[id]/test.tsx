@@ -53,6 +53,13 @@ export default function ListTest() {
     useSayWord(word, settings);
   };
 
+  const onSayWordSlower = (word: string) => {
+    const setting = { ...settings };
+    setting.rate = "0.1";
+    useSayWord(word, setting);
+  };
+
+
   const onNextWord = () => {
     console.log('onNextWord');
   };
@@ -62,13 +69,22 @@ export default function ListTest() {
       className="flex-1 items-center p-5 bg-white"
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <View className="mt-20 mb-5 py-2">
-        <TouchableOpacity onPress={() => onSayWord(list.words[0].word)}>
-          <View className="border-4 border-purple-500 rounded-3xl p-2">
+      <View className="mt-20 mb-5 py-2 flex-row justify-between items-center">
+        <TouchableOpacity className="mx-5" onPress={() => onSayWord(list.words[0].word)}>
+          <View className="bg-purple-700 rounded-3xl p-2">
             <Ionicons
               size={60}
               name="volume-medium-outline"
-              color="#8200db"
+              color="white"
+            />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity className="mx-5" onPress={() => onSayWordSlower(list.words[0].word)}>
+          <View className="bg-purple-700 rounded-3xl p-2">
+            <Ionicons
+              size={60}
+              name="pulse-outline"
+              color="#E9C9FF"
             />
           </View>
         </TouchableOpacity>

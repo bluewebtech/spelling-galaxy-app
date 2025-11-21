@@ -12,7 +12,7 @@ export default function ListsLayout() {
       headerLeft: () => (
         <TouchableOpacity
           className="ml-3"
-          onPress={() => router.back()}
+          onPress={() => router.push("/lists")}
         >
           <Ionicons
             name="arrow-back-outline"
