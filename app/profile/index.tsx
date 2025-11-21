@@ -178,7 +178,7 @@ export default function ProfileTab() {
           />
           <View className="p-6 pt-0">
             <TouchableOpacity
-              className={`p-3 mt-2 rounded-md border-2 ${isDisabled ? "bg-purple-400 border-purple-200" : "bg-purple-600 border-purple-400"}`}
+              className={`p-3 mt-2 rounded-md border-2 ${isDisabled ? "bg-purple-400 border-purple-200" : "bg-purple-700 border-purple-400"}`}
               disabled={isDisabled}
               onPress={onSave}
             >

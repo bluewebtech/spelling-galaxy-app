@@ -61,10 +61,6 @@ export default function ListItem() {
     }, [])
   );
 
-  const onStartTest = async () => {
-    console.log('onStartTest');
-  };
-
   const onSayWord = (word: string) => {
     useSayWord(word, settings);
   };
@@ -86,7 +82,7 @@ export default function ListItem() {
             onDelete={onDeleteModalDelete}
             onCancel={onDeleteModalCancel}
           />
-          <View className="px-6 mt-6 mb-2 flex-row justify-between items-center ">
+          <View className="px-6 mt-6 mb-2 flex-row justify-between items-center">
             <TouchableOpacity
               className="flex-1 p-3 rounded-md border-2 bg-blue-800 border-blue-300"
               onPress={() => router.push(`/lists/${id}/test`)}
@@ -94,7 +90,7 @@ export default function ListItem() {
               <Text className="text-center text-white font-semibold text-xl">Start Test</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className="mx-5 py-3 px-6 rounded-md border-2 bg-purple-600 border-purple-400"
+              className="mx-5 py-3 px-6 rounded-md border-2 bg-purple-700 border-purple-400"
               onPress={() => router.push(`/lists/${id}/edit`)}
             >
               <Text className="text-center text-white font-semibold text-xl">Edit</Text>
@@ -111,15 +107,18 @@ export default function ListItem() {
             {list.words?.map((item: List, key: number) => (
               <TouchableOpacity
                 key={key}
-                className="w-full p-3 mb-4 font-semibold rounded-md border-2 bg-white border-black"
+                className="w-full p-3 mb-6 font-semibold rounded-md border-2 bg-white border-purple-700"
                 onPress={() => onSayWord(item.word)}>
                 <View className="flex-row items-center justify-between">
-                  <Text className="text-center text-black font-semibold text-xl">{item.word}</Text>
-                  <Ionicons
-                    size={25}
-                    name="volume-medium-outline"
-                    color="#8200db"
-                  />
+                  <Text className="text-center text-purple-700 font-semibold text-xl">{item.word}</Text>
+                  <Text className="p-1 text-white font-semibold text-md bg-purple-700 rounded-full">
+                    <Ionicons
+                      size={25}
+                      name="volume-medium-outline"
+                      color="white"
+                    />
+                  </Text>
+
                 </View>
               </TouchableOpacity>
             ))}

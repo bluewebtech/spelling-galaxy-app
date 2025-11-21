@@ -82,15 +82,15 @@ export default function Lists() {
               <TouchableOpacity
                 key={list.id}
                 onPress={() => router.push(`/lists/${list.id}/list`)}
-                className="flex-row justify-between items-center p-3 mb-4 font-semibold rounded-md border-2 bg-white border-black">
-                <Text className="text-black font-semibold text-xl">{list.title}</Text>
-                <Text className="p-1 text-black font-semibold text-md bg-purple-200 rounded-full">{list.total_words}</Text>
+                className="flex-row justify-between items-center p-3 mb-6 font-semibold rounded-md border-2 bg-white border-purple-700">
+                <Text className="text-purple-700 font-semibold text-xl">{list.title}</Text>
+                <Text className="p-2 text-white font-semibold text-md bg-purple-700 rounded-full">{list.total_words}</Text>
               </TouchableOpacity>
             ))}
           </View>
             :
             <View className="flex-row justify-center py-4">
-              <Text className="flex text-gray-500 font-medium text-xl">There are no lists available</Text>
+              <Text className="flex text-black font-medium text-xl">There are no lists available</Text>
             </View>}
         </ScrollView>
       </KeyboardAwareScrollView>

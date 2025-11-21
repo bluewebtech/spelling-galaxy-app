@@ -41,20 +41,20 @@ export default function DeleteModal({ id, message, show, onDelete, onCancel }: D
       <Animated.View className="py-12 w-full h-screen bg-white p-5">
         <View className="flex-1 justify-center items-center bg-white">
           <View className="py-2">
-            <Text className="font-semibold text-4xl">Delete?</Text>
+            <Text className="text-purple-700 font-semibold text-4xl">Delete?</Text>
           </View>
           <View className="py-2">
             <Text className="text-xl">{message}</Text>
           </View>
-          <View className="py-5 w-full">
+          <View className="flex-row justify-between items-center py-5 w-full">
             <TouchableOpacity
-              className="py-3 px-6 rounded-md border-2 bg-red-600 border-red-400"
+              className="flex-1 p-3 mx-2 rounded-md border-2 bg-purple-700 border-purple-400"
               onPress={() => onDelete(id)}
             >
               <Text className="text-center text-white font-semibold text-xl">Yes</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className="p-3 my-2 bg-gray-400 rounded-md border-2 border-gray-200"
+              className="flex-1 p-3 mx-2 bg-gray-400 rounded-md border-2 border-gray-200"
               onPress={() => onCancel(false)}
             >
               <Text className="text-center text-white font-semibold text-xl">No</Text>

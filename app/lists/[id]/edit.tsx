@@ -67,7 +67,7 @@ export default function ListEdit() {
               <Text className="my-2 text-black font-semibold">Title</Text>
               <TextInput
                 value={list.title}
-                className="text-lg text-black caret-black leading-[19px] bg-purple-50 border-2 border-purple-300 p-3 rounded-md focus:bg-white focus:border-purple-500"
+                className="text-lg text-black caret-black leading-[19px] bg-purple-50 border-2 border-purple-50 p-4 rounded-md focus:bg-white focus:border-purple-500"
               />
             </View>
           </View>
@@ -78,37 +78,39 @@ export default function ListEdit() {
               {list.words?.map((item: string, key: number) => (
                 <View
                   key={key}
-                  className="flex-row items-center my-2 bg-purple-50 border-2 border-purple-300 p-3 rounded-md focus:bg-white focus:border-purple-500"
+                  className="flex-row items-center my-3 bg-purple-50 border-2 border-purple-50 p-3 rounded-md focus:bg-white focus:border-purple-500"
                 >
                   <TextInput
                     defaultValue={item.word}
                     className="flex-1 text-lg text-black caret-black leading-[19px]"
                   />
-                  <Ionicons
-                    size={20}
-                    name="remove-circle-outline"
-                    color="red"
-                  />
+                  <Text className="p-1 text-white font-semibold text-md bg-purple-700 rounded-full">
+                    <Ionicons
+                      size={25}
+                      name="remove-circle-outline"
+                      color="white"
+                    />
+                  </Text>
                 </View>
               ))}
             </View>
           </View>
-          <View className="px-6">
+          <View className="px-6 mt-6 mb-2 flex-row justify-between items-center">
             <TouchableOpacity
-              className="p-3 my-2 rounded-md border-2 bg-blue-800 border-blue-300"
+              className="p-3 rounded-md border-2 bg-blue-800 border-blue-300"
               onPress={onAdd}
             >
               <Text className="text-center text-white font-semibold text-xl">Add Word</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className={`p-3 my-2 rounded-md border-2 ${isDisabled ? "bg-purple-400 border-purple-200" : "bg-purple-600 border-purple-400"}`}
+              className={`flex-1 mx-5 py-3 px-6 rounded-md border-2 ${isDisabled ? "bg-purple-400 border-purple-200" : "bg-purple-700 border-purple-400"}`}
               disabled={isDisabled}
               onPress={onSave}
             >
               <Text className="text-center text-white font-semibold text-xl">Save</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className="p-3 my-2 bg-gray-400 rounded-md border-2 border-gray-200"
+              className="py-3 px-6 bg-gray-400 rounded-md border-2 border-gray-200"
               onPress={() => router.back()}
             >
               <Text className="text-center text-white font-semibold text-xl">Cancel</Text>

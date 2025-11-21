@@ -79,7 +79,7 @@ export default function App() {
               {hasAccount ? (
                 <View className="flex-row justify-center">
                   <Text className="flex mr-1 text-3xl font-semibold text-black">Welcome back,</Text>
-                  <Text className="flex text-3xl font-semibold text-purple-500">{firstName}!</Text>
+                  <Text className="flex text-3xl font-semibold text-purple-700">{firstName}!</Text>
                 </View>
               ) : (
                 <View className="flex-row justify-center">
@@ -94,7 +94,7 @@ export default function App() {
               <View className="flex-1 justify-center">
                 <View className="flex-row mt-2">
                   <TouchableOpacity
-                    className="w-full p-3 mt-2 rounded-md border-2 bg-purple-600 border-purple-400"
+                    className="w-full p-3 mt-2 rounded-md border-2 bg-purple-700 border-purple-400"
                     onPress={() => router.push(`/lists/create`)}
                   >
                     <Text className="text-center text-white font-semibold text-xl">Create Your First List</Text>
@@ -106,7 +106,7 @@ export default function App() {
           <Separator />
           <View className="flex items-left p-2 rounded-xl bg-white w-full">
             <View className="flex-row justify-center">
-              <Text className="flex mr-2 text-3xl font-semibold text-purple-500">K12</Text>
+              <Text className="flex mr-2 text-3xl font-semibold text-purple-700">K12</Text>
               <Text className="flex text-3xl font-semibold text-black">Lists</Text>
             </View>
             <View className="flex-row justify-center mb-3 p-3">

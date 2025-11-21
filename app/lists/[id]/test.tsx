@@ -74,7 +74,7 @@ export default function ListTest() {
         </TouchableOpacity>
       </View >
       <View className="py-4 w-full">
-        <TextInput className="text-lg text-black caret-black leading-[19px] bg-purple-50 border-2 border-purple-300 p-3 rounded-md focus:bg-white focus:border-purple-500" />
+        <TextInput className="text-lg text-black caret-black leading-[19px] bg-purple-50 border-2 border-purple-50 p-4 rounded-md focus:bg-white focus:border-purple-500" />
       </View>
       <View className="w-full">
         <TouchableOpacity
