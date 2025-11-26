@@ -81,8 +81,19 @@ export default function ListCreate() {
 
   const onSave = async () => {
     try {
-      const cleanedWords = list.words.filter(w => w.word.trim().length > 0);
-      const cleanedList: List = { ...list, words: cleanedWords };
+      const cleanedWords = list.words
+        .filter(item => item.word.trim().length > 0)
+        .map(item => ({ ...item, word: item.word.trim() }));
+
+      const seen = new Set();
+      const uniqueWords = cleanedWords.filter(w => {
+        const lower = w.word.toLowerCase();
+        if (seen.has(lower)) return false;
+        seen.add(lower);
+        return true;
+      });
+
+      const cleanedList: List = { ...list, words: uniqueWords };
       const result = await createList(cleanedList);
 
       if (result?.changes) {
