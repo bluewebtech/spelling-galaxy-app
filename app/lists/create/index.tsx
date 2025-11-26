@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { TextInput, KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { router } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -34,9 +34,9 @@ export default function ListCreate() {
     setIsDisabled(!(hasTitle && hasAtLeastOneWord));
   };
 
-  const onUpdateTitle = (t: string) => {
+  const onUpdateTitle = (title: string) => {
     setList(prev => {
-      const updated = { ...prev, title: t };
+      const updated = { ...prev, title };
       validateForm(updated);
       return updated;
     });
@@ -144,7 +144,7 @@ export default function ListCreate() {
                 >
                   <TextInput
                     value={item.word}
-                    onChangeText={(t) => onUpdateWord(index, t)}
+                    onChangeText={(word) => onUpdateWord(index, word)}
                     placeholder={`Word ${index + 1}`}
                     className="flex-1 text-lg text-black caret-black leading-[19px]"
                   />

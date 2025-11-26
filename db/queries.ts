@@ -86,3 +86,11 @@ export const createList = async ({ title, acronym, grade, words, color, group }:
     [title, acronym, grade, JSON.stringify(words), color, group, date, date]
   );
 };
+
+export const updateList = async (id: number, { title, acronym, grade, words, color, group }: List) => {
+  return await useDBClient.runAsync(`
+    UPDATE lists 
+    SET title = ?, acronym = ?, grade = ?, words = ?, color = ?, group_id = ?, updated_at = ?
+    WHERE id = ?;
+  `, [title, acronym, grade, JSON.stringify(words), color, group, date, id]);
+};

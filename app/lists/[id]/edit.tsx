@@ -4,20 +4,42 @@ import { useFocusEffect } from '@react-navigation/native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Ionicons from "@expo/vector-icons/Ionicons";
+import Toast from "react-native-toast-message";
 
 import Separator from "@/components/common/Separator";
-import { getList } from '@/db/queries';
+import { getList, updateList } from '@/db/queries';
 import useStoreLayout from '@/store/layout';
-import { List } from '@/types';
+import { List, Word } from '@/types';
 
 export default function ListEdit() {
   const storeSetLayoutTitle = useStoreLayout((state) => state.setTitle);
 
   const { id } = useLocalSearchParams();
 
-  const [list, setList] = useState<List[]>([]);
+  const [list, setList] = useState<List>({
+    title: "",
+    acronym: null,
+    grade: null,
+    color: null,
+    words: [
+      { word: "", definition: null },
+      { word: "", definition: null },
+      { word: "", definition: null },
+      { word: "", definition: null },
+      { word: "", definition: null },
+    ],
+    group: null,
+  });
+
 
   const [isDisabled, setIsDisabled] = useState(true);
+
+  const validateForm = (updatedList: List) => {
+    const hasTitle = updatedList.title.trim().length > 0;
+    const hasAtLeastOneWord = updatedList.words.some(w => w.word.trim().length > 0);
+
+    setIsDisabled(!(hasTitle && hasAtLeastOneWord));
+  };
 
   const loadData = useCallback(async () => {
     try {
@@ -40,16 +62,85 @@ export default function ListEdit() {
     }, [])
   );
 
-  const onAdd = () => {
-    console.log('onAdd');
+  const onUpdateTitle = (title: string) => {
+    setList(prev => {
+      const updated = { ...prev, title };
+      validateForm(updated);
+      return updated;
+    });
   };
 
-  const onSave = () => {
-    console.log('onSave');
+  const onUpdateWord = (index: number, value: string) => {
+    setList(prev => {
+      const updatedWords = [...prev.words];
+      updatedWords[index] = { ...updatedWords[index], word: value };
+
+      const updatedList = { ...prev, words: updatedWords };
+
+      validateForm(updatedList);
+
+      return updatedList;
+    });
   };
 
-  const onCancel = () => {
-    console.log('onCancel');
+  const onAddWord = () => {
+    setList(prev => {
+      const updatedList = {
+        ...prev,
+        words: [...prev.words, { word: "", definition: null }],
+      };
+
+      validateForm(updatedList);
+      return updatedList;
+    });
+  };
+
+  const onRemoveWord = (index: number) => {
+    setList(prev => {
+      const updatedList = {
+        ...prev,
+        words: prev.words.filter((_, i) => i !== index),
+      };
+
+      validateForm(updatedList);
+      return updatedList;
+    });
+  };
+
+  const onSave = async () => {
+    try {
+      const cleanedWords = list.words
+        .filter(item => item.word.trim().length > 0)
+        .map(item => ({ ...item, word: item.word.trim() }));
+
+      const seen = new Set();
+      const uniqueWords = cleanedWords.filter(w => {
+        const lower = w.word.toLowerCase();
+        if (seen.has(lower)) return false;
+        seen.add(lower);
+        return true;
+      });
+
+      const cleanedList: List = { ...list, words: uniqueWords };
+      const result = await updateList(Number(id), cleanedList);
+
+      if (result?.changes) {
+        Toast.show({
+          type: "success",
+          text1: "Success!",
+          text2: "Your list has been saved.",
+        });
+
+        setTimeout(() => router.push('/lists'), 500);
+      }
+    } catch (error) {
+      console.log(error);
+      Toast.show({
+        type: "error",
+        text1: "Error!",
+        text2: "Failed to save list.",
+      });
+    }
   };
 
   return (
@@ -67,6 +158,7 @@ export default function ListEdit() {
               <Text className="my-2 text-black font-semibold">Title</Text>
               <TextInput
                 value={list.title}
+                onChangeText={onUpdateTitle}
                 className="text-lg text-black caret-black leading-[19px] bg-purple-50 border-2 border-purple-50 p-4 rounded-md focus:bg-white focus:border-purple-500"
               />
             </View>
@@ -75,22 +167,27 @@ export default function ListEdit() {
           <View className="px-6 flex-row justify-between items-center ">
             <View className="flex-1 py-2">
               <Text className="mb-1 text-black font-semibold">Words</Text>
-              {list.words?.map((item: string, key: number) => (
+              {list.words.map((item: Word, index: number) => (
                 <View
-                  key={key}
-                  className="flex-row items-center my-3 bg-purple-50 border-2 border-purple-50 p-3 rounded-md focus:bg-white focus:border-purple-500"
+                  key={index}
+                  className="flex-row items-center my-3 bg-purple-50 border-2 border-purple-50 p-3 rounded-md"
                 >
                   <TextInput
-                    defaultValue={item.word}
+                    value={item.word}
+                    onChangeText={(word) => onUpdateWord(index, word)}
+                    placeholder={`Word ${index + 1}`}
                     className="flex-1 text-lg text-black caret-black leading-[19px]"
                   />
-                  <Text className="p-1 text-white font-semibold text-md bg-purple-700 rounded-full">
+                  <TouchableOpacity
+                    onPress={() => onRemoveWord(index)}
+                    className="p-1 bg-purple-700 rounded-full ml-3"
+                  >
                     <Ionicons
                       size={25}
                       name="remove-circle-outline"
                       color="white"
                     />
-                  </Text>
+                  </TouchableOpacity>
                 </View>
               ))}
             </View>
@@ -98,12 +195,15 @@ export default function ListEdit() {
           <View className="px-6 mt-6 mb-2 flex-row justify-between items-center">
             <TouchableOpacity
               className="p-3 rounded-md border-2 bg-blue-800 border-blue-300"
-              onPress={onAdd}
+              onPress={onAddWord}
             >
               <Text className="text-center text-white font-semibold text-xl">Add Word</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className={`flex-1 mx-5 py-3 px-6 rounded-md border-2 ${isDisabled ? "bg-purple-400 border-purple-200" : "bg-purple-700 border-purple-400"}`}
+              className={`flex-1 mx-5 py-3 px-6 rounded-md border-2 ${isDisabled
+                ? "bg-purple-400 border-purple-200"
+                : "bg-purple-700 border-purple-400"
+                }`}
               disabled={isDisabled}
               onPress={onSave}
             >
