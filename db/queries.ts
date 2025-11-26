@@ -59,7 +59,12 @@ export const getMasterSampleLists = async () => {
 };
 
 export const getLists = async () => {
-  return await useDBClient.getAllAsync(`SELECT * FROM lists;`);
+  return await useDBClient.getAllAsync(`
+    SELECT id, title, JSON_ARRAY_LENGTH(words) AS total_words
+    FROM lists
+    WHERE acronym IS NULL
+    ORDER BY sort ASC;
+  `);
 };
 
 export const getList = async (id: number) => {
@@ -71,5 +76,13 @@ export const createMasterList = async ({ title, acronym, grade, words, color, gr
       INSERT INTO lists (title, acronym, grade, words, color, group_id, master, sort, created_at, updated_at)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [title, acronym, grade, JSON.stringify(words), color, group, 1, key, date, date]
+  );
+};
+
+export const createList = async ({ title, acronym, grade, words, color, group }: List) => {
+  return useDBClient.runAsync(`
+      INSERT INTO lists (title, acronym, grade, words, color, group_id, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+    [title, acronym, grade, JSON.stringify(words), color, group, date, date]
   );
 };

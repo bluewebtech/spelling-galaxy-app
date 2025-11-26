@@ -111,7 +111,7 @@ export default function ListEdit() {
             </TouchableOpacity>
             <TouchableOpacity
               className="py-3 px-6 bg-gray-400 rounded-md border-2 border-gray-200"
-              onPress={() => router.back()}
+              onPress={() => router.push(`/lists`)}
             >
               <Text className="text-center text-white font-semibold text-xl">Cancel</Text>
             </TouchableOpacity>

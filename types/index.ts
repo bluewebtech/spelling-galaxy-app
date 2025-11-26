@@ -33,5 +33,5 @@ export type List = {
 
 export type Word = {
   word: string;
-  definition: string;
+  definition: string | null;
 };

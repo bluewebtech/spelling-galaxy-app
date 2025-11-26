@@ -6,14 +6,14 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import ListModal from '@/components/common/ListModal';
 import Separator from "@/components/common/Separator";
-import { getMasterSampleLists } from '@/db/queries';
+import { getLists } from '@/db/queries';
 import useStoreLayout from '@/store/layout';
 import { List } from '@/types';
 
 export default function Lists() {
   const storeSetLayoutTitle = useStoreLayout((state) => state.setTitle);
 
-  const [masterList, setMasterList] = useState<any[]>([]);
+  const [list, setList] = useState<any[]>([]);
 
   const [selectedListId, setSelectedListId] = useState<number | null>(null);
 
@@ -21,11 +21,11 @@ export default function Lists() {
 
   const loadData = useCallback(async () => {
     try {
-      const queryMasterSampleLists = await getMasterSampleLists();
+      const queryLists = await getLists();
 
-      if (queryMasterSampleLists) {
-        const masterListTitles: any[] = queryMasterSampleLists;
-        setMasterList(masterListTitles);
+      if (queryLists) {
+        const listTitles: any[] = queryLists;
+        setList(listTitles);
       }
     } catch (error) {
       console.error("Error loading list:", error);
@@ -77,8 +77,8 @@ export default function Lists() {
             </TouchableOpacity>
           </View>
           <Separator />
-          {masterList.length ? <View className="flex mt-3 px-6">
-            {masterList.map((list: List) => (
+          {list.length ? <View className="flex mt-3 px-6">
+            {list.map((list: List) => (
               <TouchableOpacity
                 key={list.id}
                 onPress={() => router.push(`/lists/${list.id}/list`)}
