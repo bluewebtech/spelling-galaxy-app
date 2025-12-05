@@ -84,7 +84,7 @@ export default function Lists() {
                 onPress={() => router.push(`/lists/${list.id}/list`)}
                 className="flex-row justify-between items-center p-3 mb-6 font-semibold rounded-md border-2 bg-white border-purple-700">
                 <Text className="text-purple-700 font-semibold text-xl">{list.title}</Text>
-                <Text className="p-2 text-white font-semibold text-md bg-purple-700 rounded-full">{list.total_words}</Text>
+                <Text className="p-2 text-white text-center font-semibold text-md bg-purple-700 rounded-full w-9">{list.total_words}</Text>
               </TouchableOpacity>
             ))}
           </View>

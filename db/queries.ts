@@ -8,7 +8,7 @@ export const getAccountMaster = async () => {
   return await useDBClient.getFirstAsync(`
     SELECT * 
     FROM accounts 
-    WHERE master = 1;
+    WHERE master = 1 AND deleted_at IS NULL;
   `);
 };
 
@@ -16,7 +16,7 @@ export const getAccountMasterSettings = async () => {
   return await useDBClient.getFirstAsync(`
     SELECT voice, pitch, rate
     FROM accounts 
-    WHERE master = 1;
+    WHERE master = 1 AND deleted_at IS NULL;
   `);
 };
 
@@ -44,7 +44,7 @@ export const getMasterK12Lists = async () => {
   return await useDBClient.getAllAsync(`
     SELECT id, acronym, color, group_id
     FROM lists 
-    WHERE acronym IS NOT NULL AND master = 1
+    WHERE acronym IS NOT NULL AND master = 1 AND deleted_at IS NULL
     ORDER BY sort ASC;
   `);
 };
@@ -53,7 +53,7 @@ export const getMasterSampleLists = async () => {
   return await useDBClient.getAllAsync(`
     SELECT id, title, JSON_ARRAY_LENGTH(words) AS total_words
     FROM lists
-    WHERE acronym IS NULL AND master = 1
+    WHERE acronym IS NULL AND master = 1 AND deleted_at IS NULL
     ORDER BY sort ASC;
   `);
 };
@@ -62,13 +62,18 @@ export const getLists = async () => {
   return await useDBClient.getAllAsync(`
     SELECT id, title, JSON_ARRAY_LENGTH(words) AS total_words
     FROM lists
-    WHERE acronym IS NULL
+    WHERE acronym IS NULL AND deleted_at IS NULL
     ORDER BY sort ASC;
   `);
 };
 
 export const getList = async (id: number) => {
-  return await useDBClient.getFirstAsync(`SELECT * FROM lists WHERE id = ?;`, [id]);
+  return await useDBClient.getFirstAsync(`
+    SELECT * 
+    FROM lists 
+    WHERE id = ?;`,
+    [id]
+  );
 };
 
 export const createMasterList = async ({ title, acronym, grade, words, color, group }: List, key: number) => {
@@ -93,4 +98,12 @@ export const updateList = async (id: number, { title, acronym, grade, words, col
     SET title = ?, acronym = ?, grade = ?, words = ?, color = ?, group_id = ?, updated_at = ?
     WHERE id = ?;
   `, [title, acronym, grade, JSON.stringify(words), color, group, date, id]);
+};
+
+export const deleteList = async (id: number) => {
+  return await useDBClient.runAsync(`
+    UPDATE lists 
+    SET deleted_at = ?
+    WHERE id = ?;
+  `, [date, id]);
 };

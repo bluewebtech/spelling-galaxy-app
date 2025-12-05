@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Dimensions, Modal, Text, TouchableOpacity, View } from 'react-native';
 
 interface DeleteModalProps {
-  id: number;
+  id: number | null | undefined;
   message: string;
   show: boolean;
   onDelete: (event: number) => void;

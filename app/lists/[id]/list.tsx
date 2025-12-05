@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -10,14 +10,17 @@ import Separator from "@/components/common/Separator";
 import { getList, getAccountMasterSettings } from '@/db/queries';
 import { useSayWord } from '@/hooks/useSpeech';
 import useStoreLayout from '@/store/layout';
-import { List, Settings } from '@/types';
+import useStoreList from '@/store/list';
+import { Settings, Word } from '@/types';
 
 export default function ListItem() {
   const storeSetLayoutTitle = useStoreLayout((state) => state.setTitle);
 
-  const { id } = useLocalSearchParams();
+  const setList = useStoreList((state) => state.setList);
 
-  const [list, setList] = useState<any[]>([]);
+  const list = useStoreList((state) => state.list);
+
+  const { id } = useLocalSearchParams();
 
   const [settings, setSettings] = useState<Settings>({
     voice: "",
@@ -58,16 +61,10 @@ export default function ListItem() {
   useFocusEffect(
     React.useCallback(() => {
       loadData();
-
-      return () => {
-        setList([]);
-      };
     }, [])
   );
 
-  const onSayWord = (word: string) => {
-    useSayWord(word, settings);
-  };
+  const onSayWord = (word: string) => useSayWord(word, settings);
 
   return (
     <KeyboardAvoidingView
@@ -80,7 +77,7 @@ export default function ListItem() {
           contentContainerStyle={{ paddingBottom: 40 }}
         >
           <DeleteModal
-            id={list.id}
+            id={list?.id}
             message="Are you sure you want to delete this list?"
             show={showDeleteModal}
             onDelete={onDeleteModalDelete}
@@ -108,7 +105,7 @@ export default function ListItem() {
           </View>
           <Separator />
           <View className="flex-1 justify-center items-center mt-3 px-6">
-            {list.words?.map((item: List, key: number) => (
+            {list?.words?.map((item: Word, key: number) => (
               <TouchableOpacity
                 key={key}
                 className="w-full p-3 mb-6 font-semibold rounded-md border-2 bg-white border-purple-700"

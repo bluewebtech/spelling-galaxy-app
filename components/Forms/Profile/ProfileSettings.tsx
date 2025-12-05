@@ -3,6 +3,7 @@ import { Text, TextInput, View } from "react-native";
 import * as Speech from "expo-speech";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+import { SampleWord } from "@/config";
 import Dropdown from "@/components/common/DropDown";
 import { useSayWord } from '@/hooks/useSpeech';
 
@@ -16,8 +17,6 @@ type ProfileSettingsProps = {
   onPitchChange: (event: string) => Promise<void>;
   onRateChange: (event: string) => Promise<void>;
 };
-
-const SAMPLE_WORD = "Spelling Galaxy";
 
 export default function ProfileSettings({
   settings,
@@ -61,7 +60,7 @@ export default function ProfileSettings({
 
       setVoices(englishVoices);
 
-      const saved = englishVoices.find((v) => v.value === settings.voice);
+      const saved = englishVoices.find((item) => item.value === settings.voice);
       setDefaultVoice(saved || englishVoices[0] || null);
     } catch (error) {
       console.error("Error fetching voices:", error);
@@ -71,15 +70,15 @@ export default function ProfileSettings({
   const handleVoiceChange = async (newVoice: string) => {
     setVoice(newVoice);
     await onVoiceChange(newVoice);
-    useSayWord(SAMPLE_WORD, { voice: newVoice, pitch, rate });
+    useSayWord(SampleWord, { voice: newVoice, pitch, rate });
   };
 
   const onVoiceSample = () => {
-    useSayWord(SAMPLE_WORD, { voice, pitch, rate });
+    useSayWord(SampleWord, { voice, pitch, rate });
   };
 
   const dropdownValue =
-    voices.find((v) => v.value === voice) ||
+    voices.find((item) => item.value === voice) ||
     defaultVoice ||
     { label: "Select Voice", value: "" };
 
@@ -87,12 +86,13 @@ export default function ProfileSettings({
     <View className="px-6 py-2">
       <View className="flex-row items-center justify-between mb-2">
         <Text className="text-2xl font-semibold text-purple-700">Settings</Text>
-        <Ionicons
-          size={30}
-          name="volume-medium-outline"
-          color="#000000"
-          onPress={onVoiceSample}
-        />
+        <Text className="p-1 text-white font-semibold text-md bg-purple-700 rounded-full w-9 text-center" onPress={onVoiceSample}>
+          <Ionicons
+            size={25}
+            name="volume-medium-outline"
+            color="white"
+          />
+        </Text>
       </View>
       <View className="py-2">
         <Text className="mb-1 text-black font-semibold">Voice Preference</Text>

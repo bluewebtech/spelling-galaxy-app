@@ -1,20 +1,18 @@
 import React, { useCallback, useState } from "react";
 import { TextInput, KeyboardAvoidingView, Platform, Text, TouchableOpacity, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { useLocalSearchParams } from 'expo-router';
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import { getList, getAccountMasterSettings } from '@/db/queries';
+import { getAccountMasterSettings } from '@/db/queries';
 import { useSayWord } from '@/hooks/useSpeech';
-import useStoreLayout from '@/store/layout';
-import { List, Settings } from '@/types';
+import useStoreList from '@/store/list';
+import useStoreTest from '@/store/test';
+import { Settings } from '@/types';
 
 export default function ListTest() {
-  const storeSetLayoutTitle = useStoreLayout((state) => state.setTitle);
+  const list = useStoreList((state) => state.list);
 
-  const { id } = useLocalSearchParams();
-
-  const [list, setList] = useState<List[]>([]);
+  const wordKey = useStoreTest((state) => state.wordKey);
 
   const [settings, setSettings] = useState<Settings>({
     voice: "",
@@ -25,22 +23,9 @@ export default function ListTest() {
   const [isDisabled, setIsDisabled] = useState(true);
 
   const loadData = useCallback(async () => {
-    try {
-      const queryList = await getList(Number(id));
-      const querySettings = await getAccountMasterSettings();
-
-      if (queryList) {
-        const list: any = queryList;
-        list.words = JSON.parse(list.words);
-        setList(list);
-        storeSetLayoutTitle(list.title);
-
-        const settings: any = querySettings;
-        setSettings(settings);
-      }
-    } catch (error) {
-      console.error("Error loading list:", error);
-    }
+    const querySettings = await getAccountMasterSettings();
+    const settings: any = querySettings;
+    setSettings(settings);
   }, []);
 
   useFocusEffect(
@@ -49,16 +34,19 @@ export default function ListTest() {
     }, [])
   );
 
-  const onSayWord = (word: string) => {
-    useSayWord(word, settings);
+  const onSayWord = () => {
+    if (list) {
+      useSayWord(list.words[wordKey].word, settings);
+    }
   };
 
-  const onSayWordSlower = (word: string) => {
-    const setting = { ...settings };
-    setting.rate = "0.1";
-    useSayWord(word, setting);
+  const onSayWordSlower = () => {
+    if (list) {
+      const setting = { ...settings };
+      setting.rate = "0.1";
+      useSayWord(list.words[wordKey].word, setting);
+    }
   };
-
 
   const onNextWord = () => {
     console.log('onNextWord');
@@ -70,7 +58,7 @@ export default function ListTest() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View className="mt-20 mb-5 py-2 flex-row justify-between items-center">
-        <TouchableOpacity className="mx-5" onPress={() => onSayWord(list.words[0].word)}>
+        <TouchableOpacity className="mx-5" onPress={() => onSayWord()}>
           <View className="bg-purple-700 rounded-3xl p-2">
             <Ionicons
               size={60}
@@ -79,7 +67,7 @@ export default function ListTest() {
             />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity className="mx-5" onPress={() => onSayWordSlower(list.words[0].word)}>
+        <TouchableOpacity className="mx-5" onPress={() => onSayWordSlower()}>
           <View className="bg-purple-700 rounded-3xl p-2">
             <Ionicons
               size={60}

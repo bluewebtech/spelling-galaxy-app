@@ -1,3 +1,5 @@
+export const SampleWord = "Spelling Galaxy";
+
 export const Speech = {
   // The default voice settings for all accounts.
   voice: "com.apple.voice.compact.en-US.Samantha",
