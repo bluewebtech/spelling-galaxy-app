@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { TextInput, KeyboardAvoidingView, Platform, Text, TouchableOpacity, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -12,7 +12,23 @@ import { Settings } from '@/types';
 export default function ListTest() {
   const list = useStoreList((state) => state.list);
 
+  const word = useStoreTest((state) => state.word);
+
   const wordKey = useStoreTest((state) => state.wordKey);
+
+  const lastWordKey = useStoreTest((state) => state.lastWordKey);
+
+  const setWord = useStoreTest((state) => state.setWord);
+
+  const setWordKey = useStoreTest((state) => state.setWordKey);
+
+  const setLastWordKey = useStoreTest((state) => state.setLastWordKey);
+
+  const setSubmission = useStoreTest((state) => state.setSubmission);
+
+  const submissions = useStoreTest((state) => state.submissions);
+
+  const [submissionWord, setSubmissionWord] = useState<string>("");
 
   const [settings, setSettings] = useState<Settings>({
     voice: "",
@@ -26,7 +42,18 @@ export default function ListTest() {
     const querySettings = await getAccountMasterSettings();
     const settings: any = querySettings;
     setSettings(settings);
+
+    if (list) {
+      setWordKey(0);
+      setLastWordKey(list.words.length);
+      setWord(list.words[wordKey ?? 0]);
+    }
+
   }, []);
+
+  useEffect(() => {
+    console.log("Submissions updated:", submissions);
+  }, [submissions]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -36,7 +63,7 @@ export default function ListTest() {
 
   const onSayWord = () => {
     if (list) {
-      useSayWord(list.words[wordKey].word, settings);
+      useSayWord(list.words[wordKey ?? 0].word, settings);
     }
   };
 
@@ -44,12 +71,21 @@ export default function ListTest() {
     if (list) {
       const setting = { ...settings };
       setting.rate = "0.1";
-      useSayWord(list.words[wordKey].word, setting);
+      useSayWord(list.words[wordKey ?? 0].word, setting);
     }
   };
 
   const onNextWord = () => {
-    console.log('onNextWord');
+    if (list && wordKey !== null) {
+      setSubmission({
+        testWord: word.word,
+        submissionWord: submissionWord,
+      });
+      const nextWordKey = wordKey + 1;
+      setWordKey(nextWordKey);
+      setWord(list.words[nextWordKey]);
+      setSubmissionWord("");
+    }
   };
 
   return (
@@ -78,7 +114,11 @@ export default function ListTest() {
         </TouchableOpacity>
       </View >
       <View className="py-4 w-full">
-        <TextInput className="text-lg text-black caret-black leading-[19px] bg-purple-50 border-2 border-purple-50 p-4 rounded-md focus:bg-white focus:border-purple-500" />
+        <TextInput
+          className="text-lg text-black caret-black leading-[19px] bg-purple-50 border-2 border-purple-50 p-4 rounded-md focus:bg-white focus:border-purple-500"
+          value={submissionWord}
+          onChangeText={setSubmissionWord}
+        />
       </View>
       <View className="w-full">
         <TouchableOpacity

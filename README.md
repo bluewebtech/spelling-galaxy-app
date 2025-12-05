@@ -10,6 +10,7 @@ So, here's the thing. I was pretty happy with the original version but really ha
 * Expo SQLite
 * React Native
 * NativeWind
+* Zustand
 
 ## Get started
 
