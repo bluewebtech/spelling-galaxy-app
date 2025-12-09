@@ -107,7 +107,7 @@ export default function ProfileSettings({
         <View className="flex-1 py-2 pr-2">
           <Text className="mb-1 text-black font-semibold">Voice Pitch</Text>
           <TextInput
-            className="text-lg caret-black text-black leading-[19px] bg-purple-50 border-2 border-purple-50 p-4 rounded-md focus:bg-white focus:border-purple-500"
+            className="text-lg caret-black text-black leading-[19px] bg-purple-50 border-2 border-purple-300 p-4 rounded-md focus:bg-white focus:border-purple-500"
             value={pitch.toString()}
             keyboardType="decimal-pad"
             onChangeText={onPitchChange}
@@ -116,7 +116,7 @@ export default function ProfileSettings({
         <View className="flex-1 py-2 pl-2">
           <Text className="mb-1 text-black font-semibold">Voice Rate</Text>
           <TextInput
-            className="text-lg caret-black text-black leading-[19px] bg-purple-50 border-2 border-purple-50 p-4 rounded-md focus:bg-white focus:border-purple-500"
+            className="text-lg caret-black text-black leading-[19px] bg-purple-50 border-2 border-purple-300 p-4 rounded-md focus:bg-white focus:border-purple-500"
             value={rate.toString()}
             keyboardType="decimal-pad"
             onChangeText={onRateChange}

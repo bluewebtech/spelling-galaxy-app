@@ -159,7 +159,7 @@ export default function ListEdit() {
               <TextInput
                 value={list.title}
                 onChangeText={onUpdateTitle}
-                className="text-lg text-black caret-black leading-[19px] bg-purple-50 border-2 border-purple-50 p-4 rounded-md focus:bg-white focus:border-purple-500"
+                className="text-lg text-black caret-black leading-[19px] bg-purple-50 border-2 border-purple-300 p-4 rounded-md focus:bg-white focus:border-purple-500"
               />
             </View>
           </View>
@@ -170,7 +170,7 @@ export default function ListEdit() {
               {list.words.map((item: Word, index: number) => (
                 <View
                   key={index}
-                  className="flex-row items-center my-3 bg-purple-50 border-2 border-purple-50 p-3 rounded-md"
+                  className="flex-row items-center my-3 bg-purple-50 border-2 border-purple-300 p-3 rounded-md"
                 >
                   <TextInput
                     value={item.word}
