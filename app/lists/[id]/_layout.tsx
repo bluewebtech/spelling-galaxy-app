@@ -6,7 +6,7 @@ export default function ListItemLayout() {
       <Stack.Screen name="list" />
       <Stack.Screen name="edit" />
       <Stack.Screen name="test" />
-      <Stack.Screen name="result" />
+      <Stack.Screen name="results" />
     </Stack>
   );
 };
