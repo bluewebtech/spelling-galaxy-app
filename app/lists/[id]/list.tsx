@@ -7,7 +7,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 import DeleteModal from "@/components/common/DeleteModal";
 import Separator from "@/components/common/Separator";
-import { getList, getAccountMasterSettings } from '@/db/queries';
+import { deleteList, getList, getAccountMasterSettings } from '@/db/queries';
 import { useSayWord } from '@/hooks/useSpeech';
 import useStoreLayout from '@/store/layout';
 import useStoreList from '@/store/list';
@@ -33,8 +33,9 @@ export default function ListItem() {
   const onDeleteModalShow = () => setShowDeleteModal(true);
 
   const onDeleteModalDelete = (id: number) => {
-    console.log('onDeleteModalDelete', id)
-    setShowDeleteModal(false)
+    deleteList(id);
+    onDeleteModalCancel();
+    router.replace('/lists');
   };
 
   const onDeleteModalCancel = () => setShowDeleteModal(false);
