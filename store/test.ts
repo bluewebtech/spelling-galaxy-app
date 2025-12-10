@@ -17,6 +17,7 @@ interface TestState {
   setWordKey: (wordKey: number) => void;
   setLastWordKey: (wordKey: number) => void;
   setSubmission: (submission: SubmissionWord) => void;
+  resetSubmissions: () => void;
 }
 
 export default create<TestState>((set) => ({
@@ -31,4 +32,5 @@ export default create<TestState>((set) => ({
   setSubmission: (submission: SubmissionWord) => set((state) => ({
     submissions: [...state.submissions, submission],
   })),
+  resetSubmissions: () => set({ submissions: [] }),
 }));

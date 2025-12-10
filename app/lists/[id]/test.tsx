@@ -30,8 +30,6 @@ export default function ListTest() {
 
   const setSubmission = useStoreTest((state) => state.setSubmission);
 
-  const submissions = useStoreTest((state) => state.submissions);
-
   const [submissionWord, setSubmissionWord] = useState<string>("");
 
   const [settings, setSettings] = useState<Settings>({
@@ -150,7 +148,6 @@ export default function ListTest() {
             {isLastWord ? "Finish" : "Next Word"}
           </Text>
         </TouchableOpacity>
-
       </View>
     </KeyboardAvoidingView >
   );

@@ -107,8 +107,8 @@ export default function ListItem() {
           <View className="flex-1 justify-center items-center mt-3 px-6">
             {list?.words?.map((item: Word, key: number) => (
               <TouchableOpacity
-                key={key}
                 className="w-full p-3 mb-6 font-semibold rounded-md border-2 bg-white border-purple-700"
+                key={key}
                 onPress={() => onSayWord(item.word)}>
                 <View className="flex-row items-center justify-between">
                   <Text className="text-center text-purple-700 font-semibold text-xl">{item.word}</Text>

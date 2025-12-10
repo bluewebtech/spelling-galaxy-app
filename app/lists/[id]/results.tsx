@@ -1,239 +1,114 @@
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { useFocusEffect } from '@react-navigation/native';
+import { router } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import useStoreLayout from '@/store/layout';
 import useStoreList from '@/store/list';
 import useStoreTest from "@/store/test";
 
-export default function Results() {
+export default function ListResults() {
   const storeSetLayoutTitle = useStoreLayout((state) => state.setTitle);
 
   const list = useStoreList((state) => state.list);
 
   const submissions = useStoreTest((state) => state.submissions);
 
+  const resetSubmissions = useStoreTest((state) => state.resetSubmissions);
+
   useFocusEffect(
     React.useCallback(() => {
-      storeSetLayoutTitle(`Test - ${list.title}`);
-    }, [])
+      storeSetLayoutTitle(`Test - ${list?.title ?? "Results"}`);
+    }, [list])
   );
 
+  const total = submissions.length;
+
+  const correctCount = submissions.reduce((acc, submission) => {
+    const correct = submission.testWord.trim().toLowerCase() === submission.submissionWord.trim().toLowerCase();
+    return acc + (correct ? 1 : 0);
+  }, 0);
+
+  const incorrectCount = total - correctCount;
+
+  const scorePercent = total === 0 ? 0 : Math.round((correctCount / total) * 100);
+
+  const onTryAgain = () => {
+    resetSubmissions();
+    router.replace(`/lists/${list?.id}/test`);
+  };
 
   return (
     <ScrollView className="flex-1 bg-white p-5">
-      <View className="flex-row justify-between items-center mb-8">
-        <View className="flex-row rounded-md border-2 border-green-600">
+      <View className="flex-row justify-between items-center mb-6">
+        <View className="flex-row rounded-md border-2 border-green-600 overflow-hidden">
           <View className="p-3">
             <Text className="font-semibold text-green-600">Correct</Text>
           </View>
           <View className="p-3 bg-green-600">
-            <Text className="font-semibold text-white">9</Text>
+            <Text className="font-semibold text-white">{correctCount}</Text>
           </View>
         </View>
-        <View className="flex-row rounded-md border-2 border-red-600">
+        <View className="flex-row rounded-md border-2 border-red-600 overflow-hidden">
           <View className="p-3">
             <Text className="font-semibold text-red-600">Incorrect</Text>
           </View>
           <View className="p-3 bg-red-600">
-            <Text className="font-semibold text-white">1</Text>
+            <Text className="font-semibold text-white">{incorrectCount}</Text>
           </View>
         </View>
-        <View className="flex-row rounded-md border-2 border-purple-600">
+        <View className="flex-row rounded-md border-2 border-purple-600 overflow-hidden">
           <View className="p-3">
             <Text className="font-semibold text-purple-600">Score</Text>
           </View>
           <View className="p-3 bg-purple-600">
-            <Text className="font-semibold text-white">100%</Text>
+            <Text className="font-semibold text-white">{scorePercent}%</Text>
           </View>
         </View>
       </View>
-
-      <View className="flex-row justify-between items-left mb-5">
-        <View className="size-4 grow">
-          <Text className="font-semibold text-purple-600">Word</Text>
-        </View>
-        <View className="size-4 grow">
-          <Text className="font-semibold text-purple-600">Your Word</Text>
-        </View>
-        <View className="flex-none">
-          <Ionicons
-            size={25}
-            name="checkmark-circle-outline"
-            color="green"
-          />
-        </View>
+      <View className="flex-row w-full items-center mb-3">
+        <Text className="flex-1 font-semibold text-lg text-purple-600 pr-2">Word</Text>
+        <Text className="flex-1 font-semibold text-lg text-purple-600 pr-2">Your Word</Text>
+        <View className="w-10" />
       </View>
-      <View className="flex-row justify-between items-left mb-5">
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="flex-none">
-          <Ionicons
-            size={25}
-            name="checkmark-circle-outline"
-            color="green"
-          />
-        </View>
-      </View>
-      <View className="flex-row justify-between items-left mb-5">
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="flex-none">
-          <Ionicons
-            size={25}
-            name="checkmark-circle-outline"
-            color="green"
-          />
-        </View>
-      </View>
-      <View className="flex-row justify-between items-left mb-5">
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="flex-none">
-          <Ionicons
-            size={25}
-            name="checkmark-circle-outline"
-            color="green"
-          />
-        </View>
-      </View>
-      <View className="flex-row justify-between items-left mb-5">
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="flex-none">
-          <Ionicons
-            size={25}
-            name="checkmark-circle-outline"
-            color="green"
-          />
-        </View>
-      </View>
-      <View className="flex-row justify-between items-left mb-5">
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="flex-none">
-          <Ionicons
-            size={25}
-            name="checkmark-circle-outline"
-            color="green"
-          />
-        </View>
-      </View>
-      <View className="flex-row justify-between items-left mb-5">
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="flex-none">
-          <Ionicons
-            size={25}
-            name="checkmark-circle-outline"
-            color="green"
-          />
-        </View>
-      </View>
-      <View className="flex-row justify-between items-left mb-5">
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="flex-none">
-          <Ionicons
-            size={25}
-            name="checkmark-circle-outline"
-            color="green"
-          />
-        </View>
-      </View>
-      <View className="flex-row justify-between items-left mb-5">
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="flex-none">
-          <Ionicons
-            size={25}
-            name="checkmark-circle-outline"
-            color="green"
-          />
-        </View>
-      </View>
-      <View className="flex-row justify-between items-left mb-5">
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="flex-none">
-          <Ionicons
-            size={25}
-            name="checkmark-circle-outline"
-            color="green"
-          />
-        </View>
-      </View>
-      <View className="flex-row justify-between items-left mb-5">
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="size-4 grow">
-          <Text className="font-semibold text-gray-600">Adventure</Text>
-        </View>
-        <View className="flex-none">
-          <Ionicons
-            size={25}
-            name="checkmark-circle-outline"
-            color="green"
-          />
-        </View>
-      </View>
-      {submissions.map((s, index) => {
-        const correct = s.testWord.trim().toLowerCase() === s.submissionWord.trim().toLowerCase();
+      {submissions.map((submission, idx) => {
+        const correct = submission.testWord.trim().toLowerCase() === submission.submissionWord.trim().toLowerCase();
 
         return (
           <View
-            key={index}
-            className="p-4 mb-3 rounded-xl border border-purple-200 bg-purple-50"
+            key={idx}
+            className="flex-row w-full items-center mb-4 border-t-2 border-purple-500 pt-4"
           >
-            <Text className="text-lg font-semibold text-purple-900">
-              Word {index + 1}
-            </Text>
-            <Text className="mt-1">Correct Word: {s.testWord}</Text>
-            <Text>Your Answer: {s.submissionWord}</Text>
-            <Text className={`mt-2 font-bold ${correct ? "text-green-600" : "text-red-600"}`}>
-              {correct ? "Correct ✓" : "Incorrect ✗"}
-            </Text>
+            <View className="flex-1 pr-2">
+              <Text className="text-lg text-gray-700" numberOfLines={2} ellipsizeMode="tail">
+                {submission.testWord}
+              </Text>
+            </View>
+            <View className="flex-1 pr-2">
+              <Text className="text-lg text-gray-700" numberOfLines={2} ellipsizeMode="tail">
+                {submission.submissionWord}
+              </Text>
+            </View>
+            <View className="w-10 items-end">
+              <Ionicons
+                size={20}
+                name={correct ? "checkmark-circle-outline" : "close-circle-outline"}
+                color="white"
+                className={`p-1 rounded-full ${correct ? 'bg-green-600' : 'bg-red-600'}`}
+              />
+            </View>
           </View>
         );
       })}
+      <View className="w-full">
+        <TouchableOpacity
+          className="p-3 rounded-md border-2 bg-blue-800 border-blue-300"
+          onPress={onTryAgain}
+        >
+          <Text className="text-center text-white font-semibold text-xl">Try Again</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }
