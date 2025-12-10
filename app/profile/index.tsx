@@ -15,10 +15,7 @@ import Toast from "react-native-toast-message";
 import ProfilePersonal from "@/components/forms/profile/ProfilePersonal";
 import ProfileSettings from "@/components/forms/profile/ProfileSettings";
 import Separator from "@/components/common/Separator";
-import {
-  getAccountMaster,
-  updateMasterAccount,
-} from "@/db/queries";
+import { getAccountMaster, updateMasterAccount } from "@/db/queries";
 import { Account, Personal, Settings } from "@/types";
 
 export default function ProfileTab() {

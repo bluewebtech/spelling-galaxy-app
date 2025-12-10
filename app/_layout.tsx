@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, useWindowDimensions, TouchableOpacity, View } from 'react-native';
+import { Platform, useWindowDimensions, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { router, Tabs } from 'expo-router';
+import { Tabs } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
@@ -66,7 +66,7 @@ export default function RootLayout() {
           </View>
         )}
         <Tabs screenOptions={{
-          animation: 'fade',
+          animation: 'shift',
           transitionSpec: {
             animation: 'timing',
             config: {
