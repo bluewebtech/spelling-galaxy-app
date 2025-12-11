@@ -32,7 +32,7 @@ export default function CustomDropdown({ data, defaultValue, onSelect }: CustomD
   return (
     <View>
       <TouchableOpacity
-        className="text-lg caret-black text-black leading-[19px] bg-purple-50 border-2 border-purple-300 p-4 rounded-md"
+        className="text-lg caret-black text-black leading-[19px] bg-purple-50 border-2 border-purple-300 p-4 rounded-2xl"
         onPress={onToggleDropdown}
       >
         <Text>{selectedItem ? selectedItem.label : defaultValue.label}</Text>

@@ -27,7 +27,7 @@ export default function InputButton({ label, color = "purple", disabled = false,
 
   return (
     <TouchableOpacity
-      className={`flex-1 rounded-md border-2 ${styles[color].border} ${className}`}
+      className={`flex-1 rounded-2xl border-2 ${styles[color].border} ${className}`}
       disabled={disabled}
       onPress={onPress}
     >
@@ -35,7 +35,7 @@ export default function InputButton({ label, color = "purple", disabled = false,
         colors={styles[color].background}
         start={{ x: 0.12, y: 0.82 }}
         end={{ x: 0.88, y: 0.18 }}
-        style={{ padding: 10 }}
+        style={{ padding: 10, borderRadius: 10 }}
       >
         <Text className="text-center text-white font-semibold text-xl">
           {label}
