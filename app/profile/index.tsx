@@ -4,14 +4,13 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useFocusEffect } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
 
+import InputButton from "@/components/common/InputButton";
 import ProfilePersonal from "@/components/forms/profile/ProfilePersonal";
 import ProfileSettings from "@/components/forms/profile/ProfileSettings";
 import Separator from "@/components/common/Separator";
@@ -174,19 +173,8 @@ export default function ProfileTab() {
             onRateChange={onRateChange}
           />
           <View className="p-6 pt-0">
-            <TouchableOpacity
-              className={`p-3 mt-2 rounded-md border-2 ${isDisabled ? "bg-purple-400 border-purple-200" : "bg-purple-700 border-purple-400"}`}
-              disabled={isDisabled}
-              onPress={onSave}
-            >
-              <Text className="text-center text-white font-semibold text-xl">Save</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="bg-gray-400 p-3 mt-4 rounded-md border-2 border-gray-200"
-              onPress={onCancel}
-            >
-              <Text className="text-center text-white font-semibold text-xl">Cancel</Text>
-            </TouchableOpacity>
+            <InputButton className="mb-4" label="Save" color="purple" disabled={isDisabled} onPress={onSave} />
+            <InputButton label="Cancel" color="gray" onPress={onCancel} />
           </View>
         </ScrollView>
       </KeyboardAwareScrollView>

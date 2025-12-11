@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Dimensions, Modal, Text, TouchableOpacity, View } from 'react-native';
+import { Animated, Dimensions, Modal, Text, View } from 'react-native';
+
+import InputButton from "@/components/common/InputButton";
 
 interface DeleteModalProps {
   id: number | null | undefined;
@@ -46,19 +48,9 @@ export default function DeleteModal({ id, message, show, onDelete, onCancel }: D
           <View className="py-2">
             <Text className="text-xl">{message}</Text>
           </View>
-          <View className="flex-row justify-between items-center py-5 w-full">
-            <TouchableOpacity
-              className="flex-1 p-3 mx-2 rounded-md border-2 bg-purple-700 border-purple-400"
-              onPress={() => onDelete(id)}
-            >
-              <Text className="text-center text-white font-semibold text-xl">Yes</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="flex-1 p-3 mx-2 bg-gray-400 rounded-md border-2 border-gray-200"
-              onPress={() => onCancel(false)}
-            >
-              <Text className="text-center text-white font-semibold text-xl">No</Text>
-            </TouchableOpacity>
+          <View className="flex-row justify-between gap-4 items-center py-5 w-full">
+            <InputButton label="Yes" color="purple" onPress={() => onDelete(id)} />
+            <InputButton label="Cancel" color="gray" onPress={() => onCancel(false)} />
           </View>
         </View>
       </Animated.View>

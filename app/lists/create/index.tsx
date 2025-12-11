@@ -5,6 +5,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Toast from "react-native-toast-message";
 
+import InputButton from "@/components/common/InputButton";
 import Separator from "@/components/common/Separator";
 import { createList } from "@/db/queries";
 import { List, Word } from '@/types';
@@ -162,29 +163,10 @@ export default function ListCreate() {
               ))}
             </View>
           </View>
-          <View className="px-6 mt-6 mb-2 flex-row justify-between items-center">
-            <TouchableOpacity
-              className="p-3 rounded-md border-2 bg-blue-800 border-blue-300"
-              onPress={onAddWord}
-            >
-              <Text className="text-center text-white font-semibold text-xl">Add Word</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className={`flex-1 mx-5 py-3 px-6 rounded-md border-2 ${isDisabled
-                ? "bg-purple-400 border-purple-200"
-                : "bg-purple-700 border-purple-400"
-                }`}
-              disabled={isDisabled}
-              onPress={onSave}
-            >
-              <Text className="text-center text-white font-semibold text-xl">Save</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="py-3 px-6 bg-gray-400 rounded-md border-2 border-gray-200"
-              onPress={() => router.push(`/lists`)}
-            >
-              <Text className="text-center text-white font-semibold text-xl">Cancel</Text>
-            </TouchableOpacity>
+          <View className="px-6 mt-4 mb-2 flex-row gap-4 justify-between items-center">
+            <InputButton label="Add Word" color="blue" onPress={onAddWord} />
+            <InputButton label="Save" color="purple" disabled={isDisabled} onPress={onSave} />
+            <InputButton label="Cancel" color="gray" onPress={() => router.push(`/lists`)} />
           </View>
         </ScrollView>
       </KeyboardAwareScrollView>

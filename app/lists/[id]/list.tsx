@@ -6,6 +6,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import DeleteModal from "@/components/common/DeleteModal";
+import InputButton from "@/components/common/InputButton";
 import Separator from "@/components/common/Separator";
 import { deleteList, getList, getAccountMasterSettings } from '@/db/queries';
 import { useSayWord } from '@/hooks/useSpeech';
@@ -84,25 +85,10 @@ export default function ListItem() {
             onDelete={onDeleteModalDelete}
             onCancel={onDeleteModalCancel}
           />
-          <View className="px-6 mt-6 mb-2 flex-row justify-between items-center">
-            <TouchableOpacity
-              className="flex-1 p-3 rounded-md border-2 bg-blue-800 border-blue-300"
-              onPress={() => router.push(`/lists/${id}/test`)}
-            >
-              <Text className="text-center text-white font-semibold text-xl">Start Test</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="mx-5 py-3 px-6 rounded-md border-2 bg-purple-700 border-purple-400"
-              onPress={() => router.push(`/lists/${id}/edit`)}
-            >
-              <Text className="text-center text-white font-semibold text-xl">Edit</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="py-3 px-6 rounded-md border-2 bg-red-600 border-red-400"
-              onPress={onDeleteModalShow}
-            >
-              <Text className="text-center text-white font-semibold text-xl">Delete</Text>
-            </TouchableOpacity>
+          <View className="px-6 mt-6 mb-2 flex-row gap-4 justify-between items-center">
+            <InputButton label="Start Test" color="blue" onPress={() => router.push(`/lists/${id}/test`)} />
+            <InputButton label="Edit" color="purple" onPress={() => router.push(`/lists/${id}/edit`)} />
+            <InputButton label="Delete" color="gray" onPress={onDeleteModalShow} />
           </View>
           <Separator />
           <View className="flex-1 justify-center items-center mt-3 px-6">

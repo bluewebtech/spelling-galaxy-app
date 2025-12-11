@@ -4,6 +4,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { router } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+import InputButton from "@/components/common/InputButton";
 import { getAccountMasterSettings } from '@/db/queries';
 import { useSayWord } from '@/hooks/useSpeech';
 import useStoreLayout from '@/store/layout';
@@ -137,17 +138,8 @@ export default function ListTest() {
           onChangeText={setSubmissionWord}
         />
       </View>
-      <View className="w-full">
-        <TouchableOpacity
-          disabled={isDisabled}
-          className={`p-3 rounded-md border-2 ${isDisabled ? "bg-blue-200 border-blue-100" : "bg-blue-800 border-blue-300"
-            }`}
-          onPress={onNextWord}
-        >
-          <Text className="text-center text-white font-semibold text-xl">
-            {isLastWord ? "Finish" : "Next Word"}
-          </Text>
-        </TouchableOpacity>
+      <View className="mt-4 flex-row">
+        <InputButton label={isLastWord ? "Finish" : "Next Word"} color="blue" disabled={isDisabled} onPress={onNextWord} />
       </View>
     </KeyboardAvoidingView >
   );

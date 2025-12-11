@@ -4,6 +4,7 @@ import { router } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
+import InputButton from "@/components/common/InputButton";
 import Separator from "@/components/common/Separator";
 import { getAccountMaster, getMasterK12Lists } from '@/db/queries';
 import { Account, List } from '@/types';
@@ -93,12 +94,7 @@ export default function App() {
               </View>
               <View className="flex-1 justify-center">
                 <View className="flex-row mt-2">
-                  <TouchableOpacity
-                    className="w-full p-3 mt-2 rounded-md border-2 bg-purple-700 border-purple-400"
-                    onPress={() => router.push(`/lists/create`)}
-                  >
-                    <Text className="text-center text-white font-semibold text-xl">Create Your First List</Text>
-                  </TouchableOpacity>
+                  <InputButton label="Create Your First List" color="purple" onPress={() => router.push(`/lists/create`)} />
                 </View>
               </View>
             </View>

@@ -4,6 +4,7 @@ import { KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, Vie
 import { useFocusEffect } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
+import InputButton from "@/components/common/InputButton";
 import ListModal from '@/components/common/ListModal';
 import Separator from "@/components/common/Separator";
 import { getLists } from '@/db/queries';
@@ -68,13 +69,8 @@ export default function Lists() {
           className="flex-1"
           contentContainerStyle={{ paddingBottom: 40 }}
         >
-          <View className="px-6 mt-4 mb-2">
-            <TouchableOpacity
-              className="w-full p-3 mt-2 rounded-md border-2 bg-purple-600 border-purple-400"
-              onPress={() => router.push(`/lists/create`)}
-            >
-              <Text className="text-center text-white font-semibold text-xl">Create List</Text>
-            </TouchableOpacity>
+          <View className="px-6 mt-6 mb-2">
+            <InputButton label="Create List" color="purple" onPress={() => router.push(`/lists/create`)} />
           </View>
           <Separator />
           {list.length ? <View className="flex mt-3 px-6">

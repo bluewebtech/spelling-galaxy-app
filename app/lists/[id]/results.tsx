@@ -1,9 +1,10 @@
 import React from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { useFocusEffect } from '@react-navigation/native';
 import { router } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+import InputButton from "@/components/common/InputButton";
 import useStoreLayout from '@/store/layout';
 import useStoreList from '@/store/list';
 import useStoreTest from "@/store/test";
@@ -101,13 +102,8 @@ export default function ListResults() {
           </View>
         );
       })}
-      <View className="w-full">
-        <TouchableOpacity
-          className="p-3 rounded-md border-2 bg-blue-800 border-blue-300"
-          onPress={onTryAgain}
-        >
-          <Text className="text-center text-white font-semibold text-xl">Try Again</Text>
-        </TouchableOpacity>
+      <View className="w-full mt-4">
+        <InputButton label="Try Again" color="blue" onPress={onTryAgain} />
       </View>
     </ScrollView>
   );
