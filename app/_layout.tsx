@@ -53,7 +53,7 @@ export default function RootLayout() {
                 width={40}
                 height={40}
                 textStyles="text-2xl"
-                withLabel={false}
+                withLabel={true}
               />
             </View>
             <View className="flex px-6">
@@ -66,13 +66,13 @@ export default function RootLayout() {
           </View>
         )}
         <Tabs screenOptions={{
-          animation: 'shift',
-          transitionSpec: {
-            animation: 'timing',
-            config: {
-              duration: 250,
-            },
-          },
+          // animation: 'shift',
+          // transitionSpec: {
+          //   animation: 'timing',
+          //   config: {
+          //     duration: 250,
+          //   },
+          // },
           headerShown: false,
           headerStatusBarHeight: 0,
           tabBarActiveTintColor: '#8200db',

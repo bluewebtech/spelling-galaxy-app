@@ -1,4 +1,5 @@
 import { Text, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from "react";
 import { LinearGradient } from 'expo-linear-gradient';
 
 type InputButtonProps = {
@@ -9,7 +10,12 @@ type InputButtonProps = {
   onPress: () => void;
 };
 
+const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+
 export default function InputButton({ label, color = "purple", disabled = false, className, onPress }: InputButtonProps) {
+  const [display, setDisplay] = useState(label);
+  const [done, setDone] = useState(false);
+
   const styles = {
     purple: {
       border: "border-purple-400",
@@ -25,6 +31,38 @@ export default function InputButton({ label, color = "purple", disabled = false,
     },
   };
 
+  useEffect(() => {
+    if (done) return;
+
+    let frame = 0;
+    const iterations = label.length * 3;
+
+    const interval = setInterval(() => {
+      if (frame >= iterations) {
+        setDisplay(label);
+        setDone(true);
+        clearInterval(interval);
+        return;
+      }
+
+      const revealCount = Math.floor((frame / iterations) * label.length);
+
+      const scrambled =
+        label
+          .split("")
+          .map((char, i) => {
+            if (i < revealCount) return char;
+            return CHARSET[Math.floor(Math.random() * CHARSET.length)];
+          })
+          .join("");
+
+      setDisplay(scrambled);
+      frame++;
+    }, 18); // speed
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <TouchableOpacity
       className={`flex-1 rounded-2xl border-2 ${styles[color].border} ${className}`}
@@ -38,7 +76,7 @@ export default function InputButton({ label, color = "purple", disabled = false,
         style={{ padding: 10, borderRadius: 10 }}
       >
         <Text className="text-center text-white font-semibold text-xl">
-          {label}
+          {display}
         </Text>
       </LinearGradient>
     </TouchableOpacity>

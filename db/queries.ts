@@ -67,6 +67,14 @@ export const getLists = async () => {
   `);
 };
 
+export const hasOwnLists = async () => {
+  return await useDBClient.getFirstAsync(`
+    SELECT COUNT(*) AS total
+    FROM lists
+    WHERE master = 0 AND deleted_at IS NULL
+  `);
+};
+
 export const getList = async (id: number) => {
   return await useDBClient.getFirstAsync(`
     SELECT * 
