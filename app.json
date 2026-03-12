@@ -14,7 +14,8 @@
       "requireFullScreen": true,
       "infoPlist": {
         "NSCameraUsageDescription": "Allow this app to access your camera"
-      }
+      },
+      "bundleIdentifier": "com.bluewebtech.spelling-galaxy"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,7 +28,8 @@
       "predictiveBackGestureEnabled": false,
       "permissions": [
         "CAMERA"
-      ]
+      ],
+      "package": "com.bluewebtech.spellinggalaxy"
     },
     "web": {
       "bundler": "metro",
@@ -54,6 +56,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "7b5d9e79-431e-4ecd-bc6a-c9c493c78bdf"
+      }
     }
   }
 }
